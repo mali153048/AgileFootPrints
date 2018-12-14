@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">Agile FootPrints</a>
+
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+    <li class="nav-item">
+      <a class="nav-link" *ngIf="loggedIn()" (click)="logout()">LOGOUT</a>
+    </li>
+  </ul>
+  <form
+    *ngIf="!loggedIn()"
+    #loginForm="ngForm"
+    class="form-inline my-2 my-lg-0"
+    (ngSubmit)="login()"
+  >
+    <input
+      class="form-control mr-sm-2"
+      type="text"
+      placeholder="Username"
+      name="username"
+      [(ngModel)]="loginModel.username"
+      required
+    />
+    <input
+      class="form-control mr-sm-2"
+      type="password"
+      placeholder="Password"
+      name="password"
+      [(ngModel)]="loginModel.password"
+      required
+    />
+    <button
+      [disabled]="!loginForm.valid"
+      class="btn btn-success my-2 my-sm-0"
+      type="submit"
+    >
+      Login
+    </button>
+  </form>
+</nav>
+
+<div *ngIf="!loggedIn()" class="container mt-5">
+  <div *ngIf="!registerMode" style="text-align: center">
+    <h1>AGILE FOOTPRINTS</h1>
+    <p class="lead">
+      A SCRUM Based Project Management and Tracebility tools for Software
+      developemnt
+    </p>
+    <div class="text-center">
+      <button class="btn btn-primary btn-lg mr-2" (click)="registerToggle()">
+        Register
+      </button>
+      <button class="btn btn-info btn-lg">Learn more</button>
+    </div>
+  </div>
+
+  <div *ngIf="registerMode" class="container">
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <app-register
+          (cancelRegister)="cancelRegisterMode($event)"
+        ></app-register>
+      </div>
+    </div>
+  </div>
+</div>
