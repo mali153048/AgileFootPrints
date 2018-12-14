@@ -103,8 +103,9 @@ namespace AgileFootPrints.API.Controllers
             _userManager.AddToRoleAsync(userToCreate, "Member").Wait();
             if (result.Succeeded)
             {
-                return CreatedAtRoute("GetUser",
-                new { controller = "Users", id = userToCreate.Id }, userToCreate);
+                return StatusCode(201);
+                /* CreatedAtRoute("GetUser",
+               new { controller = "Users", id = userToCreate.Id }, userToCreate);*/
             }
             return BadRequest(result.Errors);
         }

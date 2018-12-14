@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-home',
@@ -9,28 +10,31 @@ import { AuthService } from '../_services/auth.service';
 export class HomeComponent implements OnInit {
   loginModel: any = {};
   registerMode = false;
-  constructor(private authService: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    private alertify: AlertifyService
+  ) {}
 
   ngOnInit() {}
 
   login() {
     this.authService.login(this.loginModel).subscribe(
       next => {
-        console.log('loggedIn successfully');
+        this.alertify.success('Logged In successfully');
       },
       error => {
-        console.log('some error');
+        this.alertify.error(error);
       }
     );
   }
   loggedIn() {
     // used to check if the user is logged in or not
-    const token = localStorage.getItem('userToken');
-    return !!token; // return true if there is token else false
+    return this.authService.loggedIn();
   }
 
   logout() {
     localStorage.removeItem('userToken');
+    this.alertify.success('Logged out');
   }
 
   registerToggle() {
