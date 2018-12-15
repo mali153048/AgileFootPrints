@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,9 +11,12 @@ import { AlertifyService } from '../_services/alertify.service';
 export class HomeComponent implements OnInit {
   loginModel: any = {};
   registerMode = false;
+  workItems: any = [];
+  user: any;
   constructor(
     public authService: AuthService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -23,7 +27,10 @@ export class HomeComponent implements OnInit {
         this.alertify.success('Logged In successfully');
       },
       error => {
-        this.alertify.error(error);
+        this.alertify.error(error.statusText);
+      },
+      () => {
+        this.router.navigate(['/tasks']);
       }
     );
   }
@@ -35,6 +42,7 @@ export class HomeComponent implements OnInit {
   logout() {
     localStorage.removeItem('userToken');
     this.alertify.success('Logged out');
+    this.router.navigate(['/']);
   }
 
   registerToggle() {

@@ -10,10 +10,7 @@ namespace AgileFootPrints.API.Data
      IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>,
       IdentityRoleClaim<int>, IdentityUserToken<int>>, IDesignTimeDbContextFactory<DataContext>
     {
-        public DataContext()
-        {
 
-        }
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<Project> Projects { get; set; }
