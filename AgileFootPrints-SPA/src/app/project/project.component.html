@@ -1,3 +1,70 @@
-<p>
-  project works!
-</p>
+<button type="button" class="btn btn-success m-3" (click)="openModal(template)">
+  Create New &nbsp; <i class="fa fa-plus-circle" style="font-size: 20px;"></i>
+</button>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Project Details</h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #newProjectForm="ngForm" (ngSubmit)="newProject()">
+      <input
+        class="form-control mr-sm-2"
+        type="text"
+        placeholder="Project Name"
+        name="projectName"
+        [(ngModel)]="projectModel.projectName"
+        required
+      /><br />
+      <input
+        class="form-control mr-sm-2"
+        type="text"
+        placeholder="Project Description"
+        name="projectDescription"
+        [(ngModel)]="projectModel.projectDescription"
+        required
+      />
+      <hr />
+      <button
+        [disabled]="!newProjectForm.valid"
+        class="btn btn-success my-2 my-sm-0"
+        type="submit"
+      >
+        Create
+      </button>
+    </form>
+  </div>
+</ng-template>
+
+<div class="col-md-4 m-3" id="listItem">
+  <div *ngFor="let project of userProjects" class="list-group">
+    <a
+      href="#"
+      class="list-group-item list-group-item-action flex-column align-items-start"
+    >
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ project.projectName }}</h5>
+        <small *ngIf="project.statusId === 2"
+          >In Progress <i class="fa fa-spinner"></i>
+        </small>
+        <small *ngIf="project.statusId === 1"
+          >To Do <i class="fa fa-list-ul"></i
+        ></small>
+        <small *ngIf="project.statusId === 3"
+          >Completed <i class="fa fa-check-circle"></i
+        ></small>
+      </div>
+      <p id="description" class="mb-1">{{ project.projectDescription }}</p>
+      <br />
+      <small>Project Key: {{ project.projectKey }}</small>
+    </a>
+  </div>
+</div>

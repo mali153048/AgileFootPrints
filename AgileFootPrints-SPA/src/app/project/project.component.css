@@ -1,0 +1,13 @@
+#listItem {
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 230px;
+  width: 50%;
+}
+#description {
+  display: inline-block;
+  width: 380px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}

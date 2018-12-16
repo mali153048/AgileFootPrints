@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -14,6 +15,8 @@ import { ProjectComponent } from './project/project.component';
 import { appRoutes } from './routes';
 import { TaskComponent } from './task/task.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { ProjectService } from './_services/project.service';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -28,9 +31,10 @@ import { AuthGuard } from './_guards/auth.guard';
     HttpClientModule,
     FormsModule,
     BsDropdownModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ModalModule.forRoot()
   ],
-  providers: [AuthService, AlertifyService, AuthGuard],
+  providers: [AuthService, AlertifyService, AuthGuard, ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

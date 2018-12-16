@@ -11,6 +11,7 @@ namespace AgileFootPrints.API.Models
         public string Gender { get; set; }
         public string Address { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public ICollection<Project> Projects { get; set; }
         public ICollection<WorkItem> WorkItems { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
     }

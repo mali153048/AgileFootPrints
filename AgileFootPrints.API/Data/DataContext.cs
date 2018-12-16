@@ -12,7 +12,10 @@ namespace AgileFootPrints.API.Data
     {
 
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+        public DataContext()
+        {
 
+        }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Epic> Epics { get; set; }
         public DbSet<Story> Stories { get; set; }
