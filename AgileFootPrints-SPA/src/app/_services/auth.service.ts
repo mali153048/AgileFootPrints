@@ -38,7 +38,4 @@ export class AuthService {
     const token = localStorage.getItem('userToken');
     return !this.jwtHelper.isTokenExpired(token); // return true if token is expired
   }
-  getWorkItems(id) {
-    return this.http.get(environment.apiUrl + 'workItems');
-  }
 }

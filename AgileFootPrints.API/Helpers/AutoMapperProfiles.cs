@@ -10,6 +10,7 @@ namespace AgileFootPrints.API.Helpers
         {
             CreateMap<UserForRegisterDto, User>();
             CreateMap<UserToReturnDto, User>();
+            CreateMap<ProjectDto, Project>();
 
         }
     }

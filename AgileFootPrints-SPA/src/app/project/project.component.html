@@ -24,12 +24,23 @@
         [(ngModel)]="projectModel.projectName"
         required
       /><br />
-      <input
+      <textarea
         class="form-control mr-sm-2"
         type="text"
         placeholder="Project Description"
         name="projectDescription"
         [(ngModel)]="projectModel.projectDescription"
+        required
+      >
+      </textarea
+      ><br />
+      <input
+        class="form-control mr-sm-2"
+        type="text"
+        [maxLength]="5"
+        placeholder="Project Key"
+        name="projectKey"
+        [(ngModel)]="projectModel.projectKey"
         required
       />
       <hr />

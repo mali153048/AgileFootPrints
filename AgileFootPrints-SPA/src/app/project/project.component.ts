@@ -3,6 +3,7 @@ import { AuthService } from '../_services/auth.service';
 import { ProjectService } from '../_services/project.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project',
@@ -11,14 +12,15 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 })
 export class ProjectComponent implements OnInit {
   userId = this.authService.decodedToken.nameid;
-  userProjects: any = [];
+  userProjects = [];
   modalRef: BsModalRef;
   projectModel: any = {};
   constructor(
     private authService: AuthService,
     private projectService: ProjectService,
     private alertify: AlertifyService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -40,6 +42,24 @@ export class ProjectComponent implements OnInit {
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
+  closeModal() {
+    this.modalRef.hide();
+  }
 
-  newProject() {}
+  newProject() {
+    this.projectModel.userId = this.authService.decodedToken.nameid;
+    this.projectModel.statusId = 2;
+    console.log(this.projectModel);
+    this.projectService.newProject(this.projectModel).subscribe(
+      success => {
+        this.userProjects.push(success); // pushing newly created project into array
+        this.closeModal();
+        this.alertify.success('Project Created Successfully');
+        this.router.navigate(['/project']);
+      },
+      error => {
+        this.alertify.error(error.message);
+      }
+    );
+  }
 }

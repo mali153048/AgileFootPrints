@@ -14,4 +14,8 @@ export class ProjectService {
   getAllUserProjects(userId): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'getUserProjects/' + userId);
   }
+
+  newProject(projectModel: any) {
+    return this.http.post(this.baseUrl + 'createNewProject', projectModel);
+  }
 }
