@@ -55,27 +55,36 @@
   </div>
 </ng-template>
 
-<div class="col-md-4 m-3" id="listItem">
-  <div *ngFor="let project of userProjects" class="list-group">
-    <a
-      href="#"
-      class="list-group-item list-group-item-action flex-column align-items-start"
-    >
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{ project.projectName }}</h5>
-        <small *ngIf="project.statusId === 2"
-          >In Progress <i class="fa fa-spinner"></i>
-        </small>
-        <small *ngIf="project.statusId === 1"
-          >To Do <i class="fa fa-list-ul"></i
-        ></small>
-        <small *ngIf="project.statusId === 3"
-          >Completed <i class="fa fa-check-circle"></i
-        ></small>
-      </div>
-      <p id="description" class="mb-1">{{ project.projectDescription }}</p>
-      <br />
-      <small>Project Key: {{ project.projectKey }}</small>
-    </a>
+<div class="row w-100">
+  <div class="col-md-4 m-3" id="listItem">
+    <div *ngFor="let project of userProjects" id="project" class="list-group">
+      <a
+        (mouseenter)="getProjectEpics(project.id)"
+        (click)="isCollapsed = !isCollapsed"
+        class="list-group-item list-group-item-action flex-column align-items-start"
+      >
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{ project.projectName }}</h5>
+          <small *ngIf="project.statusId === 2"
+            >In Progress <i class="fa fa-spinner"></i>
+          </small>
+          <small *ngIf="project.statusId === 1"
+            >To Do <i class="fa fa-list-ul"></i
+          ></small>
+          <small *ngIf="project.statusId === 3"
+            >Completed <i class="fa fa-check-circle"></i
+          ></small>
+        </div>
+        <p id="description" class="mb-1">{{ project.projectDescription }}</p>
+        <br />
+        <small>Project Key: {{ project.projectKey }}</small>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-8" [collapse]="isCollapsed">
+    <div class="bg-secondary" *ngIf="projectEpics.length > 0">
+      <div *ngFor="let epic of projectEpics">{{ epic.epicName }}</div>
+    </div>
+    <div *ngIf="projectEpics.length === 0"><h3>No Epics avaliable</h3></div>
   </div>
 </div>

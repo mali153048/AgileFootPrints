@@ -11,3 +11,6 @@
   overflow: hidden !important;
   text-overflow: ellipsis;
 }
+#project {
+  cursor: pointer;
+}

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 
@@ -16,7 +16,7 @@ import { appRoutes } from './routes';
 import { TaskComponent } from './task/task.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { ProjectService } from './_services/project.service';
-import { from } from 'rxjs';
+import { EpicService } from './_services/epic.service';
 
 @NgModule({
   declarations: [
@@ -32,9 +32,16 @@ import { from } from 'rxjs';
     FormsModule,
     BsDropdownModule.forRoot(),
     RouterModule.forRoot(appRoutes),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    CollapseModule.forRoot()
   ],
-  providers: [AuthService, AlertifyService, AuthGuard, ProjectService],
+  providers: [
+    AuthService,
+    AlertifyService,
+    AuthGuard,
+    ProjectService,
+    EpicService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

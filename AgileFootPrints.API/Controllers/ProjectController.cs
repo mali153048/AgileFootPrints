@@ -33,6 +33,8 @@ namespace AgileFootPrints.API.Controllers
             return Ok(userProjectList);
         }
 
+
+
         [HttpPost("createNewProject")]
         public async Task<IActionResult> CreateNewProject(ProjectDto projectDto)
         {
@@ -53,5 +55,7 @@ namespace AgileFootPrints.API.Controllers
 
             return project;
         }
+
+
     }
 }

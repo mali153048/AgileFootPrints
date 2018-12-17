@@ -1,9 +1,16 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  TemplateRef,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { ProjectService } from '../_services/project.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { Router } from '@angular/router';
+import { EpicService } from '../_services/epic.service';
 
 @Component({
   selector: 'app-project',
@@ -13,13 +20,17 @@ import { Router } from '@angular/router';
 export class ProjectComponent implements OnInit {
   userId = this.authService.decodedToken.nameid;
   userProjects = [];
+  projectEpics = [];
   modalRef: BsModalRef;
+  isCollapsed = true;
   projectModel: any = {};
+
   constructor(
     private authService: AuthService,
     private projectService: ProjectService,
     private alertify: AlertifyService,
     private modalService: BsModalService,
+    private epicService: EpicService,
     private router: Router
   ) {}
 
@@ -61,5 +72,14 @@ export class ProjectComponent implements OnInit {
         this.alertify.error(error.message);
       }
     );
+  }
+
+  getProjectEpics(id: number) {
+    let projectId: string;
+    projectId = id.toString();
+    this.epicService.getProjectEpics(projectId).subscribe(success => {
+      this.projectEpics = success;
+      console.log(this.projectEpics);
+    });
   }
 }
