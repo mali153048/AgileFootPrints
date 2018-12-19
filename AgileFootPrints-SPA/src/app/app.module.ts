@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
+import { DataTableModule } from 'angular-6-datatable';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './Home/Home.component';
@@ -17,31 +18,36 @@ import { TaskComponent } from './task/task.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { ProjectService } from './_services/project.service';
 import { EpicService } from './_services/epic.service';
+import { EpicComponent } from './Epic/Epic.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    RegisterComponent,
-    ProjectComponent,
-    TaskComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    BsDropdownModule.forRoot(),
-    RouterModule.forRoot(appRoutes),
-    ModalModule.forRoot(),
-    CollapseModule.forRoot()
-  ],
-  providers: [
-    AuthService,
-    AlertifyService,
-    AuthGuard,
-    ProjectService,
-    EpicService
-  ],
-  bootstrap: [AppComponent]
+   declarations: [
+      AppComponent,
+      HomeComponent,
+      RegisterComponent,
+      ProjectComponent,
+      TaskComponent,
+      EpicComponent
+   ],
+   imports: [
+      BrowserModule,
+      HttpClientModule,
+      FormsModule,
+      BsDropdownModule.forRoot(),
+      RouterModule.forRoot(appRoutes),
+      ModalModule.forRoot(),
+      CollapseModule.forRoot(),
+      DataTableModule
+   ],
+   providers: [
+      AuthService,
+      AlertifyService,
+      AuthGuard,
+      ProjectService,
+      EpicService
+   ],
+   bootstrap: [
+      AppComponent
+   ]
 })
 export class AppModule {}

@@ -59,8 +59,7 @@
   <div class="col-md-4 m-3" id="listItem">
     <div *ngFor="let project of userProjects" id="project" class="list-group">
       <a
-        (mouseenter)="getProjectEpics(project.id)"
-        (click)="isCollapsed = !isCollapsed"
+        (click)="sendProjectId(project.id)"
         class="list-group-item list-group-item-action flex-column align-items-start"
       >
         <div class="d-flex w-100 justify-content-between">
@@ -81,10 +80,45 @@
       </a>
     </div>
   </div>
-  <div class="col-md-8" [collapse]="isCollapsed">
-    <div class="bg-secondary" *ngIf="projectEpics.length > 0">
-      <div *ngFor="let epic of projectEpics">{{ epic.epicName }}</div>
+</div>
+<!-- <div class="container">
+  <div class="row w-100" [collapse]="isCollapsed">
+    <div *ngIf="projectEpics.length > 0">
+       <div *ngFor="let epic of projectEpics">{{ epic.epicName }}</div>
+      <table
+        class="table table-striped"
+        [mfData]="projectEpics"
+        #mf="mfDataTable"
+        [mfRowsOnPage]="5"
+      >
+        <thead>
+          <tr>
+            <th style="width: 20%">
+              <mfDefaultSorter by="name">Epic Name</mfDefaultSorter>
+            </th>
+            <th style="width: 50%">
+              <mfDefaultSorter by="email">Description</mfDefaultSorter>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let epic of projectEpics">
+            <td>{{ epic.epicName }}</td>
+            <td>{{ epic.epicDescription }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">
+              <mfBootstrapPaginator
+                [rowsOnPageSet]="[5, 10, 25]"
+              ></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
     <div *ngIf="projectEpics.length === 0"><h3>No Epics avaliable</h3></div>
   </div>
 </div>
+ -->

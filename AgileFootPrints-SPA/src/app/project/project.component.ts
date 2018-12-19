@@ -3,7 +3,8 @@ import {
   OnInit,
   TemplateRef,
   Output,
-  EventEmitter
+  EventEmitter,
+  ViewChild
 } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { ProjectService } from '../_services/project.service';
@@ -20,10 +21,11 @@ import { EpicService } from '../_services/epic.service';
 export class ProjectComponent implements OnInit {
   userId = this.authService.decodedToken.nameid;
   userProjects = [];
-  projectEpics = [];
   modalRef: BsModalRef;
   isCollapsed = true;
   projectModel: any = {};
+  projectId: string;
+  projectEpics = [];
 
   constructor(
     private authService: AuthService,
@@ -74,12 +76,9 @@ export class ProjectComponent implements OnInit {
     );
   }
 
-  getProjectEpics(id: number) {
-    let projectId: string;
-    projectId = id.toString();
-    this.epicService.getProjectEpics(projectId).subscribe(success => {
-      this.projectEpics = success;
-      console.log(this.projectEpics);
-    });
+  sendProjectId(id: number) {
+    this.projectId = id.toString();
+    this.epicService.changeId(this.projectId);
+    this.router.navigate(['/epic']);
   }
 }
