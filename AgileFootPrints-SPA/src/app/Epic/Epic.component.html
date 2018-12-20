@@ -1,3 +1,58 @@
-<p>
-  Epic works!
-</p>
+<div class="col-md-2 pull-left">
+  <div class="dropdown mt-3" dropdown>
+    <a style="color: blue" class="dropdown-toggle " dropdownToggle
+      >Manage Project
+    </a>
+
+    <div class="dropdown-menu" *dropdownMenu>
+      <a style="color: blue" class="dropdown-item" href="#"
+        >Edit Project Details
+        <div class="dropdown-divider"></div>
+      </a>
+      <a style="color: blue" class="dropdown-item" href="#"
+        >Delete Project
+        <div class="dropdown-divider"></div>
+      </a>
+    </div>
+  </div>
+  <hr />
+
+  <div class="dropdown" dropdown>
+    <a style="color: blue" class="dropdown-toggle " dropdownToggle
+      >Project Epics
+    </a>
+
+    <div class="dropdown-menu" *dropdownMenu>
+      <a
+        style="color: blue"
+        *ngFor="let epic of projectEpics"
+        class="dropdown-item"
+        (click)="getEpicStories(epic.id)"
+        >{{ epic.epicName }}
+        <div class="dropdown-divider"></div>
+      </a>
+      <a *ngIf="projectEpics.length === 0"
+        ><p class="text-center">No Epics</p>
+      </a>
+    </div>
+  </div>
+  <hr />
+  <div id="createEpic">
+    <a style="color: blue"
+      >Create Epic&nbsp; <i class="fa fa-plus-circle"></i
+    ></a>
+  </div>
+</div>
+<div class="vr">&nbsp;</div>
+<div class="row mt-3">
+  <div class="card" style="width: 500px">
+    <div class="card-header bg-success text-light w-100">
+      {{ projectDetails.projectName }}
+    </div>
+    <div class="card-body">
+      Description : {{ projectDetails.projectDescription }}<br />
+      <hr />
+      Key : {{ projectDetails.projectKey }}
+    </div>
+  </div>
+</div>

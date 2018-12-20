@@ -35,5 +35,15 @@ namespace AgileFootPrints.API.Controllers
             return Ok(result);
 
         }
+
+        [HttpGet("getEpicStories/{id}")]
+        public async Task<IActionResult> GetEpicStories(string id)
+        {
+            if (id == null)
+                return BadRequest("Not epic found");
+            int epicId = Convert.ToInt32(id);
+            var result = await _context.Stories.Where(x => x.EpicId == epicId).ToListAsync();
+            return Ok(result);
+        }
     }
 }

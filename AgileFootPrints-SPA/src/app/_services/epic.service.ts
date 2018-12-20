@@ -19,4 +19,8 @@ export class EpicService {
   getProjectEpics(id: string): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'getEpics/' + id);
   }
+
+  getEpicStories(id: string): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'getEpicStories/' + id);
+  }
 }

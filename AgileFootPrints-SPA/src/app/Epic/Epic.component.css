@@ -1,0 +1,15 @@
+.dropdown-toggle,
+.dropdown-item {
+  cursor: pointer;
+}
+#createEpic {
+  cursor: pointer;
+}
+.vr {
+  width: 1px;
+  background-color: #eaeaea;
+  position: absolute;
+  top: 57px;
+  bottom: 0;
+  left: 245px;
+}

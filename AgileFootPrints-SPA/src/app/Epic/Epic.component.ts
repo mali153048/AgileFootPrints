@@ -10,6 +10,7 @@ import { AlertifyService } from '../_services/alertify.service';
 export class EpicComponent implements OnInit {
   id: string;
   projectEpics = [];
+  projectDetails: any = {};
   constructor(
     private epicService: EpicService,
     private alertify: AlertifyService
@@ -23,11 +24,26 @@ export class EpicComponent implements OnInit {
   getProjectEpics(id: string) {
     this.epicService.getProjectEpics(this.id).subscribe(
       next => {
-        this.projectEpics = next;
+        this.projectEpics = next[0].epics;
+        this.projectDetails.projectName = next[0].projectName;
+        this.projectDetails.projectDescription = next[0].projectDescription;
+        this.projectDetails.projectKey = next[0].projectKey;
         console.log('Epics in epic component', this.projectEpics);
       },
       error => {
         this.alertify.error(error);
+      }
+    );
+  }
+
+  getEpicStories(id: number) {
+    const Id = id.toString();
+    this.epicService.getEpicStories(Id).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
       }
     );
   }
