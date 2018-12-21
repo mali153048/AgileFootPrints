@@ -5,6 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { TaskComponent } from './task/task.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { EpicComponent } from './Epic/Epic.component';
+import { UserProfileComponent } from './UserProfile/UserProfile.component';
 
 export const appRoutes: Routes = [
   {
@@ -15,6 +16,11 @@ export const appRoutes: Routes = [
   {
     path: 'project',
     component: ProjectComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'userProfile',
+    component: UserProfileComponent,
     canActivate: [AuthGuard]
   },
   {

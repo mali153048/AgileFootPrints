@@ -9,7 +9,7 @@
         >Edit Project Details
         <div class="dropdown-divider"></div>
       </a>
-      <a style="color: blue" class="dropdown-item" href="#"
+      <a style="color: red" class="dropdown-item" href="#"
         >Delete Project
         <div class="dropdown-divider"></div>
       </a>
@@ -50,9 +50,11 @@
       {{ projectDetails.projectName }}
     </div>
     <div class="card-body">
-      Description : {{ projectDetails.projectDescription }}<br />
+      <strong> Description </strong><br />
+      {{ projectDetails.projectDescription }}<br />
       <hr />
-      Key : {{ projectDetails.projectKey }}
+      <strong> KEY</strong><br />
+      {{ projectDetails.projectKey }}
     </div>
   </div>
 </div>

@@ -68,7 +68,7 @@ export class ProjectComponent implements OnInit {
         this.userProjects.push(success); // pushing newly created project into array
         this.closeModal();
         this.alertify.success('Project Created Successfully');
-        this.router.navigate(['/project']);
+        // this.router.navigate(['/project']);
       },
       error => {
         this.alertify.error(error.message);

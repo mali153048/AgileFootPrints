@@ -44,6 +44,7 @@ namespace AgileFootPrints.API.Controllers
             return CreatedAtAction("GetNewlyCreatedproject", new { id = projectDto.Id }, projectDto);
         }
 
+        [HttpGet]
         public async Task<ActionResult<Project>> GetNewlyCreatedproject(int id)
         {
             var project = await _context.Projects.FindAsync(id);

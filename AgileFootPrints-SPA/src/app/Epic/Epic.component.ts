@@ -9,7 +9,7 @@ import { AlertifyService } from '../_services/alertify.service';
 })
 export class EpicComponent implements OnInit {
   id: string;
-  projectEpics = [];
+  projectEpics: any = [];
   projectDetails: any = {};
   constructor(
     private epicService: EpicService,
@@ -18,12 +18,19 @@ export class EpicComponent implements OnInit {
 
   ngOnInit() {
     this.epicService.currentId.subscribe(id => (this.id = id));
-    this.getProjectEpics(this.id);
+    if (this.id === '' || this.id === null) {
+      this.id = localStorage.getItem('projectId');
+      this.getProjectEpics(this.id);
+    } else {
+      localStorage.setItem('projectId', this.id);
+      this.getProjectEpics(this.id);
+    }
   }
 
   getProjectEpics(id: string) {
     this.epicService.getProjectEpics(this.id).subscribe(
       next => {
+        console.log(next);
         this.projectEpics = next[0].epics;
         this.projectDetails.projectName = next[0].projectName;
         this.projectDetails.projectDescription = next[0].projectDescription;

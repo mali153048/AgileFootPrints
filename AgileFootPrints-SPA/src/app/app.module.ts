@@ -19,6 +19,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { ProjectService } from './_services/project.service';
 import { EpicService } from './_services/epic.service';
 import { EpicComponent } from './Epic/Epic.component';
+import { UserProfileComponent } from './UserProfile/UserProfile.component';
 
 @NgModule({
    declarations: [
@@ -27,7 +28,8 @@ import { EpicComponent } from './Epic/Epic.component';
       RegisterComponent,
       ProjectComponent,
       TaskComponent,
-      EpicComponent
+      EpicComponent,
+      UserProfileComponent
    ],
    imports: [
       BrowserModule,
