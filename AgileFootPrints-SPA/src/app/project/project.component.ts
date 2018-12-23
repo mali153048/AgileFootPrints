@@ -62,11 +62,11 @@ export class ProjectComponent implements OnInit {
   newProject() {
     this.projectModel.userId = this.authService.decodedToken.nameid;
     this.projectModel.statusId = 2;
-    console.log(this.projectModel);
+    console.log('New project', this.projectModel);
     this.projectService.newProject(this.projectModel).subscribe(
       success => {
-        this.userProjects.push(success); // pushing newly created project into array
         this.closeModal();
+        this.userProjects.push(success); // pushing newly created project into array
         this.alertify.success('Project Created Successfully');
         // this.router.navigate(['/project']);
       },

@@ -40,23 +40,37 @@ namespace AgileFootPrints.API.Controllers
         {
             var projectToCreate = _mapper.Map<Project>(projectDto);
             _context.Projects.Add(projectToCreate);
-            var result = await _context.SaveChangesAsync();
-            return CreatedAtAction("GetNewlyCreatedproject", new { id = projectDto.Id }, projectDto);
+            await _context.SaveChangesAsync();
+            int pid = projectToCreate.Id;
+            return CreatedAtRoute("GetNewlyCreatedproject",
+             new { id = projectToCreate.Id }, projectToCreate);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<Project>> GetNewlyCreatedproject(int id)
+        [HttpGet("{id}", Name = "GetNewlyCreatedproject")]
+        public async Task<ActionResult<ProjectDto>> GetNewlyCreatedproject(int id)
         {
             var project = await _context.Projects.FindAsync(id);
-
+            var projectToReturn = _mapper.Map<ProjectDto>(project);
             if (project == null)
             {
                 return NotFound();
             }
 
-            return project;
+            return projectToReturn;
         }
 
+        [HttpDelete("deleteproject/{id}")]
+        public async Task<ActionResult> Deleteproject(string id)
+        {
+            int projectId = Convert.ToInt32(id);
+            var projectToDelete = await _context.Projects.FindAsync(projectId);
+            if (projectToDelete == null)
+                return NotFound();
+            _context.Projects.Remove(projectToDelete);
+            await _context.SaveChangesAsync();
+            return Ok();
+
+        }
 
     }
 }

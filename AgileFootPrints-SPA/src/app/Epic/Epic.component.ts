@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EpicService } from '../_services/epic.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { ProjectService } from '../_services/project.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-epic',
@@ -13,7 +15,9 @@ export class EpicComponent implements OnInit {
   projectDetails: any = {};
   constructor(
     private epicService: EpicService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private projectService: ProjectService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -28,6 +32,8 @@ export class EpicComponent implements OnInit {
   }
 
   getProjectEpics(id: string) {
+    console.log('in project', id);
+
     this.epicService.getProjectEpics(this.id).subscribe(
       next => {
         console.log(next);
@@ -51,6 +57,22 @@ export class EpicComponent implements OnInit {
       },
       error => {
         console.log(error);
+      }
+    );
+  }
+  deleteProject() {
+    this.alertify.confirm(
+      'Are you sure you want to delete this project',
+      () => {
+        this.projectService.deleteProject(this.id).subscribe(
+          res => {
+            this.alertify.success('Project Deleted Successfully');
+            this.router.navigate(['/project']);
+          },
+          error => {
+            this.alertify.error(error.message);
+          }
+        );
       }
     );
   }

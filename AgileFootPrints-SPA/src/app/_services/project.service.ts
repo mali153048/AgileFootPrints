@@ -15,7 +15,11 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl + 'getUserProjects/' + userId);
   }
 
-  newProject(projectModel: any) {
+  newProject(projectModel: any): Observable<any> {
     return this.http.post(this.baseUrl + 'createNewProject', projectModel);
+  }
+
+  deleteProject(id: string) {
+    return this.http.delete(this.baseUrl + 'deleteproject/' + id);
   }
 }
