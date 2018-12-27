@@ -24,14 +24,15 @@ namespace AgileFootPrints.API.Controllers
         }
 
         [HttpGet("getEpics/{id}")]
-        public async Task<IActionResult> getEpics(string id)
+        public async Task<IActionResult> GetEpics(string id)
         {
             if (id == null)
                 return BadRequest();
             int projectId = Convert.ToInt32(id);
 
 
-            var result = await _context.Projects.Include(e => e.Epics).Where(x => x.Id == projectId)
+            var result = await _context.Projects.Include(e => e.Epics)
+            .Include(x => x.Stories).Where(x => x.Id == projectId)
                         .ToListAsync();
 
             return Ok(result);

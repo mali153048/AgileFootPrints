@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgileFootPrints.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20181227032639_Initial")]
+    [Migration("20181227170750_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -190,7 +190,7 @@ namespace AgileFootPrints.API.Migrations
 
                     b.Property<int?>("PriorityId");
 
-                    b.Property<int>("ProjectId");
+                    b.Property<int?>("ProjectId");
 
                     b.Property<int?>("SprintId");
 
@@ -437,8 +437,7 @@ namespace AgileFootPrints.API.Migrations
 
                     b.HasOne("AgileFootPrints.API.Models.Project", "Project")
                         .WithMany("Stories")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProjectId");
 
                     b.HasOne("AgileFootPrints.API.Models.Sprint", "Sprint")
                         .WithMany("Stories")

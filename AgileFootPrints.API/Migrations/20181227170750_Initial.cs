@@ -344,7 +344,7 @@ namespace AgileFootPrints.API.Migrations
                     EpicId = table.Column<int>(nullable: true),
                     PriorityId = table.Column<int>(nullable: true),
                     SprintId = table.Column<int>(nullable: true),
-                    ProjectId = table.Column<int>(nullable: false)
+                    ProjectId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -366,7 +366,7 @@ namespace AgileFootPrints.API.Migrations
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Stories_Sprints_SprintId",
                         column: x => x.SprintId,

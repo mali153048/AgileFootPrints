@@ -188,7 +188,7 @@ namespace AgileFootPrints.API.Migrations
 
                     b.Property<int?>("PriorityId");
 
-                    b.Property<int>("ProjectId");
+                    b.Property<int?>("ProjectId");
 
                     b.Property<int?>("SprintId");
 
@@ -435,8 +435,7 @@ namespace AgileFootPrints.API.Migrations
 
                     b.HasOne("AgileFootPrints.API.Models.Project", "Project")
                         .WithMany("Stories")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProjectId");
 
                     b.HasOne("AgileFootPrints.API.Models.Sprint", "Sprint")
                         .WithMany("Stories")

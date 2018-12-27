@@ -28,7 +28,10 @@
         *ngFor="let epic of projectEpics"
         class="dropdown-item"
         (click)="getEpicStories(epic.id)"
-        >{{ epic.epicName }}
+        >{{ epic.epicName }} -
+        <span class="badge badge-pill badge-info">{{
+          epic.stories.length
+        }}</span>
         <div class="dropdown-divider"></div>
       </a>
       <a *ngIf="projectEpics.length === 0"
@@ -71,15 +74,28 @@
       <span><b>Product Backlog</b> </span>
     </ng-template>
     <ng-template ngbPanelContent>
-      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-      richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard
-      dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-      moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-      assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-      wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
-      butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim
-      aesthetic synth nesciunt you probably haven't heard of them accusamus
-      labore sustainable VHS.
+      <mat-grid-list
+        cdkDropList
+        *ngFor="let story of projectStories"
+        cols="4"
+        rowHeight="80px"
+      >
+        <div cdkDrag>
+          <mat-grid-tile> {{ story.storyName }} </mat-grid-tile>
+          <mat-grid-tile> {{ story.storyDescription }} </mat-grid-tile>
+          <mat-grid-tile> {{ story.acceptanceCriteria }} </mat-grid-tile>
+          <mat-grid-tile *ngIf="story.epic !== null">
+            <span class="badge badge-pill badge-success">
+              {{ story.epic.epicName }}
+            </span>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="story.epic === null">
+            <span class="badge badge-pill badge-info">
+              Not Assigned to Epic
+            </span>
+          </mat-grid-tile>
+        </div>
+      </mat-grid-list>
     </ng-template>
   </ngb-panel>
 </ngb-accordion>
