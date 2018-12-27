@@ -11,6 +11,7 @@ export class EpicService {
   currentId = this.IdSource.asObservable();
 
   baseUrl = environment.apiUrl + 'epic/';
+  storyBaseUrl = environment.apiUrl + 'story/';
 
   constructor(private http: HttpClient) {}
   changeId(id: string) {
@@ -22,5 +23,9 @@ export class EpicService {
 
   getEpicStories(id: string): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'getEpicStories/' + id);
+  }
+
+  getProjectStories(id: string): Observable<any> {
+    return this.http.get<any>(this.storyBaseUrl + 'getProjetcStories/' + id);
   }
 }

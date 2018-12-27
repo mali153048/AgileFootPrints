@@ -30,8 +30,10 @@ namespace AgileFootPrints.API.Controllers
                 return BadRequest();
             int projectId = Convert.ToInt32(id);
 
-            var result = await _context.Projects.Where(x => x.Id == projectId)
-                        .Include(e => e.Epics).ToListAsync();
+
+            var result = await _context.Projects.Include(e => e.Epics).Where(x => x.Id == projectId)
+                        .ToListAsync();
+
             return Ok(result);
 
         }

@@ -343,7 +343,8 @@ namespace AgileFootPrints.API.Migrations
                     AcceptanceCriteria = table.Column<string>(nullable: true),
                     EpicId = table.Column<int>(nullable: true),
                     PriorityId = table.Column<int>(nullable: true),
-                    SprintId = table.Column<int>(nullable: true)
+                    SprintId = table.Column<int>(nullable: true),
+                    ProjectId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -360,6 +361,12 @@ namespace AgileFootPrints.API.Migrations
                         principalTable: "Priorities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Stories_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Stories_Sprints_SprintId",
                         column: x => x.SprintId,
@@ -475,6 +482,11 @@ namespace AgileFootPrints.API.Migrations
                 name: "IX_Stories_PriorityId",
                 table: "Stories",
                 column: "PriorityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stories_ProjectId",
+                table: "Stories",
+                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stories_SprintId",

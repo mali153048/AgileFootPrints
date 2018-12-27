@@ -12,5 +12,8 @@ namespace AgileFootPrints.API.Models
         public Priority Priority { get; set; }
         public int? SprintId { get; set; }
         public Sprint Sprint { get; set; }
+        public int ProjectId { get; set; }
+        public Project Project { get; set; }
+
     }
 }
