@@ -11,7 +11,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatIconModule,
+  MatBadgeModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -51,7 +53,9 @@ import { UserProfileComponent } from './UserProfile/UserProfile.component';
     NgbModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatIconModule,
+    MatBadgeModule
   ],
   providers: [
     AuthService,

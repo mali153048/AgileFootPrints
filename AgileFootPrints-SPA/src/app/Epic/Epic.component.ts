@@ -15,8 +15,13 @@ export class EpicComponent implements OnInit {
   projectEpics: any = [];
   projectStories: any = [];
   projectDetails: any = {};
-  displayedColumns: string[] = ['storyName', 'storyDescription'];
-  dataSource: any = this.projectEpics;
+  displayedColumns: string[] = [
+    'storyName',
+    'storyDescription',
+    'epic',
+    'actions'
+  ];
+  dataSource: MatTableDataSource<any>;
   constructor(
     private epicService: EpicService,
     private alertify: AlertifyService,
@@ -43,6 +48,7 @@ export class EpicComponent implements OnInit {
         console.log(next);
         this.projectEpics = next[0].epics;
         this.projectStories = next[0].stories;
+        this.dataSource = new MatTableDataSource(this.projectStories); // setting datasource for datatable
         this.projectDetails.projectName = next[0].projectName;
         this.projectDetails.projectDescription = next[0].projectDescription;
         this.projectDetails.projectKey = next[0].projectKey;

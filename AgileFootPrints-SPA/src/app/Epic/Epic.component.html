@@ -73,7 +73,53 @@
     <ng-template ngbPanelTitle>
       <span><b>Product Backlog</b> </span>
     </ng-template>
-    <ng-template ngbPanelContent> <h4>Hello</h4> </ng-template>
+    <ng-template ngbPanelContent>
+      <div class="mat-elevation-z8" *ngIf="projectStories.length > 0">
+        <mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="storyName">
+            <mat-header-cell *matHeaderCellDef>Story Name</mat-header-cell>
+            <mat-cell *matCellDef="let story">{{ story.storyName }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="storyDescription">
+            <mat-header-cell *matHeaderCellDef>
+              Story Description
+            </mat-header-cell>
+            <mat-cell *matCellDef="let story">
+              {{ story.storyDescription }}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="epic">
+            <mat-header-cell *matHeaderCellDef>Epic</mat-header-cell>
+            <mat-cell *matCellDef="let story">
+              <div *ngIf="story.epic !== null" class="badge badge-info ml-5">
+                {{ story.epic.epicName }}
+              </div>
+              <div *ngIf="story.epic === null" class="badge badge-danger ml-5">
+                Not Assigned to Epic
+              </div>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button class="btn btn-primary ml-2">
+                <i class="fa fa-edit"></i>
+              </button>
+              <button class="btn btn-danger ml-3">
+                <i class="fa fa-trash"></i>
+              </button>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </div>
+      <div *ngIf="projectStories.length === 0">
+        <p style="font-style: italic;justify-content: center">
+          No Stories for this project
+        </p>
+      </div>
+    </ng-template>
   </ngb-panel>
 </ngb-accordion>
 <!-- <div class="container ">
