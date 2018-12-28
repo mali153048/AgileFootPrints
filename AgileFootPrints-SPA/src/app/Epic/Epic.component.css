@@ -5,6 +5,12 @@
 #createEpic {
   cursor: pointer;
 }
+.dragPointer {
+  cursor: move;
+}
+mat-grid-tile {
+  background: rgb(174, 183, 221);
+}
 .vr {
   width: 2px;
   background-color: #eaeaea;

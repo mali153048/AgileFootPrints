@@ -3,6 +3,7 @@ import { EpicService } from '../_services/epic.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { ProjectService } from '../_services/project.service';
 import { Router } from '@angular/router';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-epic',
@@ -14,6 +15,8 @@ export class EpicComponent implements OnInit {
   projectEpics: any = [];
   projectStories: any = [];
   projectDetails: any = {};
+  displayedColumns: string[] = ['storyName', 'storyDescription'];
+  dataSource: any = this.projectEpics;
   constructor(
     private epicService: EpicService,
     private alertify: AlertifyService,

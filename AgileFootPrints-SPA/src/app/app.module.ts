@@ -8,7 +8,11 @@ import { RouterModule } from '@angular/router';
 import { DataTableModule } from 'angular-6-datatable';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatGridListModule } from '@angular/material/grid-list';
+import {
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule
+} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './Home/Home.component';
@@ -45,7 +49,9 @@ import { UserProfileComponent } from './UserProfile/UserProfile.component';
     DataTableModule,
     DragDropModule,
     NgbModule,
-    MatGridListModule
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     AuthService,

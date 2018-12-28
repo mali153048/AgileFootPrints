@@ -73,30 +73,7 @@
     <ng-template ngbPanelTitle>
       <span><b>Product Backlog</b> </span>
     </ng-template>
-    <ng-template ngbPanelContent>
-      <mat-grid-list
-        cdkDropList
-        *ngFor="let story of projectStories"
-        cols="4"
-        rowHeight="80px"
-      >
-        <div cdkDrag>
-          <mat-grid-tile> {{ story.storyName }} </mat-grid-tile>
-          <mat-grid-tile> {{ story.storyDescription }} </mat-grid-tile>
-          <mat-grid-tile> {{ story.acceptanceCriteria }} </mat-grid-tile>
-          <mat-grid-tile *ngIf="story.epic !== null">
-            <span class="badge badge-pill badge-success">
-              {{ story.epic.epicName }}
-            </span>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="story.epic === null">
-            <span class="badge badge-pill badge-info">
-              Not Assigned to Epic
-            </span>
-          </mat-grid-tile>
-        </div>
-      </mat-grid-list>
-    </ng-template>
+    <ng-template ngbPanelContent> <h4>Hello</h4> </ng-template>
   </ngb-panel>
 </ngb-accordion>
 <!-- <div class="container ">
