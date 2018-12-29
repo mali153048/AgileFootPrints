@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EpicService } from '../_services/epic.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { ProjectService } from '../_services/project.service';
 import { Router } from '@angular/router';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import { StoryService } from '../_services/story.service';
 
 @Component({
   selector: 'app-epic',
@@ -11,7 +12,11 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
   styleUrls: ['./Epic.component.css']
 })
 export class EpicComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   id: string;
+  searchKey: string;
+  storyId: string;
   projectEpics: any = [];
   projectStories: any = [];
   projectDetails: any = {};
@@ -26,6 +31,7 @@ export class EpicComponent implements OnInit {
     private epicService: EpicService,
     private alertify: AlertifyService,
     private projectService: ProjectService,
+    private storyService: StoryService,
     private router: Router
   ) {}
 
@@ -49,6 +55,8 @@ export class EpicComponent implements OnInit {
         this.projectEpics = next[0].epics;
         this.projectStories = next[0].stories;
         this.dataSource = new MatTableDataSource(this.projectStories); // setting datasource for datatable
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
         this.projectDetails.projectName = next[0].projectName;
         this.projectDetails.projectDescription = next[0].projectDescription;
         this.projectDetails.projectKey = next[0].projectKey;
@@ -87,5 +95,16 @@ export class EpicComponent implements OnInit {
         );
       }
     );
+  }
+  sendStoryId(id: number) {
+    this.storyId = id.toString();
+    this.storyService.changeStoryId(this.storyId);
+  }
+  onSearchClear() {
+    this.searchKey = '';
+    this.applyFilter();
+  }
+  applyFilter() {
+    this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
 }

@@ -31,5 +31,19 @@ namespace AgileFootPrints.API.Controllers
         }
 
 
+        [HttpDelete("deleteStory/{id}")]
+        public async Task<ActionResult> DeleteStory(string id)
+        {
+            int storyId = Convert.ToInt32(id);
+            var storyToDelete = await _context.Stories.FindAsync(storyId);
+            if (storyToDelete == null)
+                return NotFound();
+            _context.Stories.Remove(storyToDelete);
+            await _context.SaveChangesAsync();
+            return Ok();
+
+        }
+
+
     }
 }

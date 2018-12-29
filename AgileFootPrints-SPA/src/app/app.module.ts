@@ -7,7 +7,11 @@ import { ModalModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { DataTableModule } from 'angular-6-datatable';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import {
   MatTableModule,
   MatPaginatorModule,
@@ -55,7 +59,11 @@ import { UserProfileComponent } from './UserProfile/UserProfile.component';
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
-    MatBadgeModule
+    MatBadgeModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [
     AuthService,

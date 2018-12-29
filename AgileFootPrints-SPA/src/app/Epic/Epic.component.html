@@ -74,14 +74,38 @@
       <span><b>Product Backlog</b> </span>
     </ng-template>
     <ng-template ngbPanelContent>
+      <div class="search-div">
+        <button mat-raised-button>Create New Story</button>
+        <mat-form-field class="search-form-field">
+          <input
+            matInput
+            [(ngModel)]="searchKey"
+            placeholder="Search"
+            autocomplete="off"
+            (keyup)="applyFilter()"
+          />
+          <button
+            *ngIf="searchKey"
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="onSearchClear()"
+          >
+            <mat-icon>x</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
       <div class="mat-elevation-z8" *ngIf="projectStories.length > 0">
-        <mat-table [dataSource]="dataSource">
+        <mat-table [dataSource]="dataSource" matSort>
           <ng-container matColumnDef="storyName">
-            <mat-header-cell *matHeaderCellDef>Story Name</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Story Name</mat-header-cell
+            >
             <mat-cell *matCellDef="let story">{{ story.storyName }}</mat-cell>
           </ng-container>
           <ng-container matColumnDef="storyDescription">
-            <mat-header-cell *matHeaderCellDef>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
               Story Description
             </mat-header-cell>
             <mat-cell *matCellDef="let story">
@@ -89,7 +113,9 @@
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="epic">
-            <mat-header-cell *matHeaderCellDef>Epic</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Epic</mat-header-cell
+            >
             <mat-cell *matCellDef="let story">
               <div *ngIf="story.epic !== null" class="badge badge-info ml-5">
                 {{ story.epic.epicName }}
@@ -105,7 +131,7 @@
               <button class="btn btn-primary ml-2">
                 <i class="fa fa-edit"></i>
               </button>
-              <button class="btn btn-danger ml-3">
+              <button class="btn btn-danger ml-3" (click)="sendStoryId(row.id)">
                 <i class="fa fa-trash"></i>
               </button>
             </mat-cell>
@@ -113,6 +139,11 @@
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
         </mat-table>
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
       </div>
       <div *ngIf="projectStories.length === 0">
         <p style="font-style: italic;justify-content: center">

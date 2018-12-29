@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StoryService } from '../_services/story.service';
 
 @Component({
   selector: 'app-task',
@@ -6,10 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
+  constructor(private storyService: StoryService) {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
