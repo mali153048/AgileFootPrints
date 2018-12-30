@@ -75,7 +75,9 @@
     </ng-template>
     <ng-template ngbPanelContent>
       <div class="search-div">
-        <button mat-raised-button>Create New Story</button>
+        <button mat-raised-button (click)="onCreateNewStory()">
+          Create New Story
+        </button>
         <mat-form-field class="search-form-field">
           <input
             matInput
@@ -131,7 +133,10 @@
               <button class="btn btn-primary ml-2">
                 <i class="fa fa-edit"></i>
               </button>
-              <button class="btn btn-danger ml-3" (click)="sendStoryId(row.id)">
+              <button
+                class="btn btn-danger ml-3"
+                (click)="deleteStory(row.id, row.$key)"
+              >
                 <i class="fa fa-trash"></i>
               </button>
             </mat-cell>

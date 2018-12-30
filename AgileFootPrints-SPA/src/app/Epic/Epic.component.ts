@@ -3,8 +3,15 @@ import { EpicService } from '../_services/epic.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { ProjectService } from '../_services/project.service';
 import { Router } from '@angular/router';
-import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import {
+  MatPaginator,
+  MatTableDataSource,
+  MatSort,
+  MatDialog,
+  MatDialogConfig
+} from '@angular/material';
 import { StoryService } from '../_services/story.service';
+import { NewStoryComponent } from '../newStory/newStory.component';
 
 @Component({
   selector: 'app-epic',
@@ -32,7 +39,8 @@ export class EpicComponent implements OnInit {
     private alertify: AlertifyService,
     private projectService: ProjectService,
     private storyService: StoryService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -96,10 +104,31 @@ export class EpicComponent implements OnInit {
       }
     );
   }
-  sendStoryId(id: number) {
+  deleteStory(id: number) {
     this.storyId = id.toString();
-    this.storyService.changeStoryId(this.storyId);
+    this.alertify.confirm('Confirm delete ? ', () => {
+      this.storyService.deleteStory(this.storyId).subscribe(
+        res => {
+          const index = this.projectStories.indexOf(this.storyId);
+          this.projectStories.splice(index, 1);
+          this.alertify.success('Deleted successfully');
+        },
+        error => {
+          this.alertify.error(error.message);
+        }
+      );
+    });
   }
+  onCreateNewStory() {
+    const dialogRef = this.dialog.open(NewStoryComponent, {
+      width: '650px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
   onSearchClear() {
     this.searchKey = '';
     this.applyFilter();

@@ -1,5 +1,6 @@
 using System.Linq;
 using AgileFootPrints.API.Data;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,7 @@ namespace AgileFootPrints.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [AllowAnonymous]
     public class PriorityController : ControllerBase
     {
         private readonly DataContext _context;
@@ -16,11 +17,11 @@ namespace AgileFootPrints.API.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public IActionResult GetPriority()
+        [HttpGet("getPriority")]
+        public async Task<IActionResult> GetPriority()
         {
-            var priorityList = _context.Priorities.ToList();
-            return Ok(priorityList);
+          
+            return Ok();
         }
     }
 }

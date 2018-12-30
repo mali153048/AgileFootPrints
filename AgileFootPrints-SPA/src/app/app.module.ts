@@ -12,6 +12,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 import {
   MatTableModule,
   MatPaginatorModule,
@@ -33,6 +35,7 @@ import { ProjectService } from './_services/project.service';
 import { EpicService } from './_services/epic.service';
 import { EpicComponent } from './Epic/Epic.component';
 import { UserProfileComponent } from './UserProfile/UserProfile.component';
+import { NewStoryComponent } from './newStory/newStory.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import { UserProfileComponent } from './UserProfile/UserProfile.component';
     ProjectComponent,
     TaskComponent,
     EpicComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    NewStoryComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +67,9 @@ import { UserProfileComponent } from './UserProfile/UserProfile.component';
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    MatSelectModule
   ],
   providers: [
     AuthService,
@@ -72,6 +78,7 @@ import { UserProfileComponent } from './UserProfile/UserProfile.component';
     ProjectService,
     EpicService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [NewStoryComponent]
 })
 export class AppModule {}
