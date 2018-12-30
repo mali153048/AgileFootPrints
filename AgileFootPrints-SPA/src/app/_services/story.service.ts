@@ -22,4 +22,8 @@ export class StoryService {
     console.log('Story to delete : ', id);
     return this.http.delete(this.baseUrl + 'deleteStory/' + id);
   }
+
+  newStory(model: any) {
+    return this.http.post(this.baseUrl + 'createNewStory/', model);
+  }
 }

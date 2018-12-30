@@ -3,6 +3,7 @@ using AgileFootPrints.API.Data;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AgileFootPrints.API.Controllers
 {
@@ -20,8 +21,8 @@ namespace AgileFootPrints.API.Controllers
         [HttpGet("getPriority")]
         public async Task<IActionResult> GetPriority()
         {
-          
-            return Ok();
+            var list = await _context.Priorities.ToListAsync();
+            return Ok(list);
         }
     }
 }

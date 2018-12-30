@@ -5,7 +5,9 @@
       [(ngModel)]="storyModel.storyName"
       matInput
       placeholder="Story Name"
+      required
     />
+    <mat-error>Story Name is required</mat-error>
   </mat-form-field>
   <br />
   <mat-form-field>
@@ -13,7 +15,9 @@
       [(ngModel)]="storyModel.storyDescription"
       matInput
       placeholder="Description"
+      required
     ></textarea>
+    <mat-error>Story Description is required</mat-error>
   </mat-form-field>
   <br />
   <mat-form-field>
@@ -21,8 +25,10 @@
       [(ngModel)]="storyModel.acceptanceCriteria"
       matInput
       placeholder="Acceptance Criteria"
+      required
     >
     </textarea>
+    <mat-error>Provide acceptance criteria for the story</mat-error>
   </mat-form-field>
   <br />
   <mat-form-field>
@@ -34,13 +40,14 @@
   </mat-form-field>
   <br />
   <mat-form-field>
-    <mat-select placeholder="Priority">
-      <mat-option>High </mat-option>
-      <mat-option> Low</mat-option>
+    <mat-select [(ngModel)]="storyModel.priorityId" placeholder="Priority">
+      <mat-option *ngFor="let priority of priorities" [value]="priority.id">
+        {{ priority.priority }}
+      </mat-option>
     </mat-select>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button [mat-dialog-close]="true">Close</button>
-  <button mat-raised-button (click)="SaveStory()">Save</button>
+  <button mat-raised-button color="warn" (click)="SaveStory()">Save</button>
 </mat-dialog-actions>

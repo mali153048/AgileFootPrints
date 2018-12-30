@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AgileFootPrints.API.Data;
+using AgileFootPrints.API.Dtos;
+using AgileFootPrints.API.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +47,30 @@ namespace AgileFootPrints.API.Controllers
 
         }
 
+        [HttpPost("createNewStory")]
+        public async Task<IActionResult> CreateNewStory(StoryDto storyDto)
+        {
+            var storyToSave = _mapper.Map<Story>(storyDto);
+            _context.Stories.Add(storyToSave);
+            await _context.SaveChangesAsync();
+            int sid = storyToSave.Id;
+            return CreatedAtRoute("GetNewlyCreatedStory",
+            new { id = storyToSave.Id }, storyToSave);
+
+        }
+
+        [HttpGet("{id}", Name = "GetNewlyCreatedStory")]
+        public async Task<ActionResult<List<Story>>> GetNewlyCreatedStory(int id)
+        {
+            var story = await _context.Stories.FindAsync(id);
+            if (story != null)
+            {
+                var storyToReturn = await _context.Stories.Where(x => x.Id == id).Include(x => x.Epic).ToListAsync();
+                return storyToReturn;
+            }
+
+            return NotFound();
+        }
 
     }
 }

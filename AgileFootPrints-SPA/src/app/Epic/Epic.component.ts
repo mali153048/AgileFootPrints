@@ -109,8 +109,7 @@ export class EpicComponent implements OnInit {
     this.alertify.confirm('Confirm delete ? ', () => {
       this.storyService.deleteStory(this.storyId).subscribe(
         res => {
-          const index = this.projectStories.indexOf(this.storyId);
-          this.projectStories.splice(index, 1);
+          this.getProjectEpics(this.id);
           this.alertify.success('Deleted successfully');
         },
         error => {
@@ -125,7 +124,17 @@ export class EpicComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('Posted Story Model : ', result);
+      this.storyService.newStory(result).subscribe(
+        story => {
+          // console.log('Story retuned from api :', story.result);
+          this.getProjectEpics(this.id);
+          this.alertify.success('New Story Creted');
+        },
+        error => {
+          this.alertify.error(error.message);
+        }
+      );
     });
   }
 
