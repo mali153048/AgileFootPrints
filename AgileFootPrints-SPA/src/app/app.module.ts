@@ -36,6 +36,7 @@ import { EpicService } from './_services/epic.service';
 import { EpicComponent } from './Epic/Epic.component';
 import { UserProfileComponent } from './UserProfile/UserProfile.component';
 import { NewStoryComponent } from './newStory/newStory.component';
+import { EditStoryComponent } from './EditStory/EditStory.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { NewStoryComponent } from './newStory/newStory.component';
     TaskComponent,
     EpicComponent,
     UserProfileComponent,
-    NewStoryComponent
+    NewStoryComponent,
+    EditStoryComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +81,6 @@ import { NewStoryComponent } from './newStory/newStory.component';
     EpicService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NewStoryComponent]
+  entryComponents: [NewStoryComponent, EditStoryComponent]
 })
 export class AppModule {}

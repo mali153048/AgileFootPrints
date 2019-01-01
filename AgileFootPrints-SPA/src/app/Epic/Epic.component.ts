@@ -12,6 +12,7 @@ import {
 } from '@angular/material';
 import { StoryService } from '../_services/story.service';
 import { NewStoryComponent } from '../newStory/newStory.component';
+import { EditStoryComponent } from '../EditStory/EditStory.component';
 
 @Component({
   selector: 'app-epic',
@@ -136,6 +137,17 @@ export class EpicComponent implements OnInit {
         }
       );
     });
+  }
+  editStory(id: number) {
+    let storyToForward: any;
+    this.storyService.getStory(id).subscribe(story => {
+      storyToForward = story;
+    });
+    const dialogRef = this.dialog.open(EditStoryComponent, {
+      width: '650px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {});
   }
 
   onSearchClear() {

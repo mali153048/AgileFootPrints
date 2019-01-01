@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AlertifyService } from './alertify.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
@@ -25,5 +25,9 @@ export class StoryService {
 
   newStory(model: any) {
     return this.http.post(this.baseUrl + 'createNewStory/', model);
+  }
+
+  getStory(id: number): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'getStory/' + id);
   }
 }

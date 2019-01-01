@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Story Details</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput placeholder="Story Name" required />
+    <mat-error>Story Name is required</mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <textarea matInput placeholder="Description" required></textarea>
+    <mat-error>Story Description is required</mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <textarea matInput placeholder="Acceptance Criteria" required> </textarea>
+    <mat-error>Provide acceptance criteria for the story</mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <mat-select placeholder="Assign to Epic">
+      <mat-option> </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <mat-select placeholder="Priority"> <mat-option> </mat-option> </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true">Close</button>
+  <button mat-raised-button color="warn">Save</button>
+</mat-dialog-actions>

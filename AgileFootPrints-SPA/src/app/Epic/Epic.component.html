@@ -28,14 +28,17 @@
         *ngFor="let epic of projectEpics"
         class="dropdown-item"
         (click)="getEpicStories(epic.id)"
-        >{{ epic.epicName }} -
-        <span class="badge badge-pill badge-info">{{
-          epic.stories.length
-        }}</span>
+        >{{ epic.epicName }}
+        <span *ngIf="epic.stories === null" class="badge badge-pill badge-info">
+          0
+        </span>
+        <span *ngIf="epic.stories !== null" class="badge badge-pill badge-info">
+          {{ epic.stories.length }}
+        </span>
         <div class="dropdown-divider"></div>
       </a>
-      <a *ngIf="projectEpics.length === 0"
-        ><p class="text-center">No Epics</p>
+      <a *ngIf="projectEpics.length === 0">
+        <p class="text-center">No Epics</p>
       </a>
     </div>
   </div>
@@ -130,13 +133,10 @@
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button class="btn btn-primary ml-2">
+              <button class="btn btn-primary ml-2" (click)="editStory(row.id)">
                 <i class="fa fa-edit"></i>
               </button>
-              <button
-                class="btn btn-danger ml-3"
-                (click)="deleteStory(row.id, row.$key)"
-              >
+              <button class="btn btn-danger ml-3" (click)="deleteStory(row.id)">
                 <i class="fa fa-trash"></i>
               </button>
             </mat-cell>
