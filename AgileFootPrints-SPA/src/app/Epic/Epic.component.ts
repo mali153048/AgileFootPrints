@@ -25,10 +25,12 @@ export class EpicComponent implements OnInit {
   id: string;
   searchKey: string;
   storyId: string;
+  storyToForward: any = {};
   projectEpics: any = [];
   projectStories: any = [];
   projectDetails: any = {};
   displayedColumns: string[] = [
+    'priority',
     'storyName',
     'storyDescription',
     'epic',
@@ -139,15 +141,24 @@ export class EpicComponent implements OnInit {
     });
   }
   editStory(id: number) {
-    let storyToForward: any;
     this.storyService.getStory(id).subscribe(story => {
-      storyToForward = story;
-    });
-    const dialogRef = this.dialog.open(EditStoryComponent, {
-      width: '650px'
-    });
+      this.storyToForward = story;
+      console.log(this.storyToForward);
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
 
-    dialogRef.afterClosed().subscribe(result => {});
+      dialogConfig.data = {
+        storyDetails: this.storyToForward
+      };
+
+      const dialogRef = this.dialog.open(EditStoryComponent, dialogConfig);
+
+      dialogRef.afterClosed().subscribe(result => {
+        // result = edited story
+        console.log('Edited story', result);
+      });
+    });
   }
 
   onSearchClear() {

@@ -103,6 +103,29 @@
       </div>
       <div class="mat-elevation-z8" *ngIf="projectStories.length > 0">
         <mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="priority">
+            <mat-header-cell *matHeaderCellDef>Priority</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <i
+                *ngIf="row.priorityId === 1"
+                id="highPriority"
+                class="fa fa-arrow-up"
+                ><p id="priorityText">High</p></i
+              >
+              <i
+                *ngIf="row.priorityId === 2"
+                id="mediumPriority"
+                class="fa fa-arrow-up"
+                ><p id="priorityText">Medium</p></i
+              >
+              <i
+                *ngIf="row.priorityId === 3"
+                id="lowPriority"
+                class="fa fa-arrow-up"
+                ><p id="priorityText">Low</p></i
+              >
+            </mat-cell>
+          </ng-container>
           <ng-container matColumnDef="storyName">
             <mat-header-cell *matHeaderCellDef mat-sort-header
               >Story Name</mat-header-cell

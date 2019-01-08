@@ -72,5 +72,19 @@ namespace AgileFootPrints.API.Controllers
             return NotFound();
         }
 
+        [HttpGet("getStory/{id}")]
+        public async Task<IActionResult> GetStory(string id)
+        {
+            int storyId = Convert.ToInt32(id);
+            var story = await _context.Stories.FindAsync(storyId);
+            if (story == null)
+            {
+                return NotFound();
+            }
+            var storyToReturn = _mapper.Map<StoryDto>(story);
+            return Ok(storyToReturn);
+
+        }
+
     }
 }

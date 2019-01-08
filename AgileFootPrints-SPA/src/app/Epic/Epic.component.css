@@ -91,3 +91,22 @@ mat-grid-tile {
   height: 32px;
   width: 32px;
 }
+#highPriority {
+  color: red;
+  font-size: 24px;
+}
+#mediumPriority {
+  color: orange;
+  font-size: 24px;
+}
+#lowPriority {
+  color: green;
+  font-size: 24px;
+}
+
+#priorityText {
+  font-size: 15px;
+}
+.mat-column-priority {
+  flex: 0 0 120px;
+}

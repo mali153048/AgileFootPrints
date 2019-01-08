@@ -1,31 +1,53 @@
 <h2 mat-dialog-title>Story Details</h2>
 <mat-dialog-content>
   <mat-form-field>
-    <input matInput placeholder="Story Name" required />
+    <input
+      matInput
+      [(ngModel)]="story.storyName"
+      placeholder="Story Name"
+      required
+    />
     <mat-error>Story Name is required</mat-error>
   </mat-form-field>
   <br />
   <mat-form-field>
-    <textarea matInput placeholder="Description" required></textarea>
+    <textarea
+      matInput
+      [(ngModel)]="story.storyDescription"
+      placeholder="Description"
+      required
+    ></textarea>
     <mat-error>Story Description is required</mat-error>
   </mat-form-field>
   <br />
   <mat-form-field>
-    <textarea matInput placeholder="Acceptance Criteria" required> </textarea>
+    <textarea
+      matInput
+      [(ngModel)]="story.acceptanceCriteria"
+      placeholder="Acceptance Criteria"
+      required
+    >
+    </textarea>
     <mat-error>Provide acceptance criteria for the story</mat-error>
   </mat-form-field>
   <br />
   <mat-form-field>
-    <mat-select placeholder="Assign to Epic">
-      <mat-option> </mat-option>
+    <mat-select [(ngModel)]="story.epicId" placeholder="Assign to Epic">
+      <mat-option *ngFor="let epic of projectEpics" [value]="epic.id">
+        {{ epic.epicName }}
+      </mat-option>
     </mat-select>
   </mat-form-field>
   <br />
   <mat-form-field>
-    <mat-select placeholder="Priority"> <mat-option> </mat-option> </mat-select>
+    <mat-select [(ngModel)]="story.priorityId" placeholder="Priority">
+      <mat-option *ngFor="let priority of priorities" [value]="priority.id">
+        {{ priority.priority }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button [mat-dialog-close]="true">Close</button>
-  <button mat-raised-button color="warn">Save</button>
+  <button mat-raised-button color="warn" (click)="save()">Save</button>
 </mat-dialog-actions>
