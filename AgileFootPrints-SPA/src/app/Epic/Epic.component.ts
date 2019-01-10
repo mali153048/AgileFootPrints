@@ -122,11 +122,15 @@ export class EpicComponent implements OnInit {
     });
   }
   onCreateNewStory() {
-    const dialogRef = this.dialog.open(NewStoryComponent, {
-      width: '650px'
-    });
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(NewStoryComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
+      if (result === undefined) {
+        return;
+      }
       console.log('Posted Story Model : ', result);
       this.storyService.newStory(result).subscribe(
         story => {
@@ -156,7 +160,15 @@ export class EpicComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         // result = edited story
-        console.log('Edited story', result);
+        this.storyService.editStory(result.id, result).subscribe(
+          () => {
+            this.getProjectEpics(this.id);
+            this.alertify.success('Story Edited Successfully');
+          },
+          error => {
+            this.alertify.error(error.message);
+          }
+        );
       });
     });
   }

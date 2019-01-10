@@ -49,4 +49,7 @@ export class NewStoryComponent implements OnInit {
     this.storyModel.projectId = this.projectId;
     this.dialogRef.close(this.storyModel);
   }
+  Close() {
+    this.dialogRef.close();
+  }
 }

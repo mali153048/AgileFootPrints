@@ -7,6 +7,7 @@ using AgileFootPrints.API.Dtos;
 using AgileFootPrints.API.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -83,6 +84,26 @@ namespace AgileFootPrints.API.Controllers
             }
             var storyToReturn = _mapper.Map<StoryDto>(story);
             return Ok(storyToReturn);
+
+        }
+
+        [HttpPatch("editStory/{id}")]
+        public StoryDto UpdateStory(string id, [FromBody]JsonPatchDocument<StoryDto> storyPatch)
+        {
+            int storyId = Convert.ToInt32(id);
+            Story story = _context.Stories.Find(storyId);
+            if (story == null)
+            {
+                return null;
+            }
+            StoryDto storyDto = _mapper.Map<StoryDto>(story);
+            storyPatch.ApplyTo(storyDto);
+            _mapper.Map(storyDto, story);
+            _context.Stories.Update(story);
+            _context.SaveChanges();
+            return storyDto;
+
+
 
         }
 

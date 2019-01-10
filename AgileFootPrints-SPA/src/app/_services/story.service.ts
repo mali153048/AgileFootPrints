@@ -11,6 +11,7 @@ import { EpicService } from './epic.service';
 })
 export class StoryService {
   projectId: string;
+  storyId: string;
   baseUrl = environment.apiUrl + 'story/';
   constructor(
     private http: HttpClient,
@@ -29,5 +30,15 @@ export class StoryService {
 
   getStory(id: number): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'getStory/' + id);
+  }
+
+  editStory(id: number, story: any) {
+    this.storyId = id.toString();
+    console.log('Story id to edit :', id);
+    console.log('Story Obj to eidt', story);
+    return this.http.patch<any>(
+      this.baseUrl + 'editStory/' + this.storyId,
+      story
+    );
   }
 }
