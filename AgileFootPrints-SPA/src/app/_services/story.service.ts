@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AlertifyService } from './alertify.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
-import { EpicService } from './epic.service';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +33,7 @@ export class StoryService {
 
   editStory(id: number, story: any) {
     this.storyId = id.toString();
+
     console.log('Story id to edit :', id);
     console.log('Story Obj to eidt', story);
     return this.http.patch<any>(

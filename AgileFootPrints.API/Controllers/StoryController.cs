@@ -88,23 +88,22 @@ namespace AgileFootPrints.API.Controllers
         }
 
         [HttpPatch("editStory/{id}")]
-        public StoryDto UpdateStory(string id, [FromBody]JsonPatchDocument<StoryDto> storyPatch)
+        public async Task<IActionResult> EditStory(string id, StoryDto storyPatch)
         {
             int storyId = Convert.ToInt32(id);
-            Story story = _context.Stories.Find(storyId);
+            Story story = await _context.Stories.FindAsync(storyId);
             if (story == null)
             {
-                return null;
+                return NotFound();
             }
-            StoryDto storyDto = _mapper.Map<StoryDto>(story);
-            storyPatch.ApplyTo(storyDto);
-            _mapper.Map(storyDto, story);
-            _context.Stories.Update(story);
-            _context.SaveChanges();
-            return storyDto;
+            story.StoryName = storyPatch.StoryName;
+            story.StoryDescription = storyPatch.StoryDescription;
+            story.AcceptanceCriteria = storyPatch.AcceptanceCriteria;
+            story.EpicId = storyPatch.EpicId;
+            story.PriorityId = storyPatch.PriorityId;
+            await _context.SaveChangesAsync();
 
-
-
+            return Ok(storyPatch);
         }
 
     }
