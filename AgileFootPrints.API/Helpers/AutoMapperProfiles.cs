@@ -15,6 +15,7 @@ namespace AgileFootPrints.API.Helpers
             CreateMap<UserToReturnDto, User>();
             CreateMap<StoryDto, Story>();
             CreateMap<Story, StoryDto>();
+            CreateMap<Project, ProjectToReturnDto>();
 
         }
     }

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
@@ -37,6 +37,7 @@ import { EpicComponent } from './Epic/Epic.component';
 import { UserProfileComponent } from './UserProfile/UserProfile.component';
 import { NewStoryComponent } from './newStory/newStory.component';
 import { EditStoryComponent } from './EditStory/EditStory.component';
+import { EditProjectComponent } from './editProject/editProject.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { EditStoryComponent } from './EditStory/EditStory.component';
     EpicComponent,
     UserProfileComponent,
     NewStoryComponent,
-    EditStoryComponent
+    EditStoryComponent,
+    EditProjectComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,8 @@ import { EditStoryComponent } from './EditStory/EditStory.component';
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,
@@ -81,6 +84,6 @@ import { EditStoryComponent } from './EditStory/EditStory.component';
     EpicService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NewStoryComponent, EditStoryComponent]
+  entryComponents: [NewStoryComponent, EditStoryComponent, EditProjectComponent]
 })
 export class AppModule {}

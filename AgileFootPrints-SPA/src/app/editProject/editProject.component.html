@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>Project Details</h2>
+<form>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input
+        name="projectName"
+        matInput
+        [(ngModel)]="project.projectName"
+        placeholder="Project Name"
+        required
+      />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <textarea
+        name="projectDescription"
+        matInput
+        [(ngModel)]="project.projectDescription"
+        placeholder="Description"
+        required
+      ></textarea>
+      <mat-error>Story Description is required</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <textarea
+        name="projectKey"
+        matInput
+        [(ngModel)]="project.projectKey"
+        placeholder="Project Key"
+        required
+      >
+      </textarea>
+      <mat-error>Provide key for the project</mat-error>
+    </mat-form-field>
+    <br />
+    <!--  <mat-form-field>
+    <mat-select [(ngModel)]="project.epicId" placeholder="Assign to Epic">
+      <mat-option *ngFor="let epic of projectEpics" [value]="epic.id">
+        {{ epic.epicName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> -->
+    <br />
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="close()">Close</button>
+    <button mat-raised-button color="warn" (click)="save()">Save</button>
+  </mat-dialog-actions>
+</form>

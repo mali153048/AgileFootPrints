@@ -72,5 +72,16 @@ namespace AgileFootPrints.API.Controllers
 
         }
 
+        [HttpGet("getProject/{id}")]
+        public async Task<IActionResult> GetProject(string id)
+        {
+            int projectId = Convert.ToInt32(id);
+            var project = await _context.Projects.FindAsync(projectId);
+            if (project == null)
+                return NotFound();
+            var projectToReturn = _mapper.Map<ProjectToReturnDto>(project);
+            return Ok(projectToReturn);
+        }
+
     }
 }

@@ -13,6 +13,7 @@ import {
 import { StoryService } from '../_services/story.service';
 import { NewStoryComponent } from '../newStory/newStory.component';
 import { EditStoryComponent } from '../EditStory/EditStory.component';
+import { EditProjectComponent } from '../editProject/editProject.component';
 
 @Component({
   selector: 'app-epic',
@@ -23,6 +24,7 @@ export class EpicComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   id: string;
+  projectEdit: any = {};
   searchKey: string;
   storyId: string;
   storyToForward: any = {};
@@ -107,6 +109,40 @@ export class EpicComponent implements OnInit {
       }
     );
   }
+  editProject() {
+    this.projectService.getProject(this.id).subscribe(project => {
+      this.projectEdit = project;
+      console.log(this.projectEdit);
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+
+      dialogConfig.data = {
+        project: this.projectEdit
+      };
+
+      const dialogRef = this.dialog.open(EditProjectComponent, dialogConfig);
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === null) {
+          return;
+        }
+        console.log(result);
+        this.projectService.editProject(result.id, result).subscribe(
+          newDetails => {
+            this.projectDetails.projectName = newDetails.projectName;
+            this.projectDetails.projectDescription =
+              newDetails.projectDescription;
+            this.projectDetails.projectKey = newDetails.projectKey;
+            this.alertify.success('Project Updated successfully');
+          },
+          error => {
+            this.alertify.error(error.message);
+          }
+        );
+      });
+    });
+  }
   deleteStory(id: number) {
     this.storyId = id.toString();
     this.alertify.confirm('Confirm delete ? ', () => {
@@ -159,7 +195,9 @@ export class EpicComponent implements OnInit {
       const dialogRef = this.dialog.open(EditStoryComponent, dialogConfig);
 
       dialogRef.afterClosed().subscribe(result => {
-        // result = edited story
+        if (result === null) {
+          return;
+        }
         this.storyService.editStory(result.id, result).subscribe(
           () => {
             this.getProjectEpics(this.id);

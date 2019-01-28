@@ -48,6 +48,6 @@
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="true">Close</button>
+  <button mat-button (click)="close()">Close</button>
   <button mat-raised-button color="warn" (click)="save()">Save</button>
 </mat-dialog-actions>

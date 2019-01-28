@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class ProjectService {
   baseUrl = environment.apiUrl + 'project/';
+  projectId: string;
   constructor(private http: HttpClient) {}
 
   getAllUserProjects(userId): Observable<any> {
@@ -21,5 +22,19 @@ export class ProjectService {
 
   deleteProject(id: string) {
     return this.http.delete(this.baseUrl + 'deleteproject/' + id);
+  }
+
+  getProject(id: string): Observable<any> {
+    return this.http.get(this.baseUrl + 'getProject/' + id);
+  }
+  editProject(id: number, project: any) {
+    this.projectId = id.toString();
+    console.log('Story id to edit :', id);
+    console.log('Story Obj to eidt', project);
+
+    return null; /* this.http.patch<any>(
+      this.baseUrl + 'editStory/' + this.projectId,
+      project
+    ); */
   }
 }

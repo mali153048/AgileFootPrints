@@ -50,4 +50,7 @@ export class EditStoryComponent implements OnInit {
   save() {
     this.dialogRef.close(this.story);
   }
+  close() {
+    this.dialogRef.close(null);
+  }
 }
