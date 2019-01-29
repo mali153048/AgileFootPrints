@@ -32,9 +32,9 @@ export class ProjectService {
     console.log('Story id to edit :', id);
     console.log('Story Obj to eidt', project);
 
-    return null; /* this.http.patch<any>(
-      this.baseUrl + 'editStory/' + this.projectId,
+    return this.http.patch<any>(
+      this.baseUrl + 'editProject/' + this.projectId,
       project
-    ); */
+    );
   }
 }

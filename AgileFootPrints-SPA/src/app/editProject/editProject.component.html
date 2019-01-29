@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>Project Details</h2>
-<form>
+<form name="form" #f="ngForm" novalidate>
   <mat-dialog-content>
     <mat-form-field>
       <input
@@ -8,8 +8,11 @@
         [(ngModel)]="project.projectName"
         placeholder="Project Name"
         required
+        #projectName="ngModel"
       />
+      <mat-error> Project Name is required</mat-error>
     </mat-form-field>
+
     <br />
     <mat-form-field>
       <textarea

@@ -19,7 +19,8 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatIconModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatMenuModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -74,7 +75,8 @@ import { EditProjectComponent } from './editProject/editProject.component';
     MatButtonModule,
     MatDialogModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatMenuModule
   ],
   providers: [
     AuthService,

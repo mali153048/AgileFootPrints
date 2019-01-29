@@ -17,37 +17,28 @@
   </div>
   <hr />
 
-  <div class="dropdown" dropdown>
-    <a style="color: blue" class="dropdown-toggle " dropdownToggle
-      >Project Epics
-    </a>
+  <button mat-button [matMenuTriggerFor]="EpicManagement">
+    Epic Management
+  </button>
 
-    <div class="dropdown-menu" *dropdownMenu>
-      <a
-        style="color: blue"
-        *ngFor="let epic of projectEpics"
-        class="dropdown-item"
-        (click)="getEpicStories(epic.id)"
-        >{{ epic.epicName }}
-        <span *ngIf="epic.stories === null" class="badge badge-pill badge-info">
-          0
-        </span>
-        <span *ngIf="epic.stories !== null" class="badge badge-pill badge-info">
-          {{ epic.stories.length }}
-        </span>
-        <div class="dropdown-divider"></div>
-      </a>
-      <a *ngIf="projectEpics.length === 0">
-        <p class="text-center">No Epics</p>
-      </a>
-    </div>
-  </div>
-  <hr />
-  <div id="createEpic">
-    <a style="color: blue"
-      >Create Epic&nbsp; <i class="fa fa-plus-circle"></i
-    ></a>
-  </div>
+  <mat-menu #EpicManagement="matMenu">
+    <button
+      *ngFor="let epic of projectEpics"
+      mat-menu-item
+      [matMenuTriggerFor]="subMenu"
+    >
+      {{ epic.epicName }}
+    </button>
+    <div class="dropdown-divider"></div>
+    <button mat-menu-item>Create new Epic</button>
+  </mat-menu>
+
+  <mat-menu #subMenu="matMenu">
+    <button class="btn btn-primary ml-2"><i class="fa fa-edit"></i></button>
+    <button class="btn btn-danger ml-2"><i class="fa fa-trash"></i></button>
+    <button class="btn btn-success ml-2 mr-3"><i class="fa fa-eye"></i></button>
+    <div class="dropdown-divider"></div>
+  </mat-menu>
   <hr />
   <div id="createEpic">
     <a style="color: blue"

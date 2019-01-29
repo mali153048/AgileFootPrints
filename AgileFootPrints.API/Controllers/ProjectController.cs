@@ -83,5 +83,20 @@ namespace AgileFootPrints.API.Controllers
             return Ok(projectToReturn);
         }
 
+        [HttpPatch("editProject/{id}")]
+        public async Task<IActionResult> EditProject(string id, ProjectToReturnDto project)
+        {
+            int projectId = Convert.ToInt32(id);
+            var projectFromDb = await _context.Projects.FindAsync(projectId);
+            if (projectFromDb == null)
+                return NotFound();
+            projectFromDb.ProjectName = project.projectName;
+            projectFromDb.ProjectDescription = project.projectDescription;
+            projectFromDb.ProjectKey = project.projectKey;
+            projectFromDb.StatusId = project.statusId;
+            await _context.SaveChangesAsync();
+            return Ok(project);
+        }
+
     }
 }
