@@ -20,7 +20,8 @@ import {
   MatSortModule,
   MatIconModule,
   MatBadgeModule,
-  MatMenuModule
+  MatMenuModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -76,7 +77,8 @@ import { EditProjectComponent } from './editProject/editProject.component';
     MatDialogModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule
   ],
   providers: [
     AuthService,

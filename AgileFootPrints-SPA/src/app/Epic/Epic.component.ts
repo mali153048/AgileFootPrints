@@ -8,7 +8,8 @@ import {
   MatTableDataSource,
   MatSort,
   MatDialog,
-  MatDialogConfig
+  MatDialogConfig,
+  MatSnackBar
 } from '@angular/material';
 import { StoryService } from '../_services/story.service';
 import { NewStoryComponent } from '../newStory/newStory.component';
@@ -24,6 +25,7 @@ export class EpicComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   id: string;
+  epicId: number;
   projectEdit: any = {};
   searchKey: string;
   storyId: string;
@@ -45,7 +47,8 @@ export class EpicComponent implements OnInit {
     private projectService: ProjectService,
     private storyService: StoryService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -211,6 +214,14 @@ export class EpicComponent implements OnInit {
     });
   }
 
+  setEpicId(id: number) {
+    this.epicId = id;
+    console.log('Epic Id: ' + this.epicId);
+  }
+  editEpic() {
+    const id = this.epicId.toString();
+    this.epicService.getEpic(id).subscribe();
+  }
   onSearchClear() {
     this.searchKey = '';
     this.applyFilter();
