@@ -37,8 +37,9 @@ export class EpicService {
       epic
     );
   }
-  newEpic(epicModel: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl + 'createEpic', epicModel);
+  newEpic(projectId: string, epicModel: any) {
+    console.log(projectId, epicModel);
+    return this.http.post(this.baseUrl + 'createEpic/' + projectId, epicModel);
   }
   deleteEpic(id: string) {
     return this.http.delete<any>(this.baseUrl + 'deleteEpic/' + id);

@@ -1,20 +1,19 @@
+<head>
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
+</head>
 <div class="col-md-2 pull-left">
-  <div class="dropdown mt-3" dropdown>
-    <a style="color: blue" class="dropdown-toggle " dropdownToggle
-      >Manage Project
-    </a>
+  <button class="mt-3" mat-button [matMenuTriggerFor]="ProjectManagement">
+    Project Management
+  </button>
 
-    <div class="dropdown-menu" *dropdownMenu>
-      <a style="color: blue" class="dropdown-item" (click)="editProject()"
-        >Edit Project Details
-        <div class="dropdown-divider"></div>
-      </a>
-      <a style="color: red" class="dropdown-item" (click)="deleteProject()"
-        >Delete Project
-        <div class="dropdown-divider"></div>
-      </a>
-    </div>
-  </div>
+  <mat-menu #ProjectManagement="matMenu">
+    <button mat-menu-item (click)="editProject()">Edit project Details</button>
+    <div class="dropdown-divider"></div>
+    <button mat-menu-item (click)="deleteProject()">Delete project</button>
+  </mat-menu>
   <hr />
 
   <button mat-button [matMenuTriggerFor]="EpicManagement">
@@ -45,11 +44,15 @@
     <div class="dropdown-divider"></div>
   </mat-menu>
   <hr />
-  <div id="createEpic">
-    <a style="color: blue"
-      >Add Sprints&nbsp; <i class="fa fa-plus-circle"></i
-    ></a>
-  </div>
+  <button class="mt-3" mat-button [matMenuTriggerFor]="SprintManagement">
+    Sprint Management
+  </button>
+
+  <mat-menu #SprintManagement="matMenu">
+    <button mat-menu-item (click)="editProject()">Action 1</button>
+    <div class="dropdown-divider"></div>
+    <button mat-menu-item (click)="deleteProject()">Action 2</button>
+  </mat-menu>
 </div>
 <div class="vr">&nbsp;</div>
 

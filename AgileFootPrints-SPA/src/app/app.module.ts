@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { NgMatSearchBarModule } from 'ng-mat-search-bar';
 import {
   MatTableModule,
   MatPaginatorModule,
@@ -82,7 +83,8 @@ import { NewEpicComponent } from './NewEpic/NewEpic.component';
     MatSelectModule,
     ReactiveFormsModule,
     MatMenuModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgMatSearchBarModule
   ],
   providers: [
     AuthService,

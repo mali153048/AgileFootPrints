@@ -10,7 +10,7 @@ import { EditEpicComponent } from '../EditEpic/EditEpic.component';
 export class NewEpicComponent implements OnInit {
   epicModel: any = {};
   constructor(
-    public dialogRef: MatDialogRef<EditEpicComponent>,
+    public dialogRef: MatDialogRef<NewEpicComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 

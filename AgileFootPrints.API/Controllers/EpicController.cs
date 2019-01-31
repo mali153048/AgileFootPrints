@@ -90,13 +90,19 @@ namespace AgileFootPrints.API.Controllers
             return Ok();
         }
 
-        [HttpPost("createEpic")]
-        public async Task<IActionResult> CreateEpic(EpicToReturnDto epic)
+        [HttpPost("createEpic/{projectId}")]
+        public async Task<IActionResult> CreateEpic(string projectId, EpicToReturnDto epic)
         {
+            int pId = Convert.ToInt32(projectId);
+            var project = await _context.Projects.FindAsync(pId);
+            if (project == null)
+                return NotFound("Project Not Found");
+
             var epicToSave = _mapper.Map<Epic>(epic);
+            epicToSave.ProjectId = pId;
             await _context.Epics.AddAsync(epicToSave);
             await _context.SaveChangesAsync();
-            return Ok("Epic Creted successfully");
+            return Ok();
         }
     }
 }

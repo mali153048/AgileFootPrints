@@ -270,26 +270,24 @@ export class EpicComponent implements OnInit {
   }
 
   newEpic() {
-    this.epicService.getEpic(this.epicId, this.id).subscribe(epic => {
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      const dialogRef = this.dialog.open(NewEpicComponent, dialogConfig);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(NewEpicComponent, dialogConfig);
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result === null) {
-          return;
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === null) {
+        return;
+      }
+      this.epicService.newEpic(this.id, result).subscribe(
+        () => {
+          this.getProjectEpics(this.id);
+          this.snackBar.open('Epic created Successfully', 'OK');
+        },
+        error => {
+          this.snackBar.open(error.message, 'OK');
         }
-        this.epicService.newEpic(result).subscribe(
-          () => {
-            this.getProjectEpics(this.id);
-            this.snackBar.open('Epic created Successfully', 'OK');
-          },
-          error => {
-            this.snackBar.open(error.message, 'OK');
-          }
-        );
-      });
+      );
     });
   }
   onSearchClear() {
