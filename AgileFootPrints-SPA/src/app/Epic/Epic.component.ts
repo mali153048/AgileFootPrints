@@ -15,6 +15,7 @@ import { StoryService } from '../_services/story.service';
 import { NewStoryComponent } from '../newStory/newStory.component';
 import { EditStoryComponent } from '../EditStory/EditStory.component';
 import { EditProjectComponent } from '../editProject/editProject.component';
+import { EditEpicComponent } from '../EditEpic/EditEpic.component';
 
 @Component({
   selector: 'app-epic',
@@ -25,10 +26,12 @@ export class EpicComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   id: string;
-  epicId: number;
+  epicId: string;
+
   projectEdit: any = {};
   searchKey: string;
   storyId: string;
+  epicToForward: any = {};
   storyToForward: any = {};
   projectEpics: any = [];
   projectStories: any = [];
@@ -215,12 +218,54 @@ export class EpicComponent implements OnInit {
   }
 
   setEpicId(id: number) {
-    this.epicId = id;
+    this.epicId = id.toString();
     console.log('Epic Id: ' + this.epicId);
   }
   editEpic() {
-    const id = this.epicId.toString();
-    this.epicService.getEpic(id).subscribe();
+    // this.eId = this.epicId.toString();
+    this.epicService.getEpic(this.epicId, this.id).subscribe(epic => {
+      this.epicToForward = epic;
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+
+      dialogConfig.data = {
+        epic: this.epicToForward
+      };
+
+      const dialogRef = this.dialog.open(EditEpicComponent, dialogConfig);
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === null) {
+          return;
+        }
+        this.epicService.editEpic(result.id, result).subscribe(
+          () => {
+            this.getProjectEpics(this.id);
+            this.snackBar.open('Epic updated Successfully', 'OK');
+          },
+          error => {
+            this.snackBar.open(error.message);
+          }
+        );
+      });
+    });
+  }
+  deleteEpic() {
+    this.alertify.confirm(
+      'The Epic will be deleted. However the stories in Epics will not be deleted. Confirm Delete ? ',
+      () => {
+        this.epicService.deleteEpic(this.epicId).subscribe(
+          res => {
+            this.getProjectEpics(this.id);
+            this.snackBar.open('Deleted successfully', 'DONE');
+          },
+          error => {
+            this.snackBar.open(error.message);
+          }
+        );
+      }
+    );
   }
   onSearchClear() {
     this.searchKey = '';

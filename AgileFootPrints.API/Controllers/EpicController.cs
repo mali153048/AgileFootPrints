@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AgileFootPrints.API.Data;
+using AgileFootPrints.API.Dtos;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +48,20 @@ namespace AgileFootPrints.API.Controllers
             int epicId = Convert.ToInt32(id);
             var result = await _context.Stories.Where(x => x.EpicId == epicId).ToListAsync();
             return Ok(result);
+        }
+
+        [HttpGet("getEpic/{projectId}/{epicId}")]
+        public async Task<IActionResult> GetEpic(string projectId, string epicId)
+        {
+            int pId = Convert.ToInt32(projectId);
+            int eId = Convert.ToInt32(epicId);
+            var result = await _context.Epics.Where(x => x.ProjectId == pId && x.Id == eId).SingleOrDefaultAsync();
+            if (result == null)
+                return NotFound();
+            var epicToReturn = _mapper.Map<EpicToReturnDto>(result);
+            return Ok(epicToReturn);
+
+
         }
     }
 }

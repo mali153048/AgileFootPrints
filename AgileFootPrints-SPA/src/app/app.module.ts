@@ -40,6 +40,7 @@ import { UserProfileComponent } from './UserProfile/UserProfile.component';
 import { NewStoryComponent } from './newStory/newStory.component';
 import { EditStoryComponent } from './EditStory/EditStory.component';
 import { EditProjectComponent } from './editProject/editProject.component';
+import { EditEpicComponent } from './EditEpic/EditEpic.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { EditProjectComponent } from './editProject/editProject.component';
     UserProfileComponent,
     NewStoryComponent,
     EditStoryComponent,
-    EditProjectComponent
+    EditProjectComponent,
+    EditEpicComponent
   ],
   imports: [
     BrowserModule,
@@ -88,6 +90,11 @@ import { EditProjectComponent } from './editProject/editProject.component';
     EpicService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [NewStoryComponent, EditStoryComponent, EditProjectComponent]
+  entryComponents: [
+    NewStoryComponent,
+    EditStoryComponent,
+    EditProjectComponent,
+    EditEpicComponent
+  ]
 })
 export class AppModule {}
