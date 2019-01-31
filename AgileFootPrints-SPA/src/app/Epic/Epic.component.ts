@@ -16,6 +16,7 @@ import { NewStoryComponent } from '../newStory/newStory.component';
 import { EditStoryComponent } from '../EditStory/EditStory.component';
 import { EditProjectComponent } from '../editProject/editProject.component';
 import { EditEpicComponent } from '../EditEpic/EditEpic.component';
+import { NewEpicComponent } from '../NewEpic/NewEpic.component';
 
 @Component({
   selector: 'app-epic',
@@ -245,7 +246,7 @@ export class EpicComponent implements OnInit {
             this.snackBar.open('Epic updated Successfully', 'OK');
           },
           error => {
-            this.snackBar.open(error.message);
+            this.snackBar.open(error.message, 'OK');
           }
         );
       });
@@ -258,14 +259,38 @@ export class EpicComponent implements OnInit {
         this.epicService.deleteEpic(this.epicId).subscribe(
           res => {
             this.getProjectEpics(this.id);
-            this.snackBar.open('Deleted successfully', 'DONE');
+            this.snackBar.open('Deleted successfully', 'OK');
           },
           error => {
-            this.snackBar.open(error.message);
+            this.snackBar.open(error.message, 'OK');
           }
         );
       }
     );
+  }
+
+  newEpic() {
+    this.epicService.getEpic(this.epicId, this.id).subscribe(epic => {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      const dialogRef = this.dialog.open(NewEpicComponent, dialogConfig);
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === null) {
+          return;
+        }
+        this.epicService.newEpic(result).subscribe(
+          () => {
+            this.getProjectEpics(this.id);
+            this.snackBar.open('Epic created Successfully', 'OK');
+          },
+          error => {
+            this.snackBar.open(error.message, 'OK');
+          }
+        );
+      });
+    });
   }
   onSearchClear() {
     this.searchKey = '';

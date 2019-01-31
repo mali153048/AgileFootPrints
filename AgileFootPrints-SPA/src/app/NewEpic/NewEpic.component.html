@@ -1,0 +1,27 @@
+<mat-dialog-content>
+  <h5>Create New Epic</h5>
+  <mat-form-field>
+    <input
+      [(ngModel)]="epicModel.epicName"
+      matInput
+      placeholder="Epic Name"
+      required
+    />
+    <mat-error>Epic Name is required</mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <textarea
+      [(ngModel)]="epicModel.epicDescription"
+      matInput
+      placeholder="Description"
+      required
+    ></textarea>
+    <mat-error>Epic Description is required</mat-error>
+  </mat-form-field>
+  <br />
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="close()">Close</button>
+  <button mat-raised-button color="warn" (click)="create()">Create Epic</button>
+</mat-dialog-actions>

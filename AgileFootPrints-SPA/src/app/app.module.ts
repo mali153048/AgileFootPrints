@@ -41,6 +41,7 @@ import { NewStoryComponent } from './newStory/newStory.component';
 import { EditStoryComponent } from './EditStory/EditStory.component';
 import { EditProjectComponent } from './editProject/editProject.component';
 import { EditEpicComponent } from './EditEpic/EditEpic.component';
+import { NewEpicComponent } from './NewEpic/NewEpic.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { EditEpicComponent } from './EditEpic/EditEpic.component';
     NewStoryComponent,
     EditStoryComponent,
     EditProjectComponent,
-    EditEpicComponent
+    EditEpicComponent,
+    NewEpicComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +96,8 @@ import { EditEpicComponent } from './EditEpic/EditEpic.component';
     NewStoryComponent,
     EditStoryComponent,
     EditProjectComponent,
-    EditEpicComponent
+    EditEpicComponent,
+    NewEpicComponent
   ]
 })
 export class AppModule {}

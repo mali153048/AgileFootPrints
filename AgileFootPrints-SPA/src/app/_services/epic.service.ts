@@ -9,7 +9,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 export class EpicService {
   private IdSource = new BehaviorSubject('');
   currentId = this.IdSource.asObservable();
-
+  epicId: string;
   baseUrl = environment.apiUrl + 'epic/';
   storyBaseUrl = environment.apiUrl + 'story/';
 
@@ -30,11 +30,17 @@ export class EpicService {
       this.baseUrl + 'getEpic/' + proejctId + '/' + epicId
     );
   }
-  editEpic(id: number, epic: any) {
-    return this.http.patch<any>(this.baseUrl + 'editEpic/' + id, epic);
+  editEpic(id: number, epic: any): Observable<any> {
+    // this.epicId = id.toString();
+    return this.http.patch<any>(
+      this.baseUrl + 'editEpic/' + id.toString(),
+      epic
+    );
   }
-
+  newEpic(epicModel: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'createEpic', epicModel);
+  }
   deleteEpic(id: string) {
-    return null;
+    return this.http.delete<any>(this.baseUrl + 'deleteEpic/' + id);
   }
 }

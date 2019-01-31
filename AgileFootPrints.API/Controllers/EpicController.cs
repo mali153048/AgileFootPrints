@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AgileFootPrints.API.Data;
 using AgileFootPrints.API.Dtos;
+using AgileFootPrints.API.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -62,6 +63,40 @@ namespace AgileFootPrints.API.Controllers
             return Ok(epicToReturn);
 
 
+        }
+
+        [HttpPatch("editEpic/{epicId}")]
+        public async Task<IActionResult> EditEpic(string epicId, EpicToReturnDto epicToReturnDto)
+        {
+            int eId = Convert.ToInt32(epicId);
+            var epicFromDB = await _context.Epics.FindAsync(eId);
+            if (epicFromDB == null)
+                return NotFound("An Error Occured");
+            epicFromDB.EpicName = epicToReturnDto.epicName;
+            epicFromDB.EpicDescription = epicToReturnDto.epicDescription;
+            await _context.SaveChangesAsync();
+            return Ok(epicToReturnDto);
+        }
+
+        [HttpDelete("deleteEpic/{epicId}")]
+        public async Task<IActionResult> deleteEpic(string epicId)
+        {
+            int eId = Convert.ToInt32(epicId);
+            var epic = await _context.Epics.FindAsync(eId);
+            if (epic == null)
+                return NotFound("An Error occured. Cannot Delete");
+            _context.Epics.Remove(epic);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost("createEpic")]
+        public async Task<IActionResult> CreateEpic(EpicToReturnDto epic)
+        {
+            var epicToSave = _mapper.Map<Epic>(epic);
+            await _context.Epics.AddAsync(epicToSave);
+            await _context.SaveChangesAsync();
+            return Ok("Epic Creted successfully");
         }
     }
 }
