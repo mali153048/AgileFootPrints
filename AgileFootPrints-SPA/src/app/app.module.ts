@@ -22,7 +22,10 @@ import {
   MatIconModule,
   MatBadgeModule,
   MatMenuModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatToolbarModule,
+  MatSidenavModule,
+  MatListModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -43,6 +46,7 @@ import { EditStoryComponent } from './EditStory/EditStory.component';
 import { EditProjectComponent } from './editProject/editProject.component';
 import { EditEpicComponent } from './EditEpic/EditEpic.component';
 import { NewEpicComponent } from './NewEpic/NewEpic.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -84,7 +88,11 @@ import { NewEpicComponent } from './NewEpic/NewEpic.component';
     ReactiveFormsModule,
     MatMenuModule,
     MatSnackBarModule,
-    NgMatSearchBarModule
+    NgMatSearchBarModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [
     AuthService,

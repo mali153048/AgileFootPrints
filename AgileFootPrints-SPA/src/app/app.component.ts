@@ -15,4 +15,9 @@ export class AppComponent implements OnInit {
       this.authService.decodedToken = this.jwtHelper.decodeToken(token);
     }
   }
+
+  loggedIn() {
+    // used to check if the user is logged in or not
+    return this.authService.loggedIn();
+  }
 }

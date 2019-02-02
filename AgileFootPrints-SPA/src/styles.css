@@ -5,3 +5,10 @@
 @import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
 @import '../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '../node_modules/@icon/font-awesome/font-awesome.css';
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}

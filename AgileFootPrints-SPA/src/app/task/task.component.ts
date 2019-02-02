@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { StoryService } from '../_services/story.service';
+import { Observable } from 'rxjs';
+import {
+  BreakpointState,
+  BreakpointObserver,
+  Breakpoints
+} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-task',
@@ -7,7 +13,10 @@ import { StoryService } from '../_services/story.service';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
-  constructor(private storyService: StoryService) {}
+  isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(
+    Breakpoints.Handset
+  );
+  constructor(private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit() {}
 }
