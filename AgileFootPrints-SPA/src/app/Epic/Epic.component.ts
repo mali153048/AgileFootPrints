@@ -17,6 +17,7 @@ import { EditStoryComponent } from '../EditStory/EditStory.component';
 import { EditProjectComponent } from '../editProject/editProject.component';
 import { EditEpicComponent } from '../EditEpic/EditEpic.component';
 import { NewEpicComponent } from '../NewEpic/NewEpic.component';
+import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-epic',
@@ -28,7 +29,10 @@ export class EpicComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   id: string;
   epicId: string;
+  hoveredDate: NgbDate;
 
+  fromDate: NgbDate;
+  toDate: NgbDate;
   projectEdit: any = {};
   searchKey: string;
   storyId: string;

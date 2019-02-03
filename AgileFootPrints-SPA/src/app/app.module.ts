@@ -25,7 +25,9 @@ import {
   MatSnackBarModule,
   MatToolbarModule,
   MatSidenavModule,
-  MatListModule
+  MatListModule,
+  MatExpansionPanel,
+  MatExpansionModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -92,7 +94,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     LayoutModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule
   ],
   providers: [
     AuthService,
