@@ -18,6 +18,7 @@ import { EditProjectComponent } from '../editProject/editProject.component';
 import { EditEpicComponent } from '../EditEpic/EditEpic.component';
 import { NewEpicComponent } from '../NewEpic/NewEpic.component';
 import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { SprintService } from '../_services/sprint.service';
 
 @Component({
   selector: 'app-epic',
@@ -39,6 +40,7 @@ export class EpicComponent implements OnInit {
   epicToForward: any = {};
   storyToForward: any = {};
   projectEpics: any = [];
+  proejctSprints: any = [];
   projectStories: any = [];
   projectDetails: any = {};
   displayedColumns: string[] = [
@@ -51,6 +53,7 @@ export class EpicComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   constructor(
     private epicService: EpicService,
+    private sprintService: SprintService,
     private alertify: AlertifyService,
     private projectService: ProjectService,
     private storyService: StoryService,
@@ -292,6 +295,11 @@ export class EpicComponent implements OnInit {
           this.snackBar.open(error.message, 'OK');
         }
       );
+    });
+  }
+  getSprints() {
+    this.sprintService.getSprints(this.id).subscribe(next => {
+      this.proejctSprints = next;
     });
   }
   onSearchClear() {

@@ -13,6 +13,7 @@ namespace AgileFootPrints.API.Models
         public Status Status { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
+        public ICollection<Sprint> Sprints { get; set; }
         public ICollection<Story> Stories { get; set; }
         public ICollection<Epic> Epics { get; set; }
 

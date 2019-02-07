@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AgileFootPrints.API.Migrations
 {
-    public partial class Initial : Migration
+    public partial class projectSprintRelationshipAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,21 +48,6 @@ namespace AgileFootPrints.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Priorities", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Sprints",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    SprintName = table.Column<string>(nullable: true),
-                    StartDate = table.Column<DateTime>(nullable: false),
-                    EndDate = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sprints", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -252,43 +237,6 @@ namespace AgileFootPrints.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WorkItems",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    WorkItemName = table.Column<string>(nullable: true),
-                    WorkItemDescription = table.Column<string>(nullable: true),
-                    StartDate = table.Column<DateTime>(nullable: false),
-                    EndDate = table.Column<DateTime>(nullable: false),
-                    SprintId = table.Column<int>(nullable: true),
-                    StatusId = table.Column<int>(nullable: true),
-                    UserId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WorkItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_WorkItems_Sprints_SprintId",
-                        column: x => x.SprintId,
-                        principalTable: "Sprints",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_WorkItems_Statuses_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "Statuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_WorkItems_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Epics",
                 columns: table => new
                 {
@@ -310,26 +258,25 @@ namespace AgileFootPrints.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Revisions",
+                name: "Sprints",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    RepositoryURL = table.Column<string>(nullable: true),
-                    PathInRepository = table.Column<string>(nullable: true),
-                    CommitMessage = table.Column<string>(nullable: true),
-                    DateCraeted = table.Column<DateTime>(nullable: false),
-                    WorkItemId = table.Column<int>(nullable: true)
+                    SprintName = table.Column<string>(nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    projectId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Revisions", x => x.Id);
+                    table.PrimaryKey("PK_Sprints", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Revisions_WorkItems_WorkItemId",
-                        column: x => x.WorkItemId,
-                        principalTable: "WorkItems",
+                        name: "FK_Sprints_Projects_projectId",
+                        column: x => x.projectId,
+                        principalTable: "Projects",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -371,6 +318,66 @@ namespace AgileFootPrints.API.Migrations
                         name: "FK_Stories_Sprints_SprintId",
                         column: x => x.SprintId,
                         principalTable: "Sprints",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    WorkItemName = table.Column<string>(nullable: true),
+                    WorkItemDescription = table.Column<string>(nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    SprintId = table.Column<int>(nullable: true),
+                    StatusId = table.Column<int>(nullable: true),
+                    UserId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkItems_Sprints_SprintId",
+                        column: x => x.SprintId,
+                        principalTable: "Sprints",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_WorkItems_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_WorkItems_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Revisions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    RepositoryURL = table.Column<string>(nullable: true),
+                    PathInRepository = table.Column<string>(nullable: true),
+                    CommitMessage = table.Column<string>(nullable: true),
+                    DateCraeted = table.Column<DateTime>(nullable: false),
+                    WorkItemId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Revisions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Revisions_WorkItems_WorkItemId",
+                        column: x => x.WorkItemId,
+                        principalTable: "WorkItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -474,6 +481,11 @@ namespace AgileFootPrints.API.Migrations
                 column: "WorkItemId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Sprints_projectId",
+                table: "Sprints",
+                column: "projectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Stories_EpicId",
                 table: "Stories",
                 column: "EpicId");
@@ -551,10 +563,10 @@ namespace AgileFootPrints.API.Migrations
                 name: "WorkItems");
 
             migrationBuilder.DropTable(
-                name: "Projects");
+                name: "Sprints");
 
             migrationBuilder.DropTable(
-                name: "Sprints");
+                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
