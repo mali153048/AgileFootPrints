@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AgileFootPrints.API.Data;
+using AgileFootPrints.API.Dtos;
+using AgileFootPrints.API.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,11 +28,29 @@ namespace AgileFootPrints.API.Controllers
         [HttpGet("getSprints/{projectId}")]
         public async Task<IActionResult> GetSprints(string projectId)
         {
-            if (projectId == "")
-                return BadRequest("Bad Request");
             int pId = Convert.ToInt32(projectId);
             var sprints = await _context.Sprints.Where(x => x.projectId == pId).ToListAsync();
             return Ok(sprints);
+        }
+
+        [HttpPost("newSprint")]
+        public async Task<IActionResult> NewSprint(SprintDto sprint)
+        {
+            var sprintToSave = _mapper.Map<Sprint>(sprint);
+            await _context.Sprints.AddAsync(sprintToSave);
+            await _context.SaveChangesAsync();
+            return CreatedAtRoute("GetSprint", new { id = sprintToSave.Id }, sprint);
+        }
+        [HttpGet("{id}", Name = "GetSprint")]
+        public async Task<IActionResult> GetSprint(int id)
+        {
+            var sprint = await _context.Sprints.FindAsync(id);
+            if (sprint == null)
+            {
+                return NotFound("Some error occured");
+            }
+            var sprintToReturn = _mapper.Map<SprintDto>(sprint);
+            return Ok(sprintToReturn);
         }
 
     }

@@ -15,6 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { NgMatSearchBarModule } from 'ng-mat-search-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import {
   MatTableModule,
   MatPaginatorModule,
@@ -95,7 +97,9 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgxSpinnerModule,
+    MatTooltipModule
   ],
   providers: [
     AuthService,

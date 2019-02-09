@@ -62,25 +62,51 @@
     </div>
   </div>
 </div>
-
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
 <!-- Sprints Panels -->
 <ngb-accordion #sprints="ngbAccordion" activeIds="ngb-panel-0">
   <ngb-panel title="Sprints">
     <ng-template ngbPanelContent>
-      <mat-expansion-panel>
+      <mat-expansion-panel *ngFor="let sprint of proejctSprints">
         <mat-expansion-panel-header>
           <mat-panel-title class="mt-3">
-            Sprint Name goes here
+            {{ sprint.sprintName }}
           </mat-panel-title>
 
           <mat-panel-description>
-            <p class="mt-3">Sprint date goes here</p>
-            <div class="pt-2 ml-5">
-              <button mat-raised-button color="primary">
-                Edit
-              </button>
-              <button class="ml-2" mat-raised-button color="warn">
-                Delete
+            <b class="pr-5 pt-2">
+              Starts: {{ sprint.startDate | date: 'dd/MMM/yyyy HH:mm:SS' }}
+            </b>
+
+            <b class="pr-5 pt-2"
+              >Ends : {{ sprint.endDate | date: 'dd/MMM/yyyy HH:mm:SS' }}</b
+            >
+
+            <div class="pl-5">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <button
+                mat-mini-fab
+                matTooltip="Update Sprint properties"
+                color="primary"
+              >
+                <mat-icon aria-label=" icon-button with a update icon"
+                  >update</mat-icon
+                ></button
+              >&nbsp;&nbsp;
+              <button mat-mini-fab matTooltip="Delete Sprint" color="warn">
+                <mat-icon aria-label="icon-button with a delete icon"
+                  >delete</mat-icon
+                ></button
+              >&nbsp;&nbsp;
+              <button mat-mini-fab matTooltip="Start Sprint" color="warn">
+                <i class="fa fa-play"></i>
               </button>
             </div>
           </mat-panel-description>

@@ -19,6 +19,7 @@ import { EditEpicComponent } from '../EditEpic/EditEpic.component';
 import { NewEpicComponent } from '../NewEpic/NewEpic.component';
 import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { SprintService } from '../_services/sprint.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-epic',
@@ -29,6 +30,7 @@ export class EpicComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   id: string;
+
   epicId: string;
   hoveredDate: NgbDate;
 
@@ -52,6 +54,7 @@ export class EpicComponent implements OnInit {
   ];
   dataSource: MatTableDataSource<any>;
   constructor(
+    private spinner: NgxSpinnerService,
     private epicService: EpicService,
     private sprintService: SprintService,
     private alertify: AlertifyService,
@@ -71,6 +74,13 @@ export class EpicComponent implements OnInit {
       localStorage.setItem('projectId', this.id);
       this.getProjectEpics(this.id);
     }
+    this.spinner.show();
+
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 3000);
+    this.getSprints();
   }
 
   getProjectEpics(id: string) {
@@ -298,9 +308,19 @@ export class EpicComponent implements OnInit {
     });
   }
   getSprints() {
-    this.sprintService.getSprints(this.id).subscribe(next => {
-      this.proejctSprints = next;
-    });
+    this.sprintService.getSprints(this.id).subscribe(
+      next => {
+        next.forEach(element => {
+          element.startDate = new Date(element.startDate);
+          element.startDate = new Date(element.endDate);
+        });
+        this.proejctSprints = next;
+        console.log('Project Sprints', this.proejctSprints);
+      },
+      error => {
+        this.snackBar.open(error.message, 'OK');
+      }
+    );
   }
   onSearchClear() {
     this.searchKey = '';

@@ -32,6 +32,7 @@
     "font-awesome": "^4.7.0",
     "ng-mat-search-bar": "^3.0.1",
     "ngx-bootstrap": "^3.0.1",
+    "ngx-spinner": "^7.0.0",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },
