@@ -22,7 +22,7 @@ export class SprintService {
     return this.http.get<any>(this.baseUrl + 'getSprints/' + projectId);
   }
 
-  newSprint(sprintModel: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/newSprint', sprintModel);
+  newSprint(projectId: string, sprint: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'newSprint/' + projectId, sprint);
   }
 }

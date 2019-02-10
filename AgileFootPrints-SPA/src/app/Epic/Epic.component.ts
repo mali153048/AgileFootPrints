@@ -20,6 +20,7 @@ import { NewEpicComponent } from '../NewEpic/NewEpic.component';
 import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { SprintService } from '../_services/sprint.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { NewSprintComponent } from '../NewSprint/NewSprint.component';
 
 @Component({
   selector: 'app-epic',
@@ -27,6 +28,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./Epic.component.css']
 })
 export class EpicComponent implements OnInit {
+  sprintStatus: string;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   id: string;
@@ -312,7 +314,7 @@ export class EpicComponent implements OnInit {
       next => {
         next.forEach(element => {
           element.startDate = new Date(element.startDate);
-          element.startDate = new Date(element.endDate);
+          element.endDate = new Date(element.endDate);
         });
         this.proejctSprints = next;
         console.log('Project Sprints', this.proejctSprints);
@@ -321,6 +323,27 @@ export class EpicComponent implements OnInit {
         this.snackBar.open(error.message, 'OK');
       }
     );
+  }
+  newSprint() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(NewSprintComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data === null) {
+        return;
+      }
+      this.sprintService.newSprint(this.id, data).subscribe(
+        () => {
+          this.getSprints();
+          this.alertify.success('New Sprint created');
+        },
+        error => {
+          this.snackBar.open(error.message, 'OK');
+        }
+      );
+    });
   }
   onSearchClear() {
     this.searchKey = '';

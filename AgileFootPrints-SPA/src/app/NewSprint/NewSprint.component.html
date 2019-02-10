@@ -1,0 +1,13 @@
+<mat-form-field appearance="outline">
+  <mat-label>Sprint Name</mat-label>
+  <input matInput placeholder="Sprint Name" [(ngModel)]="sprintName" required />
+  <mat-hint>Add relevant sprint names</mat-hint>
+</mat-form-field>
+<div class="row">
+  <div class="col-md-2">
+    <button mat-raised-button color="primary" (click)="close()">Close</button>
+  </div>
+  <div class="col-md-2">
+    <button mat-raised-button color="warn" (click)="save()">Save</button>
+  </div>
+</div>

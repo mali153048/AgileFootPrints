@@ -33,13 +33,22 @@ namespace AgileFootPrints.API.Controllers
             return Ok(sprints);
         }
 
-        [HttpPost("newSprint")]
-        public async Task<IActionResult> NewSprint(SprintDto sprint)
+        [HttpPost("newSprint/{projectId}")]
+        public async Task<IActionResult> NewSprint(string projectId, [FromBody]SprintDto sprint)
         {
+            if (projectId == null || projectId == "")
+                return BadRequest("Project doesnt exists");
+            if (sprint.SprintName == null)
+                return BadRequest("Sprint Name is required");
+            sprint.projectId = Convert.ToInt32(projectId);
             var sprintToSave = _mapper.Map<Sprint>(sprint);
+
             await _context.Sprints.AddAsync(sprintToSave);
             await _context.SaveChangesAsync();
-            return CreatedAtRoute("GetSprint", new { id = sprintToSave.Id }, sprint);
+            return CreatedAtRoute("GetSprint", new
+            {
+                id = sprintToSave.Id
+            }, sprintToSave);
         }
         [HttpGet("{id}", Name = "GetSprint")]
         public async Task<IActionResult> GetSprint(int id)

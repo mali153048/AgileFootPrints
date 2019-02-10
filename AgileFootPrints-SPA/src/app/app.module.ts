@@ -51,6 +51,7 @@ import { EditProjectComponent } from './editProject/editProject.component';
 import { EditEpicComponent } from './EditEpic/EditEpic.component';
 import { NewEpicComponent } from './NewEpic/NewEpic.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { NewSprintComponent } from './NewSprint/NewSprint.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     EditStoryComponent,
     EditProjectComponent,
     EditEpicComponent,
-    NewEpicComponent
+    NewEpicComponent,
+    NewSprintComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +101,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatListModule,
     MatExpansionModule,
     NgxSpinnerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatBadgeModule
   ],
   providers: [
     AuthService,
@@ -114,7 +117,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     EditStoryComponent,
     EditProjectComponent,
     EditEpicComponent,
-    NewEpicComponent
+    NewEpicComponent,
+    NewSprintComponent
   ]
 })
 export class AppModule {}
