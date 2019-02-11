@@ -312,12 +312,23 @@ export class EpicComponent implements OnInit {
   getSprints() {
     this.sprintService.getSprints(this.id).subscribe(
       next => {
+        console.log('Displaying', next);
         next.forEach(element => {
           element.startDate = new Date(element.startDate);
           element.endDate = new Date(element.endDate);
+
+          if (
+            element.startDate.getTime() ===
+              new Date('0001-01-01T00:00:00').getTime() ||
+            element.endDate.getTime() ===
+              new Date('0001-01-01T00:00:00').getTime()
+          ) {
+            element.startDate = undefined;
+            element.endDate = undefined;
+          }
         });
+
         this.proejctSprints = next;
-        console.log('Project Sprints', this.proejctSprints);
       },
       error => {
         this.snackBar.open(error.message, 'OK');

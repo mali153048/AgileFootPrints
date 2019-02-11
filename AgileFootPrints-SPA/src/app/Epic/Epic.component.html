@@ -105,12 +105,33 @@
           </mat-panel-title>
 
           <mat-panel-description>
-            <b class="pr-5 pt-2 text-light">
+            <b
+              *ngIf="sprint.startDate !== undefined"
+              class="pr-5 pt-2 text-light"
+            >
               Starts: {{ sprint.startDate | date: 'dd/MMM/yyyy HH:mm:SS' }}
             </b>
+            <b
+              class="pr-5 pt-2 text-light"
+              *ngIf="sprint.startDate === undefined"
+            >
+              Starts:</b
+            >
+            <i class="pr-5 pt-2 text-light" *ngIf="sprint.endDate === undefined"
+              >Not yet Specified</i
+            >
 
-            <b class="pr-5 pt-2 text-light"
+            <b *ngIf="sprint.endDate !== undefined" class="pr-5 pt-2 text-light"
               >Ends : {{ sprint.endDate | date: 'dd/MMM/yyyy HH:mm:SS' }}</b
+            >
+            <b
+              class="pr-5 pt-2 text-light"
+              *ngIf="sprint.endDate === undefined"
+            >
+              Starts:</b
+            >
+            <i class="pr-5 pt-2 text-light" *ngIf="sprint.endDate === undefined"
+              >Not yet Specified</i
             >
 
             <div class="pl-5">

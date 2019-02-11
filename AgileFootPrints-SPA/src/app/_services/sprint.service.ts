@@ -23,6 +23,11 @@ export class SprintService {
   }
 
   newSprint(projectId: string, sprint: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl + 'newSprint/' + projectId, sprint);
+    console.log('SprintName:' + sprint, 'Project Id: ', projectId);
+    // tslint:disable-next-line:prefer-const
+    let sp = {
+      sprintName: sprint
+    };
+    return this.http.post<any>(this.baseUrl + 'newSprint/' + projectId, sp);
   }
 }
