@@ -21,6 +21,7 @@ import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { SprintService } from '../_services/sprint.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NewSprintComponent } from '../NewSprint/NewSprint.component';
+import { SprintConfigComponent } from '../SprintConfig/SprintConfig.component';
 
 @Component({
   selector: 'app-epic',
@@ -81,7 +82,7 @@ export class EpicComponent implements OnInit {
     setTimeout(() => {
       /** spinner ends after 5 seconds */
       this.spinner.hide();
-    }, 3000);
+    }, 1000);
     this.getSprints();
   }
 
@@ -355,6 +356,27 @@ export class EpicComponent implements OnInit {
         }
       );
     });
+  }
+  launchSprint(id: number) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(SprintConfigComponent, dialogConfig);
+
+    /* dialogRef.afterClosed().subscribe(data => {
+      if (data === null) {
+        return;
+      }
+      this.sprintService.newSprint(this.id, data).subscribe(
+        () => {
+          this.getSprints();
+          this.alertify.success('New Sprint created');
+        },
+        error => {
+          this.snackBar.open(error.message, 'OK');
+        }
+      );
+    }); */
   }
   onSearchClear() {
     this.searchKey = '';

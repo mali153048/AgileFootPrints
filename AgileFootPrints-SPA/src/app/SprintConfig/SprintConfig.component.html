@@ -1,0 +1,46 @@
+<div class="example-wrapper">
+  <h5>Specify Starting and end date for the sprint</h5>
+
+  <label class="example-input-wrapper">
+    <b>Starts From:</b>
+    <mat-form-field appearance="outline">
+      <input
+        matInput
+        placeholder="Starts From:"
+        [(ngModel)]="dateTimeRange"
+        [selectMode]="'rangeFrom'"
+        [owlDateTimeTrigger]="dtRange2"
+        [owlDateTime]="dtRange2"
+      />
+    </mat-form-field>
+    <owl-date-time #dtRange2></owl-date-time> </label
+  ><br />
+
+  <label class="example-input-wrapper">
+    <b>Ends At :</b>
+    <mat-form-field appearance="outline">
+      <input
+        matInput
+        placeholder="Date Time Range To:"
+        [(ngModel)]="dateTimeRange"
+        [selectMode]="'rangeTo'"
+        [owlDateTimeTrigger]="dtRange3"
+        [owlDateTime]="dtRange3"
+      />
+    </mat-form-field>
+    <owl-date-time #dtRange3></owl-date-time>
+  </label>
+
+  <p>FROM: {{ dateTimeRange[0] | date: 'dd/MMM/yyyy HH:mm:SS' }}</p>
+  <p>To: {{ dateTimeRange[1] | date: 'dd/MMM/yyyy HH:mm:SS' }}</p>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <button (click)="close()" mat-raised-button color="primary">Cancel</button>
+  </div>
+  <div class="col-md-2">
+    <button (click)="save()" mat-raised-button color="warn">
+      Start<i class="fa fa-play pl-2"></i>
+    </button>
+  </div>
+</div>

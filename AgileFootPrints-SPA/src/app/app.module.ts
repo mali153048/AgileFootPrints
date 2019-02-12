@@ -17,6 +17,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgMatSearchBarModule } from 'ng-mat-search-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
 import {
   MatTableModule,
   MatPaginatorModule,
@@ -28,7 +30,6 @@ import {
   MatToolbarModule,
   MatSidenavModule,
   MatListModule,
-  MatExpansionPanel,
   MatExpansionModule
 } from '@angular/material';
 
@@ -52,6 +53,8 @@ import { EditEpicComponent } from './EditEpic/EditEpic.component';
 import { NewEpicComponent } from './NewEpic/NewEpic.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NewSprintComponent } from './NewSprint/NewSprint.component';
+import { SprintConfigComponent } from './SprintConfig/SprintConfig.component';
+import { range, from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -67,7 +70,8 @@ import { NewSprintComponent } from './NewSprint/NewSprint.component';
     EditProjectComponent,
     EditEpicComponent,
     NewEpicComponent,
-    NewSprintComponent
+    NewSprintComponent,
+    SprintConfigComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +106,10 @@ import { NewSprintComponent } from './NewSprint/NewSprint.component';
     MatExpansionModule,
     NgxSpinnerModule,
     MatTooltipModule,
-    MatBadgeModule
+    MatBadgeModule,
+    BrowserModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   providers: [
     AuthService,
@@ -118,7 +125,8 @@ import { NewSprintComponent } from './NewSprint/NewSprint.component';
     EditProjectComponent,
     EditEpicComponent,
     NewEpicComponent,
-    NewSprintComponent
+    NewSprintComponent,
+    SprintConfigComponent
   ]
 })
 export class AppModule {}

@@ -150,7 +150,12 @@
                   >delete</mat-icon
                 ></button
               >&nbsp;&nbsp;
-              <button mat-mini-fab matTooltip="Start Sprint" color="warn">
+              <button
+                mat-mini-fab
+                matTooltip="Start Sprint"
+                color="warn"
+                (click)="launchSprint(sprint.id)"
+              >
                 <i class="fa fa-play"></i>
               </button>
             </div>
