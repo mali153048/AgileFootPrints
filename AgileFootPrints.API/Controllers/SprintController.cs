@@ -62,5 +62,25 @@ namespace AgileFootPrints.API.Controllers
             return Ok(sprintToReturn);
         }
 
+        [HttpPatch("setSprintDates/{sprintId}")]
+        public async Task<IActionResult> setSprintDates(string sprintId, [FromBody]DateTime[] sprintDates)
+        {
+            Sprint sprint = await _context.Sprints.FindAsync(Convert.ToInt32(sprintId));
+            if (sprint == null)
+                return BadRequest("Sprint doesn't exists");
+            int chk = DateTime.Compare(sprintDates[1], sprintDates[0]);
+            if (chk < 0 || sprintDates[0] < DateTime.Now)
+            {
+                return BadRequest("Dates are not valid");
+            }
+
+            sprint.StartDate = sprintDates[0];
+            sprint.EndDate = sprintDates[1];
+            await _context.SaveChangesAsync();
+            return Ok("Sprint started ...");
+        }
     }
+
+
+
 }

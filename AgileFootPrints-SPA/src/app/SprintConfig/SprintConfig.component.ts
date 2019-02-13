@@ -7,7 +7,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   styleUrls: ['./SprintConfig.component.css']
 })
 export class SprintConfigComponent implements OnInit {
-  public dateTimeRange: Date[];
+  minDate = new Date();
+  maxDate = new Date(2099, 0, 1);
+  starts: Date;
+  ends: Date;
+  message: string;
   errorState: string;
   constructor(
     public dialogRef: MatDialogRef<SprintConfigComponent>,
@@ -17,7 +21,9 @@ export class SprintConfigComponent implements OnInit {
   ngOnInit() {}
 
   save() {
-    this.dialogRef.close(this.dateTimeRange);
+    // tslint:disable-next-line:prefer-const
+    let sprintDates = [this.starts, this.ends];
+    this.dialogRef.close(sprintDates);
   }
   close() {
     this.dialogRef.close(null);

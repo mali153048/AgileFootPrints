@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, interval } from 'rxjs';
 import { map, share } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,13 @@ export class SprintService {
       sprintName: sprint
     };
     return this.http.post<any>(this.baseUrl + 'newSprint/' + projectId, sp);
+  }
+  startSprint(id: number, SprintDates: any): Observable<any> {
+    console.log(SprintDates);
+
+    return this.http.patch<any>(
+      this.baseUrl + 'setSprintDates/' + id.toString(),
+      SprintDates
+    );
   }
 }

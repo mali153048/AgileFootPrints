@@ -17,7 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgMatSearchBarModule } from 'ng-mat-search-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import {
   MatTableModule,
@@ -30,7 +30,8 @@ import {
   MatToolbarModule,
   MatSidenavModule,
   MatListModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatNativeDateModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -54,7 +55,7 @@ import { NewEpicComponent } from './NewEpic/NewEpic.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NewSprintComponent } from './NewSprint/NewSprint.component';
 import { SprintConfigComponent } from './SprintConfig/SprintConfig.component';
-import { range, from } from 'rxjs';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -108,8 +109,8 @@ import { range, from } from 'rxjs';
     MatTooltipModule,
     MatBadgeModule,
     BrowserModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     AuthService,

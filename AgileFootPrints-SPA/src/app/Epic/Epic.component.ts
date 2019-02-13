@@ -363,20 +363,21 @@ export class EpicComponent implements OnInit {
     dialogConfig.autoFocus = true;
     const dialogRef = this.dialog.open(SprintConfigComponent, dialogConfig);
 
-    /* dialogRef.afterClosed().subscribe(data => {
+    dialogRef.afterClosed().subscribe(data => {
       if (data === null) {
         return;
       }
-      this.sprintService.newSprint(this.id, data).subscribe(
-        () => {
+
+      this.sprintService.startSprint(id, data).subscribe(
+        res => {
           this.getSprints();
-          this.alertify.success('New Sprint created');
+          this.alertify.success('Sprint Started');
         },
         error => {
           this.snackBar.open(error.message, 'OK');
         }
       );
-    }); */
+    });
   }
   onSearchClear() {
     this.searchKey = '';
