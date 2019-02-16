@@ -32,8 +32,6 @@ export class SprintService {
     return this.http.post<any>(this.baseUrl + 'newSprint/' + projectId, sp);
   }
   startSprint(id: number, SprintDates: any): Observable<any> {
-    console.log(SprintDates);
-
     return this.http.patch<any>(
       this.baseUrl + 'setSprintDates/' + id.toString(),
       SprintDates

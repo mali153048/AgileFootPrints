@@ -6,7 +6,7 @@
     <mat-form-field class="example-full-width">
       <input
         matInput
-        [(ngModel)]="starts"
+        [(ngModel)]="sprinDates.startDate"
         [min]="minDate"
         [max]="maxDate"
         [matDatepicker]="startsAt"
@@ -22,10 +22,10 @@
   <div class="col-md-7 w-100">
     <mat-form-field class="example-full-width">
       <input
-        [disabled]="!starts"
+        [disabled]="sprinDates.startDate === undefined"
         matInput
-        [(ngModel)]="ends"
-        [min]="starts"
+        [(ngModel)]="sprinDates.endDate"
+        [min]="sprinDates.startDate"
         [max]="maxDate"
         [matDatepicker]="endsAt"
         placeholder="Ends At"
@@ -36,8 +36,9 @@
   </div>
 </div>
 <hr />
-<b>Start's at :</b>{{ starts | date: 'dd/MMM/yyyy hh:mm:ss' }}<br />
-<b>Ends at :</b> {{ ends | date: 'dd/MMM/yyyy hh:mm:ss' }}
+<b>Start's at :</b>{{ sprinDates.startDate }}
+<br />
+<b>Ends at :</b> {{ sprinDates.endDate }}
 <hr />
 <div class="row">
   <div class="col-md-3">

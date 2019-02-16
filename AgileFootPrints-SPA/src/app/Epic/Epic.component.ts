@@ -346,6 +346,7 @@ export class EpicComponent implements OnInit {
       if (data === null) {
         return;
       }
+
       this.sprintService.newSprint(this.id, data).subscribe(
         () => {
           this.getSprints();
