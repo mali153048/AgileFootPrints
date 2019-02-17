@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 })
 export class SprintService {
   public clock: Observable<Date>;
-
+  sprintId: string;
   baseUrl = environment.apiUrl + 'sprint/';
   constructor(private http: HttpClient) {
     this.clock = interval(1000).pipe(
@@ -32,8 +32,10 @@ export class SprintService {
     return this.http.post<any>(this.baseUrl + 'newSprint/' + projectId, sp);
   }
   startSprint(id: number, SprintDates: any): Observable<any> {
+    // tslint:disable-next-line:prefer-const
+    this.sprintId = id.toString();
     return this.http.patch<any>(
-      this.baseUrl + 'setSprintDates/' + id.toString(),
+      this.baseUrl + 'setSprintDates/' + this.sprintId,
       SprintDates
     );
   }

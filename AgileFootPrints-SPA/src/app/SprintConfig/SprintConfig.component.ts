@@ -29,9 +29,8 @@ export class SprintConfigComponent implements OnInit {
 
   save() {
     // tslint:disable-next-line:prefer-const
-    let sprintDates = [this.starts, this.ends];
-    console.log('In sprint Config comp', this.sprinDates);
-    // this.dialogRef.close(sprintDates);
+    // console.log('In sprint Config comp', this.sprinDates);
+    this.dialogRef.close(this.sprinDates);
   }
   close() {
     this.dialogRef.close(null);
