@@ -22,6 +22,12 @@ import { SprintService } from '../_services/sprint.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NewSprintComponent } from '../NewSprint/NewSprint.component';
 import { SprintConfigComponent } from '../SprintConfig/SprintConfig.component';
+import { ClockServiceService } from '../_services/ClockService.service';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-epic',
@@ -65,7 +71,8 @@ export class EpicComponent implements OnInit {
     private storyService: StoryService,
     private router: Router,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private clockService: ClockServiceService
   ) {}
 
   ngOnInit() {
@@ -317,7 +324,6 @@ export class EpicComponent implements OnInit {
         next.forEach(element => {
           element.startDate = new Date(element.startDate);
           element.endDate = new Date(element.endDate);
-
           if (
             element.startDate.getTime() ===
               new Date('0001-01-01T00:00:00').getTime() ||
@@ -379,6 +385,23 @@ export class EpicComponent implements OnInit {
         }
       );
     });
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
   }
   onSearchClear() {
     this.searchKey = '';

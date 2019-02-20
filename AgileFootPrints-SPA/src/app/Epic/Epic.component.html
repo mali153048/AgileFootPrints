@@ -98,79 +98,101 @@
           </button>
         </mat-form-field>
       </div>
-      <mat-expansion-panel class="pt-2" *ngFor="let sprint of proejctSprints">
-        <mat-expansion-panel-header class="bg-primary">
-          <mat-panel-title class="mt-2 text-light">
-            {{ sprint.sprintName }}
-          </mat-panel-title>
+      <div>
+        <mat-expansion-panel
+          cdkDropList
+          #sprintList="cdkDropList"
+          (cdkDropListDropped)="drop($event)"
+          [cdkDropListConnectedTo]="[storyList]"
+          class="pt-2"
+          *ngFor="let sprint of proejctSprints"
+        >
+          <mat-expansion-panel-header cdkDrop class="bg-primary">
+            <mat-panel-title class="mt-2 text-light">
+              {{ sprint.sprintName }}
+            </mat-panel-title>
 
-          <mat-panel-description>
-            <b
-              *ngIf="sprint.startDate !== undefined"
-              class="pr-5 pt-2 text-light"
-            >
-              Starts: {{ sprint.startDate | date: 'dd/MMM/yyyy HH:mm:SS' }}
-            </b>
-            <b
-              class="pr-5 pt-2 text-light"
-              *ngIf="sprint.startDate === undefined"
-            >
-              Starts:</b
-            >
-            <i class="pr-5 pt-2 text-light" *ngIf="sprint.endDate === undefined"
-              >Not yet Specified</i
-            >
-
-            <b *ngIf="sprint.endDate !== undefined" class="pr-5 pt-2 text-light"
-              >Ends : {{ sprint.endDate | date: 'dd/MMM/yyyy HH:mm:SS' }}</b
-            >
-            <b
-              class="pr-5 pt-2 text-light"
-              *ngIf="sprint.endDate === undefined"
-            >
-              Starts:</b
-            >
-            <i class="pr-5 pt-2 text-light" *ngIf="sprint.endDate === undefined"
-              >Not yet Specified</i
-            >
-
-            <div class="pl-5">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <button
-                mat-mini-fab
-                matTooltip="Update Sprint properties"
-                color="primary"
+            <mat-panel-description>
+              <b
+                *ngIf="sprint.startDate !== undefined"
+                class="pr-5 pt-2 text-light"
               >
-                <mat-icon aria-label=" icon-button with a update icon"
-                  >update</mat-icon
-                ></button
-              >&nbsp;&nbsp;
-              <button mat-mini-fab matTooltip="Delete Sprint" color="warn">
-                <mat-icon aria-label="icon-button with a delete icon"
-                  >delete</mat-icon
-                ></button
-              >&nbsp;&nbsp;
-              <button
-                mat-mini-fab
-                matTooltip="Start Sprint"
-                color="warn"
-                (click)="launchSprint(sprint.id)"
+                Starts: {{ sprint.startDate | date: 'dd/MMM/yyyy HH:mm:SS' }}
+              </b>
+              <b
+                class="pr-5 pt-2 text-light"
+                *ngIf="sprint.startDate === undefined"
               >
-                <i class="fa fa-play"></i>
-              </button>
-            </div>
-            <span class="label label-primary">{{ sprintStatus }}</span>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
+                Starts:</b
+              >
+              <i
+                class="pr-5 pt-2 text-light"
+                *ngIf="sprint.endDate === undefined"
+                >Not yet Specified</i
+              >
 
-        <mat-form-field>
-          <input matInput placeholder="First name" />
-        </mat-form-field>
+              <b
+                *ngIf="sprint.endDate !== undefined"
+                class="pr-5 pt-2 text-light"
+                >Ends : {{ sprint.endDate | date: 'dd/MMM/yyyy HH:mm:SS' }}</b
+              >
+              <b
+                class="pr-5 pt-2 text-light"
+                *ngIf="sprint.endDate === undefined"
+              >
+                Starts:</b
+              >
+              <i
+                class="pr-5 pt-2 text-light"
+                *ngIf="sprint.endDate === undefined"
+                >Not yet Specified</i
+              >
 
-        <mat-form-field>
-          <input matInput placeholder="Age" />
-        </mat-form-field>
-      </mat-expansion-panel>
+              <div class="pl-5">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button
+                    mat-mini-fab
+                    matTooltip="Update Sprint properties"
+                    color="primary"
+                  >
+                    <mat-icon aria-label=" icon-button with a update icon"
+                      >update</mat-icon
+                    ></button
+                  >&nbsp;&nbsp;
+                  <button mat-mini-fab matTooltip="Delete Sprint" color="warn">
+                    <mat-icon aria-label="icon-button with a delete icon"
+                      >delete</mat-icon
+                    ></button
+                  >&nbsp;&nbsp;
+                  <button
+                    mat-mini-fab
+                    matTooltip="Start Sprint"
+                    color="warn"
+                    (click)="launchSprint(sprint.id)"
+                  >
+                    <i class="fa fa-play"></i>
+                  </button>
+                  &nbsp;&nbsp;
+                </mat-menu>
+              </div>
+
+              <span class="label label-primary">{{ sprintStatus }}</span>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <mat-form-field>
+            <input matInput placeholder="First name" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Age" />
+          </mat-form-field>
+        </mat-expansion-panel>
+      </div>
     </ng-template>
   </ngb-panel>
 </ngb-accordion>
@@ -206,7 +228,13 @@
         </mat-form-field>
       </div>
       <div class="mat-elevation-z8" *ngIf="projectStories.length > 0">
-        <mat-table [dataSource]="dataSource" matSort>
+        <mat-table
+          cdkDropList
+          #storyList="cdkDropList"
+          [cdkDropListConnectedTo]="[sprintList]"
+          [dataSource]="dataSource"
+          matSort
+        >
           <ng-container matColumnDef="priority">
             <mat-header-cell *matHeaderCellDef>Priority</mat-header-cell>
             <mat-cell *matCellDef="let row">
@@ -230,11 +258,14 @@
               >
             </mat-cell>
           </ng-container>
+
           <ng-container matColumnDef="storyName">
             <mat-header-cell *matHeaderCellDef mat-sort-header
               >Story Name</mat-header-cell
             >
-            <mat-cell *matCellDef="let story">{{ story.storyName }}</mat-cell>
+            <mat-cell *matCellDef="let story" cdkDrag>
+              {{ story.storyName }}
+            </mat-cell>
           </ng-container>
           <ng-container matColumnDef="storyDescription">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -244,6 +275,7 @@
               {{ story.storyDescription }}
             </mat-cell>
           </ng-container>
+
           <ng-container matColumnDef="epic">
             <mat-header-cell *matHeaderCellDef mat-sort-header
               >Epic</mat-header-cell
@@ -265,6 +297,7 @@
               </div>
             </mat-cell>
           </ng-container>
+
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
@@ -289,12 +322,13 @@
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
         </mat-table>
-        <mat-paginator
-          [pageSizeOptions]="[5, 10, 25, 100]"
-          [pageSize]="5"
-          showFirstLastButtons
-        ></mat-paginator>
       </div>
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        [pageSize]="5"
+        showFirstLastButtons
+      ></mat-paginator>
+
       <div *ngIf="projectStories.length === 0">
         <p style="font-style: italic;justify-content: center">
           No Stories for this project
