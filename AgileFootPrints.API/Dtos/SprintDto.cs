@@ -16,5 +16,6 @@ namespace AgileFootPrints.API.Dtos
         public DateTime EndDate { get; set; }
         [Required]
         public int projectId { get; set; }
+        public int StatusId { get; set; }
     }
 }

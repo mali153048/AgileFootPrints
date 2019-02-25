@@ -334,8 +334,8 @@ export class EpicComponent implements OnInit {
             element.endDate = undefined;
           }
         });
-
         this.proejctSprints = next;
+        console.log(this.proejctSprints);
       },
       error => {
         this.snackBar.open(error.message, 'OK');

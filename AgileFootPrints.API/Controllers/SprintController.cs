@@ -29,9 +29,10 @@ namespace AgileFootPrints.API.Controllers
         public async Task<IActionResult> GetSprints(string projectId)
         {
             int pId = Convert.ToInt32(projectId);
-            var sprints = await _context.Sprints.Where(x => x.projectId == pId).ToListAsync();
+            var sprints = await _context.Sprints.Include(x => x.Stories).Where(x => x.projectId == pId).ToListAsync();
             return Ok(sprints);
         }
+
 
         [HttpPost("newSprint/{projectId}")]
         public async Task<IActionResult> NewSprint(string projectId, [FromBody]SprintDto sprint)
@@ -41,6 +42,7 @@ namespace AgileFootPrints.API.Controllers
             if (sprint.SprintName == null)
                 return BadRequest("Sprint Name is required");
             sprint.projectId = Convert.ToInt32(projectId);
+            sprint.StatusId=1;
             var sprintToSave = _mapper.Map<Sprint>(sprint);
 
             await _context.Sprints.AddAsync(sprintToSave);

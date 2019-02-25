@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AgileFootPrints.API.Migrations
 {
-    public partial class projectSprintRelationshipAdded : Migration
+    public partial class ModelChanges : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -266,11 +266,18 @@ namespace AgileFootPrints.API.Migrations
                     SprintName = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
-                    projectId = table.Column<int>(nullable: false)
+                    projectId = table.Column<int>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sprints", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sprints_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Sprints_Projects_projectId",
                         column: x => x.projectId,
@@ -479,6 +486,11 @@ namespace AgileFootPrints.API.Migrations
                 name: "IX_Revisions_WorkItemId",
                 table: "Revisions",
                 column: "WorkItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sprints_StatusId",
+                table: "Sprints",
+                column: "StatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sprints_projectId",

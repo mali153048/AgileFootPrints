@@ -16,5 +16,7 @@ namespace AgileFootPrints.API.Models
         public Project project { get; set; }
         public ICollection<Story> Stories { get; set; }
         public ICollection<WorkItem> WorkItems { get; set; }
+        public int StatusId { get; set; }
+        public Status Status { get; set; }
     }
 }
