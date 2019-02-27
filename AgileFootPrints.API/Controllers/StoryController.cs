@@ -51,6 +51,7 @@ namespace AgileFootPrints.API.Controllers
         [HttpPost("createNewStory")]
         public async Task<IActionResult> CreateNewStory(StoryDto storyDto)
         {
+            storyDto.StatusId = 1;
             var storyToSave = _mapper.Map<Story>(storyDto);
             _context.Stories.Add(storyToSave);
             await _context.SaveChangesAsync();

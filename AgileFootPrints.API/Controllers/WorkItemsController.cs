@@ -26,5 +26,7 @@ namespace AgileFootPrints.API.Controllers
             var list = await _context.WorkItems.Where(x => x.UserId == userId).ToListAsync();
             return Ok(list);
         }
+
+
     }
 }

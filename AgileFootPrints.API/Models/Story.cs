@@ -14,6 +14,8 @@ namespace AgileFootPrints.API.Models
         public Sprint Sprint { get; set; }
         public int? ProjectId { get; set; }
         public Project Project { get; set; }
+        public int? StatusId { get; set; }
+        public Status Status { get; set; }
 
     }
 }

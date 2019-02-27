@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AgileFootPrints.API.Migrations
 {
-    public partial class ModelChanges : Migration
+    public partial class Model_Changed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -298,7 +298,8 @@ namespace AgileFootPrints.API.Migrations
                     EpicId = table.Column<int>(nullable: true),
                     PriorityId = table.Column<int>(nullable: true),
                     SprintId = table.Column<int>(nullable: true),
-                    ProjectId = table.Column<int>(nullable: true)
+                    ProjectId = table.Column<int>(nullable: true),
+                    StatusId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -325,6 +326,12 @@ namespace AgileFootPrints.API.Migrations
                         name: "FK_Stories_Sprints_SprintId",
                         column: x => x.SprintId,
                         principalTable: "Sprints",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Stories_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -516,6 +523,11 @@ namespace AgileFootPrints.API.Migrations
                 name: "IX_Stories_SprintId",
                 table: "Stories",
                 column: "SprintId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stories_StatusId",
+                table: "Stories",
+                column: "StatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkItems_SprintId",

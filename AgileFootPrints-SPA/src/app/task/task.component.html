@@ -1,1 +1,56 @@
 <p>Task works</p>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+></ngx-spinner>
+<div class="example-container">
+  <h2>To do</h2>
+
+  <div
+    cdkDropList
+    #todo="cdkDropList"
+    [cdkDropListData]="toDo"
+    [cdkDropListConnectedTo]="[inProgress, completed]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="example-box" *ngFor="let item of toDo" cdkDrag>
+      {{ item.storyName }}
+    </div>
+  </div>
+</div>
+
+<div class="example-container">
+  <h2>In Progress</h2>
+
+  <div
+    cdkDropList
+    #inProgress="cdkDropList"
+    [cdkDropListData]="inProgress"
+    [cdkDropListConnectedTo]="[todo, completed]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="example-box" *ngFor="let item of inProgress" cdkDrag>
+      {{ item.storyName }}
+    </div>
+  </div>
+</div>
+<div class="example-container">
+  <h2>Completed</h2>
+
+  <div
+    cdkDropList
+    #completed="cdkDropList"
+    [cdkDropListData]="completed"
+    [cdkDropListConnectedTo]="[toDo, inProgress]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="example-box" *ngFor="let item of completed" cdkDrag>
+      {{ item.storyName }}
+    </div>
+  </div>
+</div>

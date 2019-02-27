@@ -35,14 +35,14 @@ namespace AgileFootPrints.API.Controllers
 
 
         [HttpPost("newSprint/{projectId}")]
-        public async Task<IActionResult> NewSprint(string projectId, [FromBody]SprintDto sprint)
+        public async Task<IActionResult> NewSprint(string projectId, SprintDto sprint)
         {
             if (projectId == null || projectId == "")
                 return BadRequest("Project doesnt exists");
             if (sprint.SprintName == null)
                 return BadRequest("Sprint Name is required");
             sprint.projectId = Convert.ToInt32(projectId);
-            sprint.StatusId=1;
+            sprint.StatusId = 1;
             var sprintToSave = _mapper.Map<Sprint>(sprint);
 
             await _context.Sprints.AddAsync(sprintToSave);
@@ -74,21 +74,33 @@ namespace AgileFootPrints.API.Controllers
             DateTime startDate = TimeZone.CurrentTimeZone.ToLocalTime(sprintDatesDto.StartDate);
             DateTime endDate = TimeZone.CurrentTimeZone.ToLocalTime(sprintDatesDto.EndDate);
             int chk = DateTime.Compare(startDate, endDate);
-            if (chk > 0)
+            if (chk > 0) //check if the start date is later then end date
             {
                 return BadRequest("Dates are not valid");
             }
-            int currentDateChk = DateTime.Compare(startDate, DateTime.Now);
+            int currentDateChk = DateTime.Compare(startDate, DateTime.Now.Date);
+
             if (currentDateChk < 0)
             {
                 return BadRequest("Start date for sprint is before the current date");
             }
-
-
+            if (currentDateChk == 0) // if start date of sprint is todays date then make status to InProgress
+            {
+                sprint.StatusId = 2;
+            }
             sprint.StartDate = startDate;
             sprint.EndDate = endDate;
             await _context.SaveChangesAsync();
             return StatusCode(200);
+        }
+
+        [HttpGet("getSprintStories/{projectId}")]
+        public async Task<IActionResult> GetStories(string projectId)
+        {
+            if (projectId == null)
+                return BadRequest("Projetc not found");
+            var result = await _context.Sprints.Include(s => s.Stories).Where(x => x.projectId == Convert.ToInt32(projectId) && x.StatusId == 2).ToListAsync();
+            return Ok(result);
         }
     }
 

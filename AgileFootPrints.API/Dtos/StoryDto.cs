@@ -14,6 +14,7 @@ namespace AgileFootPrints.API.Dtos
         [Required]
         public int PriorityId { get; set; }
         public int projectId { get; set; }
+        public int StatusId { get; set; }
 
     }
 }

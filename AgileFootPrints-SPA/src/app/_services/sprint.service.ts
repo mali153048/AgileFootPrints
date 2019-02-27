@@ -39,4 +39,8 @@ export class SprintService {
       SprintDates
     );
   }
+
+  getSprintStories(projectId: string): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'getSprintStories/' + projectId);
+  }
 }
