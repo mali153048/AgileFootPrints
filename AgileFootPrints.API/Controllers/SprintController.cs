@@ -99,7 +99,7 @@ namespace AgileFootPrints.API.Controllers
         {
             if (projectId == null)
                 return BadRequest("Projetc not found");
-            var result = await _context.Sprints.Include(s => s.Stories).Where(x => x.projectId == Convert.ToInt32(projectId) && x.StatusId == 2).ToListAsync();
+            var result = await _context.Sprints.Include(s => s.Stories).Where(x => x.projectId == Convert.ToInt32(projectId) && x.StatusId == 2).ToArrayAsync();
             return Ok(result);
         }
     }

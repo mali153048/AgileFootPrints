@@ -39,8 +39,9 @@ export class TaskComponent implements OnInit {
     this.sprintService.getSprintStories(projectId).subscribe(response => {
       console.log('the response is  : ', response);
       response.forEach(element => {
-        this.stories = Object.assign(this.stories, element.stories);
+        this.stories = response;
       });
+      /* console.log('Stories :', this.stories);
       this.stories.forEach(element => {
         if (element.statusId === 1) {
           this.toDo.push(element);
@@ -50,7 +51,7 @@ export class TaskComponent implements OnInit {
           this.completed.push(element);
         }
       });
-      console.log('Stories', this.stories);
+      console.log('Stories', this.stories); */
     });
   }
 
