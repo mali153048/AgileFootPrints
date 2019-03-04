@@ -4,22 +4,20 @@
   color="#fff"
   type="ball-scale-multiple"
 ></ngx-spinner>
-<div class="container ml-0">
-  <div class="example-container">
+<div class="container pt-5">
+  <div class="example-container ">
     <h2>To do</h2>
 
     <div
       cdkDropList
-      #todo="cdkDropList"
+      #Todo="cdkDropList"
       [cdkDropListData]="toDo"
-      [cdkDropListConnectedTo]="[inProgress, completed]"
+      [cdkDropListConnectedTo]="[InProgress, Completed]"
       class="example-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div *ngFor="let sprint of stories">
-        <div class="example-box" *ngFor="let story of sprint.stories" cdkDrag>
-          <div *ngIf="story.statusId === 1">{{ story.storyName }}<br /></div>
-        </div>
+      <div class="example-box" *ngFor="let story of toDo" cdkDrag>
+        {{ story.storyName }}
       </div>
     </div>
   </div>
@@ -29,16 +27,18 @@
 
     <div
       cdkDropList
-      #inProgress="cdkDropList"
+      #InProgress="cdkDropList"
       [cdkDropListData]="inProgress"
-      [cdkDropListConnectedTo]="[todo, completed]"
+      [cdkDropListConnectedTo]="[Todo, Completed]"
       class="example-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div *ngFor="let item of stories" cdkDrag>
-        <div class="example-box" *ngFor="let story of item.stories">
-          <div *ngIf="story.statusId === 2">{{ story.storyName }}<br /></div>
-        </div>
+      <div
+        class="example-box"
+        *ngFor="let storyInProgress of inProgress"
+        cdkDrag
+      >
+        {{ storyInProgress.storyName }}
       </div>
     </div>
   </div>
@@ -47,16 +47,14 @@
 
     <div
       cdkDropList
-      #completed="cdkDropList"
+      #Completed="cdkDropList"
       [cdkDropListData]="completed"
-      [cdkDropListConnectedTo]="[toDo, inProgress]"
+      [cdkDropListConnectedTo]="[Todo, InProgress]"
       class="example-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <div *ngFor="let item of stories" cdkDrag>
-        <div class="example-box" *ngFor="let story of item.stories">
-          <div *ngIf="story.statusId === 3">{{ story.storyName }}<br /></div>
-        </div>
+      <div class="example-box" *ngFor="let storyCompleted of completed" cdkDrag>
+        {{ storyCompleted.storyName }}
       </div>
     </div>
   </div>

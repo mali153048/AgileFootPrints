@@ -8,6 +8,11 @@ import {
 } from '@angular/cdk/layout';
 import { SprintService } from '../_services/sprint.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-task',
@@ -15,9 +20,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
-  toDo: any = [];
-  inProgress: any = [];
-  completed: any = [];
+  toDo = [];
+  inProgress = [];
+  completed = [];
   stories: any = [];
   constructor(
     private spinner: NgxSpinnerService,
@@ -37,11 +42,8 @@ export class TaskComponent implements OnInit {
     // tslint:disable-next-line:prefer-const
     let projectId: string = localStorage.getItem('projectId');
     this.sprintService.getSprintStories(projectId).subscribe(response => {
-      console.log('the response is  : ', response);
-      response.forEach(element => {
-        this.stories = response;
-      });
-      /* console.log('Stories :', this.stories);
+      // tslint:disable-next-line:prefer-const
+      this.stories = response;
       this.stories.forEach(element => {
         if (element.statusId === 1) {
           this.toDo.push(element);
@@ -51,9 +53,26 @@ export class TaskComponent implements OnInit {
           this.completed.push(element);
         }
       });
-      console.log('Stories', this.stories); */
+      console.log('New Response :', response);
     });
   }
 
-  drop($event) {}
+  drop(event: CdkDragDrop<any>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+      console.log(event.container.data);
+      console.log(event.previousContainer.data);
+    }
+  }
 }
