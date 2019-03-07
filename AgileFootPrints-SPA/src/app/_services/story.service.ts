@@ -41,4 +41,13 @@ export class StoryService {
       story
     );
   }
+  updateStoryStatus(
+    storiesArray: Array<any>,
+    statusId: number
+  ): Observable<any> {
+    return this.http.post<any>(
+      this.baseUrl + 'updateStoryStatus/' + statusId,
+      storiesArray
+    );
+  }
 }

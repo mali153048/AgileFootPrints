@@ -3,6 +3,7 @@
     rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
   />
+  <script src=".\node_modules\chart.js\src\chart.js"></script>
 </head>
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
@@ -10,7 +11,19 @@
   color="#fff"
   type="ball-scale-multiple"
 ></ngx-spinner>
+
+<div class="container ">
+  <button
+    (click)="completeNotify()"
+    mat-raised-button
+    color="warn"
+    class="pull-right"
+  >
+    Complete Sprint
+  </button>
+</div>
 <div class="container pt-5">
+  <hr />
   <div class="card bg-danger">
     <div class="card-header text-light"><h4>To Do</h4></div>
 
@@ -20,10 +33,10 @@
       [cdkDropListData]="toDo"
       [cdkDropListConnectedTo]="[InProgress, Completed]"
       class="example-list"
-      (cdkDropListDropped)="drop($event)"
+      (cdkDropListDropped)="dropToDo($event)"
     >
       <p
-        *ngIf="toDo.length === 0"
+        *ngIf="toDo.length === 0 || toDo === null"
         style="font-style: italic;text-align: center;color: red"
       >
         No work to do.
@@ -46,10 +59,10 @@
       [cdkDropListData]="inProgress"
       [cdkDropListConnectedTo]="[Todo, Completed]"
       class="example-list"
-      (cdkDropListDropped)="drop($event)"
+      (cdkDropListDropped)="dropInProgress($event)"
     >
       <p
-        *ngIf="inProgress.length === 0"
+        *ngIf="inProgress.length === 0 || inProgress === null"
         style="font-style: italic;text-align: center;color: blue"
       >
         No stories In progress
@@ -79,10 +92,10 @@
       [cdkDropListData]="completed"
       [cdkDropListConnectedTo]="[Todo, InProgress]"
       class="example-list"
-      (cdkDropListDropped)="drop($event)"
+      (cdkDropListDropped)="dropCompleted($event)"
     >
       <p
-        *ngIf="completed.length === 0"
+        *ngIf="completed.length === 0 || completed === null"
         style="font-style: italic; text-align: center;color: green"
       >
         No stories have been completed
@@ -100,5 +113,17 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div>
+  <div style="display: block">
+    <canvas
+      style="position: relative; height:20vh; width:40vw"
+      baseChart
+      [data]="doughnutChartData"
+      [labels]="doughnutChartLabels"
+      [chartType]="doughnutChartType"
+    >
+    </canvas>
   </div>
 </div>

@@ -18,7 +18,7 @@ import { NgMatSearchBarModule } from 'ng-mat-search-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
+import { ChartsModule } from 'ng2-charts';
 import {
   MatTableModule,
   MatPaginatorModule,
@@ -110,7 +110,8 @@ import { from } from 'rxjs';
     MatBadgeModule,
     BrowserModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ChartsModule
   ],
   providers: [
     AuthService,

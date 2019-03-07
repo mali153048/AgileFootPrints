@@ -107,5 +107,26 @@ namespace AgileFootPrints.API.Controllers
             return Ok(storyPatch);
         }
 
+        [HttpPost("updateStoryStatus/{statusId}")]
+        public async Task<IActionResult> UpdateStoryStatus(int statusId, [FromBody]Story[] stories)
+        {
+            if (stories.Length == 0)
+            {
+                return BadRequest("No story to move");
+            }
+            for (int i = 0; i < stories.Length; i++)
+            {
+                if (stories[i].StatusId != statusId)
+                {
+                    var story = await _context.Stories.FindAsync(stories[i].Id);
+                    story.StatusId = statusId;
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            return Ok();
+
+        }
+
     }
 }
