@@ -100,10 +100,6 @@
       </div>
       <div>
         <mat-expansion-panel
-          cdkDropList
-          #sprintList="cdkDropList"
-          (cdkDropListDropped)="drop($event)"
-          [cdkDropListConnectedTo]="[storyList]"
           class="pt-2"
           *ngFor="let sprint of proejctSprints; let i = index"
         >
@@ -254,13 +250,7 @@
         </mat-form-field>
       </div>
       <div class="mat-elevation-z8" *ngIf="projectStories.length > 0">
-        <mat-table
-          cdkDropList
-          #storyList="cdkDropList"
-          [cdkDropListConnectedTo]="[sprintList]"
-          [dataSource]="dataSource"
-          matSort
-        >
+        <mat-table [dataSource]="dataSource" matSort>
           <ng-container matColumnDef="priority">
             <mat-header-cell *matHeaderCellDef>Priority</mat-header-cell>
             <mat-cell *matCellDef="let row">
@@ -293,11 +283,11 @@
               {{ story.storyName }}
             </mat-cell>
           </ng-container>
-          <ng-container matColumnDef="storyDescription">
+          <ng-container id="storyDesc" matColumnDef="storyDescription">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
               Story Description
             </mat-header-cell>
-            <mat-cell *matCellDef="let story">
+            <mat-cell class="storyDescription" *matCellDef="let story">
               {{ story.storyDescription }}
             </mat-cell>
           </ng-container>
@@ -321,6 +311,38 @@
               >
                 Not Assigned to Epic
               </div>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="sprint">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Sprint</mat-header-cell
+            >
+            <mat-cell *matCellDef="let story">
+              <mat-form-field *ngIf="story.sprint === null">
+                <mat-select
+                  (selectionChange)="storySprintChange($event, story.id)"
+                  placeholder="Select"
+                >
+                  <mat-option>None</mat-option>
+                  <mat-option
+                    *ngFor="let sprint of proejctSprints"
+                    [value]="sprint.id"
+                    >{{ sprint.sprintName }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field *ngIf="story.sprint !== null">
+                <mat-select
+                  (selectionChange)="storySprintChange($event, story.id)"
+                  placeholder="{{ story.sprint.sprintName }}"
+                >
+                  <mat-option
+                    *ngFor="let sprint of proejctSprints"
+                    [value]="sprint.id"
+                    >{{ sprint.sprintName }}</mat-option
+                  ></mat-select
+                >
+              </mat-form-field>
             </mat-cell>
           </ng-container>
 

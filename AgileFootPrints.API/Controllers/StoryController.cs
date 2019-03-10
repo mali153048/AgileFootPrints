@@ -128,5 +128,17 @@ namespace AgileFootPrints.API.Controllers
 
         }
 
+        [HttpPatch("updateStorySprintStatus/{storyId}/{sprintId}")]
+        public async Task<IActionResult> UpdateStorySprintStatus(string storyId, string sprintId)
+        {
+            var story = await _context.Stories.FindAsync(Convert.ToInt32(storyId));
+            var sprint = _context.Sprints.FindAsync(Convert.ToInt32(sprintId));
+            if (story == null || sprint == null)
+                return BadRequest("Sprint or story not found");
+            story.SprintId = Convert.ToInt32(sprintId);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
     }
 }

@@ -34,7 +34,7 @@ namespace AgileFootPrints.API.Controllers
 
 
             var result = await _context.Projects.Include(e => e.Epics)
-            .Include(v => v.Stories).Where(x => x.Id == projectId)
+            .Include(v => v.Stories).Include(s => s.Sprints).Where(x => x.Id == projectId)
                         .ToListAsync();
 
             return Ok(result);

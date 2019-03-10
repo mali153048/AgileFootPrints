@@ -50,4 +50,15 @@ export class StoryService {
       storiesArray
     );
   }
+
+  updateStorySprintStatus(storyId: number, sprintId: number): Observable<any> {
+    return this.http.patch<any>(
+      this.baseUrl +
+        'updateStorySprintStatus/' +
+        storyId.toString() +
+        '/' +
+        sprintId.toString(),
+      null
+    );
+  }
 }

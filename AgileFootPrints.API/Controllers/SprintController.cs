@@ -88,6 +88,10 @@ namespace AgileFootPrints.API.Controllers
             {
                 sprint.StatusId = 2;
             }
+            else if (currentDateChk > 0)
+            {
+                sprint.StatusId = 1;
+            }
             sprint.StartDate = startDate;
             sprint.EndDate = endDate;
             await _context.SaveChangesAsync();

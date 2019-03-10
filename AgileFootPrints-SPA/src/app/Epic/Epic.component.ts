@@ -9,7 +9,8 @@ import {
   MatSort,
   MatDialog,
   MatDialogConfig,
-  MatSnackBar
+  MatSnackBar,
+  MatSelectChange
 } from '@angular/material';
 import { StoryService } from '../_services/story.service';
 import { NewStoryComponent } from '../newStory/newStory.component';
@@ -59,6 +60,7 @@ export class EpicComponent implements OnInit {
     'storyName',
     'storyDescription',
     'epic',
+    'sprint',
     'actions'
   ];
   dataSource: MatTableDataSource<any>;
@@ -98,7 +100,7 @@ export class EpicComponent implements OnInit {
 
     this.epicService.getProjectEpics(this.id).subscribe(
       next => {
-        console.log(next);
+        console.log('RESPONSE', next);
         this.projectEpics = next[0].epics;
         this.projectStories = next[0].stories;
         this.dataSource = new MatTableDataSource(this.projectStories); // setting datasource for datatable
@@ -107,9 +109,8 @@ export class EpicComponent implements OnInit {
         this.projectDetails.projectName = next[0].projectName;
         this.projectDetails.projectDescription = next[0].projectDescription;
         this.projectDetails.projectKey = next[0].projectKey;
-        console.log('Epics in epic component', this.projectEpics);
-        console.log('Stories in epic component', this.projectStories);
       },
+
       error => {
         this.alertify.error(error);
       }
@@ -183,6 +184,7 @@ export class EpicComponent implements OnInit {
       this.storyService.deleteStory(this.storyId).subscribe(
         res => {
           this.getProjectEpics(this.id);
+          this.getSprints();
           this.alertify.success('Deleted successfully');
         },
         error => {
@@ -386,7 +388,32 @@ export class EpicComponent implements OnInit {
       );
     });
   }
-
+  storySprintChange(event: MatSelectChange, storyId: number) {
+    console.log('StoryId:' + storyId + 'Sprint Id', event.value);
+    this.proejctSprints.forEach(element => {
+      if (element.id === event.value) {
+        if (element.statusId === 2) {
+          this.alertify.confirm(
+            'Adding new story to the sprint in Progress can affect time management. Do you still wish to continue ?',
+            () => {
+              this.storyService
+                .updateStorySprintStatus(storyId, event.value)
+                .subscribe(
+                  next => {
+                    this.getProjectEpics(this.id);
+                    this.getSprints();
+                    this.alertify.success('Story was added to sprint');
+                  },
+                  error => {
+                    console.log(error);
+                  }
+                );
+            }
+          );
+        }
+      }
+    });
+  }
   onSearchClear() {
     this.searchKey = '';
     this.applyFilter();
