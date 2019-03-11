@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   loginModel: any = {};
+  class1: string;
+  class2: string;
   registerMode = false;
   workItems: any = [];
   user: any;
@@ -17,7 +19,10 @@ export class HomeComponent implements OnInit {
     public authService: AuthService,
     private alertify: AlertifyService,
     private router: Router
-  ) {}
+  ) {
+    this.class1 = 'col-md-12';
+    this.class2 = 'col-md-10';
+  }
 
   ngOnInit() {}
 

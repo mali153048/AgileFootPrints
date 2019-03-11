@@ -24,16 +24,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { NewSprintComponent } from '../NewSprint/NewSprint.component';
 import { SprintConfigComponent } from '../SprintConfig/SprintConfig.component';
 import { ClockServiceService } from '../_services/ClockService.service';
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem
-} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-epic',
   templateUrl: './Epic.component.html',
-  styleUrls: ['./Epic.component.css']
+  styleUrls: ['../sidebar/sidebar.component.scss', './Epic.component.css']
 })
 export class EpicComponent implements OnInit {
   sprintStatus: string;

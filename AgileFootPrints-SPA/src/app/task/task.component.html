@@ -1,8 +1,4 @@
 <head>
-  <link
-    rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
-  />
   <script src=".\node_modules\chart.js\src\chart.js"></script>
 </head>
 <ngx-spinner
@@ -22,7 +18,7 @@
     Complete Sprint
   </button>
 </div>
-<div class="container pt-5">
+<div class="container pt-5" style="margin-left: 300px;">
   <hr />
   <div class="card bg-danger">
     <div class="card-header text-light"><h4>To Do</h4></div>
@@ -44,7 +40,7 @@
       <div class="d-flex flex-row" *ngFor="let story of toDo" cdkDrag>
         <div class="p-2">{{ story.storyName }}</div>
         <div class="p-2 ">
-          <span class="label label-danger">{{ story.sprint.sprintName }}</span>
+          <span class="badge badge-danger">{{ story.sprint.sprintName }}</span>
         </div>
       </div>
     </div>
@@ -76,7 +72,7 @@
           {{ storyInProgress.storyName }}
         </div>
         <div class="p-2 ">
-          <span class="label label-primary">
+          <span class="badge badge-primary">
             {{ storyInProgress.sprint.sprintName }}
           </span>
         </div>
@@ -107,7 +103,7 @@
       >
         <div class="p-2">{{ storyCompleted.storyName }}</div>
         <div class="p-2 ">
-          <span class="label label-success">
+          <span class="badge badge-success">
             {{ storyCompleted.sprint.sprintName }}
           </span>
         </div>

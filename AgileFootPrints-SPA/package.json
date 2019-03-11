@@ -37,6 +37,7 @@
     "ng2-charts": "^2.0.0-beta.18",
     "ngx-bootstrap": "^3.0.1",
     "ngx-daterangepicker": "^2.1.0",
+    "ngx-perfect-scrollbar": "^7.2.1",
     "ngx-spinner": "^7.0.0",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"

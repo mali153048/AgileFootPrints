@@ -19,6 +19,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ChartsModule } from 'ng2-charts';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import {
   MatTableModule,
   MatPaginatorModule,
@@ -56,6 +59,11 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { NewSprintComponent } from './NewSprint/NewSprint.component';
 import { SprintConfigComponent } from './SprintConfig/SprintConfig.component';
 import { from } from 'rxjs';
+import { SidebarComponent } from './sidebar/sidebar.component';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 @NgModule({
   declarations: [
@@ -72,7 +80,8 @@ import { from } from 'rxjs';
     EditEpicComponent,
     NewEpicComponent,
     NewSprintComponent,
-    SprintConfigComponent
+    SprintConfigComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -111,14 +120,19 @@ import { from } from 'rxjs';
     BrowserModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ChartsModule
+    ChartsModule,
+    PerfectScrollbarModule
   ],
   providers: [
     AuthService,
     AlertifyService,
     AuthGuard,
     ProjectService,
-    EpicService
+    EpicService,
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [
