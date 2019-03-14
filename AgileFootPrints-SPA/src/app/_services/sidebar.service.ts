@@ -11,32 +11,7 @@ export class SidebarService {
       title: 'general',
       type: 'header'
     },
-    {
-      title: 'Dashboard',
-      icon: 'fa fa-clipboard-check',
-      active: false,
-      type: 'dropdown',
 
-      badge: {
-        text: 'New ',
-        class: 'badge-warning'
-      }
-      /* submenus: [
-        {
-          title: 'Dashboard 1',
-          badge: {
-            text: 'Pro ',
-            class: 'badge-success'
-          }
-        },
-        {
-          title: 'Dashboard 2'
-        },
-        {
-          title: 'Dashboard 3'
-        }
-      ] */
-    },
     {
       title: 'Projects',
       icon: 'fa fa-shopping-cart',
@@ -46,7 +21,7 @@ export class SidebarService {
       badge: {
         text: '3',
         class: 'badge-danger'
-      } /* ,
+      },
       submenus: [
         {
           title: 'Products'
@@ -57,7 +32,7 @@ export class SidebarService {
         {
           title: 'Credit cart'
         }
-      ] */
+      ]
     },
     {
       title: 'Tasks',

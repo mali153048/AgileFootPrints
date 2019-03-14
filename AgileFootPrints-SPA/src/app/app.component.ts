@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from './_services/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,7 +9,7 @@ import { AuthService } from './_services/auth.service';
 })
 export class AppComponent implements OnInit {
   jwtHelper = new JwtHelperService(); // angular serice that allows to manage jwt tokens
-  constructor(private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) {}
   ngOnInit() {
     const token = localStorage.getItem('userToken');
     if (token) {

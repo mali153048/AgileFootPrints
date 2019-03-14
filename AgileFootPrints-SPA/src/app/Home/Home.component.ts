@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
         this.alertify.error(error.statusText);
       },
       () => {
-        this.router.navigate(['/tasks']);
+        this.router.navigate(['/project']);
       }
     );
   }
@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('userToken');
+    localStorage.removeItem('projectId');
     this.alertify.success('Logged out');
     this.router.navigate(['/']);
   }

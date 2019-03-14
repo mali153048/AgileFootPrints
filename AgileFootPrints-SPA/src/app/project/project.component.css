@@ -14,3 +14,16 @@
 #project {
   cursor: pointer;
 }
+div.color {
+  font-size: larger;
+  padding: 10px;
+  border-left-width: 5px;
+  border-left-style: solid;
+  border-left-color: orange;
+}
+.card-header {
+  background-color: mediumorchid;
+}
+.bdg {
+  font-size: 12px;
+}

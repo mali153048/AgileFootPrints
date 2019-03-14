@@ -1,14 +1,11 @@
 <nav
   id="sidebar"
-  class="sidebar"
+  class="sidebar "
+  style="margin-top: 56px;"
   [ngClass]="{ 'sidebar-bg': hasBackgroundImage() }"
 >
   <div class="sidebar-content">
     <perfect-scrollbar>
-      <div class="sidebar-header">
-        <a href="#">Agile FootPrints</a>
-      </div>
-
       <div class="sidebar-profile">
         <div class="user-pic">
           <img
@@ -57,35 +54,27 @@
           >
             <span *ngIf="menu.type === 'header'">{{ menu.title }}</span>
             <a
+              [routerLink]="routes[i - 1]"
               *ngIf="menu.type !== 'header'"
-              [routerLink]="[routes[i - 1]]"
               (click)="toggle(menu)"
             >
               <i class="{{ menu.icon }}"></i>
               <span>{{ menu.title }}</span>
               <span
                 *ngIf="menu.badge"
-                class="badge badge-pill"
+                class="badge badge-pill "
                 [ngClass]="menu.badge.class"
                 >{{ menu.badge.text }}</span
               >
             </a>
-            <!-- <div
+            <!--  <div
               *ngIf="menu.type === 'dropdown'"
               class="sidebar-submenu"
               [@slide]="getState(menu)"
             >
               <ul>
-                <li *ngFor="let submenu of menu.submenus">
-                  <a href="#">
-                    {{ submenu.title }}
-                    <span
-                      *ngIf="submenu.badge"
-                      class="badge badge-pill"
-                      [ngClass]="submenu.badge.class"
-                      >{{ submenu.badge.text }}</span
-                    >
-                  </a>
+                <li *ngFor="let project of userProjects">
+                  <a> {{ project.projectName }}</a>
                 </li>
               </ul>
             </div> -->

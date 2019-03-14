@@ -1,0 +1,31 @@
+.navbar {
+  height: 40px;
+  background-color: blueviolet;
+  color: white;
+  font-style: unset;
+}
+
+.navbar-brand {
+  padding: 0 15px;
+  height: 10px;
+  line-height: 10px;
+}
+
+.navbar-toggle {
+  /* (80px - button height 34px) / 2 = 23px */
+  margin-top: 23px;
+  padding: 9px 10px !important;
+}
+
+@media (min-width: 768px) {
+  .navbar-nav > li > a {
+    /* (80px - line-height of 27px) / 2 = 26.5px */
+    padding-top: 26.5px;
+    padding-bottom: 26.5px;
+    line-height: 10px;
+  }
+}
+
+.dropdown {
+  cursor: pointer;
+}

@@ -22,6 +22,7 @@ import { ChartsModule } from 'ng2-charts';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
 import {
   MatTableModule,
   MatPaginatorModule,
@@ -60,6 +61,7 @@ import { NewSprintComponent } from './NewSprint/NewSprint.component';
 import { SprintConfigComponent } from './SprintConfig/SprintConfig.component';
 import { from } from 'rxjs';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { SubNavBarComponent } from './subNavBar/subNavBar.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -81,7 +83,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NewEpicComponent,
     NewSprintComponent,
     SprintConfigComponent,
-    SidebarComponent
+    SidebarComponent,
+    SubNavBarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-<div class="col-md-2 pull-left" style="margin-left: 250px;">
+<!-- <div class="col-md-2 pull-left" style="margin-left: 250px;">
   <button class="mt-3" mat-button [matMenuTriggerFor]="ProjectManagement">
     Project Management
   </button>
@@ -42,24 +42,26 @@
     <div class="dropdown-divider"></div>
   </mat-menu>
   <hr />
+</div> -->
+<div style="padding-left: 250px;">
+  <app-subnavbar [epics]="projectEpics"></app-subnavbar>
 </div>
-<div class="vr" style="margin-left: 250px;">&nbsp;</div>
-
-<div class="row mt-3 mb-3" style="margin-left: 250px;">
-  <div class="card" style="width: 500px">
-    <div class="card-header bg-primary text-light w-100">
-      {{ projectDetails.projectName }}
+<div class="row w-100 " style="margin-top: 90px;">
+  <div class="color col-md-4" style="margin-left: 300px;">
+    <div class="row">
+      <div class="col-md-7">
+        <strong>Dashboard - </strong>
+        <h5>{{ projectDetails.projectName }}</h5>
+        <p class="badge badge-danger bdg text-center pull-left ">
+          {{ projectDetails.projectKey }}
+        </p>
+      </div>
     </div>
-    <div class="card-body">
-      <strong> Description </strong><br />
-      {{ projectDetails.projectDescription }}<br />
-      <hr />
-      <strong> KEY</strong><br />
-      {{ projectDetails.projectKey }}
-    </div>
+    <small>{{ projectDetails.projectDescription }}</small>
   </div>
-  
+  <!-- dropdowns -->
 </div>
+<br />
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
   size="medium"
@@ -102,7 +104,7 @@
             class="pt-2"
             *ngFor="let sprint of proejctSprints; let i = index"
           >
-            <mat-expansion-panel-header cdkDrop class="bg-primary">
+            <mat-expansion-panel-header cdkDrop class="bg-danger">
               <mat-panel-title class="mt-2 text-light">
                 {{ sprint.sprintName }}
               </mat-panel-title>
@@ -112,7 +114,8 @@
                   *ngIf="sprint.startDate !== undefined"
                   class="pr-5 pt-2 text-light"
                 >
-                  Starts: {{ sprint.startDate | date: 'dd/MMM/yyyy HH:mm:SS' }}
+                  Starts:
+                  {{ sprint.startDate | date: 'dd/MMM/yyyy HH:mm:SS' }}
                 </b>
                 <b
                   class="pr-5 pt-2 text-light"
@@ -400,42 +403,3 @@
     </ngb-panel>
   </ngb-accordion>
 </div>
-<!-- <div class="container ">
-  <div class="row ml-4">
-    <div
-      cdkDropList
-      id="list-one"
-      [cdkDropListConnectedTo]="['list-two']"
-      class="example-list ml-5 mt-5"
-      (cdkDropListDropped)="drop($event)"
-      [cdkDropListData]="movies"
-    >
-      <div
-        class="example-box"
-        *ngFor="let epic of movies"
-        cdkDrag
-        [cdkDragData]="epic"
-      >
-        {{ epic }}
-      </div>
-    </div>
-
-    <div
-      cdkDropList
-      id="list-two"
-      [cdkDropListConnectedTo]="['list-one']"
-      class="example-list ml-5 mt-5"
-      (cdkDropListDropped)="drop($event)"
-      [cdkDropListData]="tests"
-    >
-      <div
-        class="example-box"
-        *ngFor="let epic of tests"
-        cdkDrag
-        [cdkDragData]="epic"
-      >
-        {{ epic }}
-      </div>
-    </div>
-  </div>
-</div> -->

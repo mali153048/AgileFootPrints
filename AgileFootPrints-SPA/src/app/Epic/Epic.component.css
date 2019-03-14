@@ -128,3 +128,11 @@ mat-grid-tile {
 .menuBtn {
   height: 2px;
 }
+div.color {
+  font-size: larger;
+  padding: 10px;
+  margin-top: 10px;
+  border-left-width: 5px;
+  border-left-style: solid;
+  border-left-color: orange;
+}

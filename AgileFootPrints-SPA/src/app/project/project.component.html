@@ -60,71 +60,33 @@
     </div>
   </ng-template>
 
-  <div class="row w-100">
-    <div class="col-md-4 m-3" id="listItem">
-      <div *ngFor="let project of userProjects" id="project" class="list-group">
-        <a
-          (click)="sendProjectId(project.id)"
-          class="list-group-item list-group-item-action flex-column align-items-start"
-        >
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{ project.projectName }}</h5>
-            <small *ngIf="project.statusId === 2"
-              >In Progress <i class="fa fa-spinner"></i>
-            </small>
-            <small *ngIf="project.statusId === 1"
-              >To Do <i class="fa fa-list-ul"></i
-            ></small>
-            <small *ngIf="project.statusId === 3"
-              >Completed <i class="fa fa-check-circle"></i
-            ></small>
+  <div class="row ml-4">
+    <div class="col-md-5">
+      <div class="card  ">
+        <div class="card-header  text-light w-100">
+          <h4 class="card-title">Projects</h4>
+        </div>
+        <perfect-scrollbar>
+          <div class="card-body">
+            <div style="cursor: pointer" *ngFor="let project of userProjects">
+              <a (click)="sendProjectId(project.id)">
+                <div class="color">
+                  <div class="row">
+                    <div class="col-md-7">
+                      <p>{{ project.projectName }}</p>
+                      <p class="badge badge-danger bdg text-center pull-left ">
+                        {{ project.projectKey }}
+                      </p>
+                    </div>
+                  </div>
+                  <small>{{ project.projectDescription }}</small>
+                </div>
+                <hr />
+              </a>
+            </div>
           </div>
-          <p id="description" class="mb-1">{{ project.projectDescription }}</p>
-          <br />
-          <small>Project Key: {{ project.projectKey }}</small>
-        </a>
+        </perfect-scrollbar>
       </div>
     </div>
   </div>
 </div>
-<!-- <div class="container">
-  <div class="row w-100" [collapse]="isCollapsed">
-    <div *ngIf="projectEpics.length > 0">
-       <div *ngFor="let epic of projectEpics">{{ epic.epicName }}</div>
-      <table
-        class="table table-striped"
-        [mfData]="projectEpics"
-        #mf="mfDataTable"
-        [mfRowsOnPage]="5"
-      >
-        <thead>
-          <tr>
-            <th style="width: 20%">
-              <mfDefaultSorter by="name">Epic Name</mfDefaultSorter>
-            </th>
-            <th style="width: 50%">
-              <mfDefaultSorter by="email">Description</mfDefaultSorter>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let epic of projectEpics">
-            <td>{{ epic.epicName }}</td>
-            <td>{{ epic.epicDescription }}</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="4">
-              <mfBootstrapPaginator
-                [rowsOnPageSet]="[5, 10, 25]"
-              ></mfBootstrapPaginator>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-    <div *ngIf="projectEpics.length === 0"><h3>No Epics avaliable</h3></div>
-  </div>
-</div>
- -->

@@ -46,10 +46,13 @@ export class EpicComponent implements OnInit {
   storyId: string;
   epicToForward: any = {};
   storyToForward: any = {};
-  projectEpics: any = [];
+  projectEpics = [];
   proejctSprints: any = [];
   projectStories: any = [];
   projectDetails: any = {};
+  test = [];
+  response: any;
+
   displayedColumns: string[] = [
     'priority',
     'storyName',
@@ -68,8 +71,7 @@ export class EpicComponent implements OnInit {
     private storyService: StoryService,
     private router: Router,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar,
-    private clockService: ClockServiceService
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -88,6 +90,7 @@ export class EpicComponent implements OnInit {
       this.spinner.hide();
     }, 1000);
     this.getSprints();
+    console.log(this.projectEpics);
   }
 
   getProjectEpics(id: string) {
@@ -104,12 +107,13 @@ export class EpicComponent implements OnInit {
         this.projectDetails.projectName = next[0].projectName;
         this.projectDetails.projectDescription = next[0].projectDescription;
         this.projectDetails.projectKey = next[0].projectKey;
+        console.log(this.projectEpics); // Logs data to chrome console
       },
-
       error => {
         this.alertify.error(error);
       }
     );
+    console.log(this.projectEpics); // The array is empty at this log.
   }
 
   getEpicStories(id: number) {

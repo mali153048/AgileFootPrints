@@ -7,6 +7,14 @@ import {
   transition,
   animate
 } from '@angular/animations';
+import { ProjectService } from '../_services/project.service';
+import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
+import { EpicService } from '../_services/epic.service';
+import { Router, NavigationEnd } from '@angular/router';
+import { SprintService } from '../_services/sprint.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { EpicComponent } from '../Epic/Epic.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,13 +29,19 @@ import {
   ]
 })
 export class SidebarComponent implements OnInit {
+  userId = this.authService.decodedToken.nameid;
+  navigationSubscription;
+  userProjects = [];
+  projectId: string;
   menus = [];
   routes = [];
-  taskRouteLink: '["/tasks"]';
-  projectsRouteLink: '["/project"]';
-  constructor(public sidebarservice: SidebarService) {
+
+  constructor(
+    private authService: AuthService,
+    public sidebarservice: SidebarService
+  ) {
+    this.routes = ['/project'];
     this.menus = sidebarservice.getMenuList();
-    this.routes = ['/tasks', '/project'];
   }
 
   ngOnInit() {}
