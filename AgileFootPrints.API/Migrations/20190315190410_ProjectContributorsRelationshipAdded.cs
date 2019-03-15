@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AgileFootPrints.API.Migrations
 {
-    public partial class Model_Changed : Migration
+    public partial class ProjectContributorsRelationshipAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -258,6 +258,30 @@ namespace AgileFootPrints.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProjectContributor",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false),
+                    ProjectId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectContributor", x => new { x.UserId, x.ProjectId });
+                    table.ForeignKey(
+                        name: "FK_ProjectContributor_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProjectContributor_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Sprints",
                 columns: table => new
                 {
@@ -480,6 +504,11 @@ namespace AgileFootPrints.API.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProjectContributor_ProjectId",
+                table: "ProjectContributor",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Projects_StatusId",
                 table: "Projects",
                 column: "StatusId");
@@ -564,6 +593,9 @@ namespace AgileFootPrints.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "CodeFileRevisions");
+
+            migrationBuilder.DropTable(
+                name: "ProjectContributor");
 
             migrationBuilder.DropTable(
                 name: "Stories");

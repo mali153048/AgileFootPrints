@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgileFootPrints.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190227192743_Model_Changed")]
-    partial class Model_Changed
+    [Migration("20190315190410_ProjectContributorsRelationshipAdded")]
+    partial class ProjectContributorsRelationshipAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -104,6 +104,19 @@ namespace AgileFootPrints.API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("AgileFootPrints.API.Models.ProjectContributor", b =>
+                {
+                    b.Property<int>("UserId");
+
+                    b.Property<int>("ProjectId");
+
+                    b.HasKey("UserId", "ProjectId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectContributor");
                 });
 
             modelBuilder.Entity("AgileFootPrints.API.Models.Revision", b =>
@@ -426,6 +439,19 @@ namespace AgileFootPrints.API.Migrations
 
                     b.HasOne("AgileFootPrints.API.Models.User", "User")
                         .WithMany("Projects")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("AgileFootPrints.API.Models.ProjectContributor", b =>
+                {
+                    b.HasOne("AgileFootPrints.API.Models.Project", "Project")
+                        .WithMany("ProjectContributors")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AgileFootPrints.API.Models.User", "User")
+                        .WithMany("ProjectContributors")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

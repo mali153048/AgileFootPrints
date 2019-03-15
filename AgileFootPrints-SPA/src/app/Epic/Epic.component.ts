@@ -409,6 +409,19 @@ export class EpicComponent implements OnInit {
                 );
             }
           );
+        } else {
+          this.storyService
+            .updateStorySprintStatus(storyId, event.value)
+            .subscribe(
+              next => {
+                this.getProjectEpics(this.id);
+                this.getSprints();
+                this.alertify.success('Story was added to sprint');
+              },
+              error => {
+                console.log(error);
+              }
+            );
         }
       }
     });

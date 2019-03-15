@@ -14,5 +14,7 @@ namespace AgileFootPrints.API.Models
         public ICollection<Project> Projects { get; set; }
         public ICollection<WorkItem> WorkItems { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
+        public ICollection<ProjectContributor> ProjectContributors { get; set; }
+
     }
 }

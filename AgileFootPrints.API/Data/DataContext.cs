@@ -46,7 +46,16 @@ namespace AgileFootPrints.API.Data
                 .HasForeignKey(ur => ur.UserId)
                 .IsRequired();
             });
-
+            builder.Entity<ProjectContributor>()
+                    .HasKey(pc => new { pc.UserId, pc.ProjectId });
+            builder.Entity<ProjectContributor>()
+                .HasOne(bc => bc.Project)
+                .WithMany(b => b.ProjectContributors)
+                .HasForeignKey(bc => bc.ProjectId);
+            builder.Entity<ProjectContributor>()
+                .HasOne(bc => bc.User)
+                .WithMany(c => c.ProjectContributors)
+                .HasForeignKey(bc => bc.UserId);
 
         }
         public DataContext CreateDbContext(string[] args)
