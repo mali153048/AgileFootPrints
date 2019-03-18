@@ -35,7 +35,8 @@ import {
   MatSidenavModule,
   MatListModule,
   MatExpansionModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatBottomSheetModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -62,6 +63,8 @@ import { SprintConfigComponent } from './SprintConfig/SprintConfig.component';
 import { from } from 'rxjs';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SubNavBarComponent } from './subNavBar/subNavBar.component';
+import { ProjectContributorsComponent } from './ProjectContributors/ProjectContributors.component';
+import { ProjectContributorBottomSheetComponent } from './ProjectContributorBottomSheet/ProjectContributorBottomSheet.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -84,7 +87,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NewSprintComponent,
     SprintConfigComponent,
     SidebarComponent,
-    SubNavBarComponent
+    SubNavBarComponent,
+    ProjectContributorsComponent,
+    ProjectContributorBottomSheetComponent
   ],
   imports: [
     BrowserModule,
@@ -124,7 +129,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatDatepickerModule,
     MatNativeDateModule,
     ChartsModule,
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    MatBottomSheetModule
   ],
   providers: [
     AuthService,
@@ -145,7 +151,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EditEpicComponent,
     NewEpicComponent,
     NewSprintComponent,
-    SprintConfigComponent
+    SprintConfigComponent,
+    ProjectContributorBottomSheetComponent
   ]
 })
 export class AppModule {}

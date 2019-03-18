@@ -23,6 +23,7 @@ namespace AgileFootPrints.API.Data
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Sprint> Sprints { get; set; }
         public DbSet<WorkItem> WorkItems { get; set; }
+        public DbSet<ProjectContributor> projectContributors { get; set; }
         public DbSet<Revision> Revisions { get; set; }
         public DbSet<CodeFile> CodeFiles { get; set; }
         public DbSet<CodeFileRevision> CodeFileRevisions { get; set; }

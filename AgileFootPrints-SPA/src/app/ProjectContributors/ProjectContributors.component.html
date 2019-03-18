@@ -1,0 +1,35 @@
+<app-sidebar></app-sidebar>
+<app-subnavbar></app-subnavbar>
+<div class="container ">
+  <div class="row" style="margin-left: 100px;">
+    <div class="wrap">
+      <div class="search col-md-5 " style="display: inline">
+        <input
+          (keyup)="checkUserName()"
+          [(ngModel)]="userName"
+          type="text"
+          class="searchTerm"
+          placeholder="Search User"
+        />
+      </div>
+      <div style="display: inline">
+        <button (click)="getUser()" type="submit" class="searchButton">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="invalidUserNameCheck === true"
+    class=" row w-100 alert alert-danger float-left"
+  >
+    <strong>ERROR !</strong> You cannot search your own username
+  </div>
+  <div
+    *ngIf="isUserNull === true"
+    class=" row w-100 alert alert-danger float-left"
+  >
+    <strong>Not Found !</strong> No User found that matches the specified
+    username
+  </div>
+</div>

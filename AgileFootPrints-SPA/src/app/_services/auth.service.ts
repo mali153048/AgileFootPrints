@@ -3,12 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   user: any = {};
+  users: { firstName: string; lastName: string; userName: string }[];
   workItem: any = [];
   decodedToken: any;
   jwtHelper = new JwtHelperService(); // angular serice that allows to manage jwt tokens
@@ -37,5 +39,9 @@ export class AuthService {
   loggedIn() {
     const token = localStorage.getItem('userToken');
     return !this.jwtHelper.isTokenExpired(token); // return true if token is expired
+  }
+
+  getSearchableUsers(userName: string): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'getUser/' + userName);
   }
 }

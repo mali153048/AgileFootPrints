@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AgileFootPrints.API.Data;
 using AgileFootPrints.API.Dtos;
 using AgileFootPrints.API.Models;
 using AutoMapper;
@@ -25,12 +27,14 @@ namespace AgileFootPrints.API.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly DataContext _context;
 
-        public AuthController(IConfiguration config,
+        public AuthController(DataContext context, IConfiguration config,
           IMapper mapper,
           UserManager<User> userManager,
           SignInManager<User> signInManager)
         {
+            _context = context;
             _config = config;
             _mapper = mapper;
             _userManager = userManager;
@@ -109,5 +113,19 @@ namespace AgileFootPrints.API.Controllers
             }
             return BadRequest(result.Errors);
         }
+
+
+        [HttpGet("getUser/{userName}")]
+        public async Task<IActionResult> GetUser(string userName)
+        {
+            if (userName == null || userName == "")
+                return BadRequest("User not found");
+            var user = await _context.Users.Where(x => x.UserName == userName)
+            .Select(x => new { x.Id, x.FirstName, x.LastName, x.UserName, x.Email }).SingleOrDefaultAsync();
+            return Ok(user);
+
+        }
     }
+
+
 }
