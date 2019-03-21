@@ -15,6 +15,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { SprintService } from '../_services/sprint.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { EpicComponent } from '../Epic/Epic.component';
+import { NotificationService } from '../_services/notification.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -35,17 +36,33 @@ export class SidebarComponent implements OnInit {
   projectId: string;
   menus = [];
   routes = [];
+  notifications: any = [];
+
+  unReadCount = 0;
+  matSpinner = false;
+  matSprinnerColor = 'warn';
 
   constructor(
+    private notificationService: NotificationService,
     private authService: AuthService,
-    public sidebarservice: SidebarService
+    public sidebarservice: SidebarService,
+    private alertify: AlertifyService
   ) {
     this.routes = ['/project'];
     this.menus = sidebarservice.getMenuList();
   }
 
-  ngOnInit() {}
-
+  ngOnInit() {
+    this.matSpinner = false;
+    this.matSprinnerColor = 'warn';
+    this.unReadCount = 0;
+    this.getNotifications();
+  }
+  toggleSpinner() {
+    this.unReadCount = 0;
+    this.matSpinner = true;
+    this.getNotifications();
+  }
   getSideBarState() {
     return this.sidebarservice.getSidebarState();
   }
@@ -72,5 +89,26 @@ export class SidebarComponent implements OnInit {
 
   hasBackgroundImage() {
     return this.sidebarservice.hasBackgroundImage;
+  }
+
+  getNotifications() {
+    this.notificationService.getNotifications().subscribe(
+      data => {
+        this.notifications = data;
+        this.notifications.forEach(element => {
+          if (element.isRead === false) {
+            this.unReadCount += 1;
+          }
+          setInterval(() => {
+            this.matSpinner = false;
+          }, 2000);
+        });
+        console.log(this.notifications);
+      },
+      error => {
+        this.alertify.error(error.message);
+      }
+    );
+    console.log(this.notifications);
   }
 }

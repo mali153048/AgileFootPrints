@@ -68,6 +68,36 @@ namespace AgileFootPrints.API.Migrations
                     b.ToTable("Epics");
                 });
 
+            modelBuilder.Entity("AgileFootPrints.API.Models.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("Message");
+
+                    b.Property<int>("RecieverId");
+
+                    b.Property<int>("SenderId");
+
+                    b.Property<string>("Subject");
+
+                    b.Property<bool>("isRead");
+
+                    b.Property<int>("projectId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecieverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.HasIndex("projectId");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("AgileFootPrints.API.Models.Priority", b =>
                 {
                     b.Property<int>("Id")
@@ -114,7 +144,7 @@ namespace AgileFootPrints.API.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectContributor");
+                    b.ToTable("projectContributors");
                 });
 
             modelBuilder.Entity("AgileFootPrints.API.Models.Revision", b =>
@@ -427,6 +457,24 @@ namespace AgileFootPrints.API.Migrations
                     b.HasOne("AgileFootPrints.API.Models.Project", "Project")
                         .WithMany("Epics")
                         .HasForeignKey("ProjectId");
+                });
+
+            modelBuilder.Entity("AgileFootPrints.API.Models.Notification", b =>
+                {
+                    b.HasOne("AgileFootPrints.API.Models.User", "Reciever")
+                        .WithMany("NotificationsRecieved")
+                        .HasForeignKey("RecieverId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AgileFootPrints.API.Models.User", "Sender")
+                        .WithMany("NotificationsSent")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AgileFootPrints.API.Models.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("projectId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AgileFootPrints.API.Models.Project", b =>

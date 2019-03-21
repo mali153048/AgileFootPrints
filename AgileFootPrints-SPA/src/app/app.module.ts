@@ -36,7 +36,8 @@ import {
   MatListModule,
   MatExpansionModule,
   MatNativeDateModule,
-  MatBottomSheetModule
+  MatBottomSheetModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -130,7 +131,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatNativeDateModule,
     ChartsModule,
     PerfectScrollbarModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     AuthService,

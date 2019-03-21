@@ -23,7 +23,7 @@
           >
         </div>
       </div>
-      <div *ngIf="loggedIn()" class="dropdown" dropdown>
+      <div *ngIf="loggedIn()" class="dropdown " dropdown>
         <a class="dropdown-toggle fa fa-user-circle text-light" dropdownToggle>
           User {{ authService.decodedToken?.unique_name | titlecase }}
         </a>

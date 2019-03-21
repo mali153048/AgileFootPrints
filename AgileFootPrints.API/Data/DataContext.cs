@@ -26,6 +26,7 @@ namespace AgileFootPrints.API.Data
         public DbSet<ProjectContributor> projectContributors { get; set; }
         public DbSet<Revision> Revisions { get; set; }
         public DbSet<CodeFile> CodeFiles { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
         public DbSet<CodeFileRevision> CodeFileRevisions { get; set; }
 
 
@@ -57,12 +58,21 @@ namespace AgileFootPrints.API.Data
                 .HasOne(bc => bc.User)
                 .WithMany(c => c.ProjectContributors)
                 .HasForeignKey(bc => bc.UserId);
+            builder.Entity<Notification>()
+                .HasOne<User>(u => u.Sender)
+                .WithMany(s => s.NotificationsSent)
+                .HasForeignKey(uId => uId.SenderId);
+            builder.Entity<Notification>()
+                .HasOne<User>(u => u.Reciever)
+                .WithMany(s => s.NotificationsRecieved)
+                .HasForeignKey(uId => uId.RecieverId);
 
         }
         public DataContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
             optionsBuilder.UseSqlite("Data Source=AgileFootPrints.db");
+
 
             return new DataContext(optionsBuilder.Options);
         }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AgileFootPrints.API.Migrations
 {
-    public partial class ProjectContributorsRelationshipAdded : Migration
+    public partial class UpdatedNotificationEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -258,7 +258,44 @@ namespace AgileFootPrints.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectContributor",
+                name: "Notifications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Subject = table.Column<string>(nullable: true),
+                    Message = table.Column<string>(nullable: true),
+                    SenderId = table.Column<int>(nullable: false),
+                    isRead = table.Column<bool>(nullable: false),
+                    RecieverId = table.Column<int>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    projectId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notifications_AspNetUsers_RecieverId",
+                        column: x => x.RecieverId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Notifications_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Notifications_Projects_projectId",
+                        column: x => x.projectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "projectContributors",
                 columns: table => new
                 {
                     UserId = table.Column<int>(nullable: false),
@@ -266,15 +303,15 @@ namespace AgileFootPrints.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectContributor", x => new { x.UserId, x.ProjectId });
+                    table.PrimaryKey("PK_projectContributors", x => new { x.UserId, x.ProjectId });
                     table.ForeignKey(
-                        name: "FK_ProjectContributor_Projects_ProjectId",
+                        name: "FK_projectContributors_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProjectContributor_AspNetUsers_UserId",
+                        name: "FK_projectContributors_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -504,8 +541,23 @@ namespace AgileFootPrints.API.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectContributor_ProjectId",
-                table: "ProjectContributor",
+                name: "IX_Notifications_RecieverId",
+                table: "Notifications",
+                column: "RecieverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_SenderId",
+                table: "Notifications",
+                column: "SenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_projectId",
+                table: "Notifications",
+                column: "projectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_projectContributors_ProjectId",
+                table: "projectContributors",
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
@@ -595,7 +647,10 @@ namespace AgileFootPrints.API.Migrations
                 name: "CodeFileRevisions");
 
             migrationBuilder.DropTable(
-                name: "ProjectContributor");
+                name: "Notifications");
+
+            migrationBuilder.DropTable(
+                name: "projectContributors");
 
             migrationBuilder.DropTable(
                 name: "Stories");

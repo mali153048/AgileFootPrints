@@ -5,6 +5,8 @@ import { AuthService } from '../_services/auth.service';
 import { v } from '@angular/core/src/render3';
 import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material';
 import { ProjectContributorBottomSheetComponent } from '../ProjectContributorBottomSheet/ProjectContributorBottomSheet.component';
+import { NotificationService } from '../_services/notification.service';
+import { AlertifyService } from '../_services/alertify.service';
 const states = ['Alabama', 'Alaska', 'American Samoa'];
 @Component({
   selector: 'app-projectcontributors',
@@ -17,9 +19,12 @@ export class ProjectContributorsComponent implements OnInit {
   userName: string;
   invalidUserNameCheck = false;
   isUserNull = false;
+  successNotify = false;
   constructor(
     private bottomSheet: MatBottomSheet,
-    private authService: AuthService
+    private authService: AuthService,
+    private notificationService: NotificationService,
+    private alertify: AlertifyService
   ) {}
 
   ngOnInit() {
@@ -60,15 +65,19 @@ export class ProjectContributorsComponent implements OnInit {
             if (result === null) {
               return;
             }
-            /* this.epicService.editEpic(result.id, result).subscribe(
-            () => {
-              this.getProjectEpics(this.id);
-              this.snackBar.open('Epic updated Successfully', 'OK');
-            },
-            error => {
-              this.snackBar.open(error.message, 'OK');
-            }
-          ); */
+            result.reciever = this.userName;
+            result.sender = this.authService.decodedToken.unique_name;
+            this.notificationService.sendnotification(result).subscribe(
+              () => {
+                this.successNotify = true;
+                setInterval(() => {
+                  this.successNotify = false;
+                }, 5000);
+              },
+              error => {
+                this.alertify.error(error.message);
+              }
+            );
           });
         }
       },

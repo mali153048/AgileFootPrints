@@ -32,4 +32,11 @@
     <strong>Not Found !</strong> No User found that matches the specified
     username
   </div>
+  <div
+    *ngIf="successNotify === true"
+    class=" row w-100 alert alert-success float-left"
+  >
+    <strong>Success !</strong> Invitation sent. User will be able to see project
+    artifacts once user accepts the invitation
+  </div>
 </div>

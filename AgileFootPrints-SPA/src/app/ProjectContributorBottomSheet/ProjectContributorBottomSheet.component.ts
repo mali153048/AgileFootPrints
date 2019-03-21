@@ -15,12 +15,17 @@ export class ProjectContributorBottomSheetComponent implements OnInit {
   ) {}
   userData: any;
   space = ' ';
+  projectId: string;
   ngOnInit() {
+    // this.projectId = localStorage.getItem('projectId');
     console.log(this.data);
     this.userData = this.data;
   }
 
   invite() {
+    this.userData = {};
+    this.projectId = localStorage.getItem('projectId');
+    this.userData.projectId = +this.projectId;
     this.bottomSheetRef.dismiss(this.userData);
   }
   close() {

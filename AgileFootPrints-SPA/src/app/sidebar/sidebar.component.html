@@ -67,86 +67,61 @@
                 >{{ menu.badge.text }}</span
               >
             </a>
-            <!--  <div
-              *ngIf="menu.type === 'dropdown'"
-              class="sidebar-submenu"
-              [@slide]="getState(menu)"
-            >
-              <ul>
-                <li *ngFor="let project of userProjects">
-                  <a> {{ project.projectName }}</a>
-                </li>
-              </ul>
-            </div> -->
           </li>
         </ul>
       </div>
     </perfect-scrollbar>
   </div>
-  <div class="sidebar-footer">
+  <div class="sidebar-footer" style="padding-bottom: 80px;">
     <div class="dropdown" dropdown>
-      <a href="#" dropdownToggle>
+      <a (click)="toggleSpinner()" dropdownToggle>
         <i class="fa fa-bell"></i>
-        <span class="badge badge-pill badge-warning notification">5</span>
+        <span class="badge badge-pill badge-warning notification">
+          {{ unReadCount }}</span
+        >
       </a>
-      <div class="dropdown-menu notifications" *dropdownMenu>
+      <div
+        style="padding-bottom: 40px;"
+        class="dropdown-menu notifications"
+        *dropdownMenu
+      >
         <div class="notifications-header">
           <i class="fa fa-bell"></i>
           Notifications
+          <mat-spinner
+            style="display: inline;margin-left: 30px"
+            [diameter]="20"
+            [color]="matSprinnerColor"
+            *ngIf="matSpinner === true"
+          ></mat-spinner>
         </div>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item">
+        <a
+          style="cursor: pointer;"
+          *ngFor="let notification of notifications"
+          class="dropdown-item"
+        >
           <div class="notification-content">
             <div class="icon">
               <i class="fas fa-check text-success border border-success"></i>
             </div>
             <div class="content">
+              <strong>{{ notification.subject }}</strong>
               <div class="notification-detail">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-                totam explicabo
+                {{ notification.message }}
               </div>
               <div class="notification-time">
-                6 minutes ago
+                {{ notification.createdAt | date: 'medium' }}
               </div>
             </div>
+
+            <i
+              style="color: lawngreen;display: inline;padding-right: 8px"
+              class="fa fa-check-circle"
+            ></i>
+            <i style="color: red;" class="fa fa-times-circle"></i>
           </div>
         </a>
-        <a class="dropdown-item">
-          <div class="notification-content">
-            <div class="icon">
-              <i class="fas fa-exclamation text-info border border-info"></i>
-            </div>
-            <div class="content">
-              <div class="notification-detail">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-                totam explicabo
-              </div>
-              <div class="notification-time">
-                Today
-              </div>
-            </div>
-          </div>
-        </a>
-        <a class="dropdown-item">
-          <div class="notification-content">
-            <div class="icon">
-              <i
-                class="fas fa-exclamation-triangle text-warning border border-warning"
-              ></i>
-            </div>
-            <div class="content">
-              <div class="notification-detail">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-                totam explicabo
-              </div>
-              <div class="notification-time">
-                Yesterday
-              </div>
-            </div>
-          </div>
-        </a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item text-center" href="#">View all notifications</a>
       </div>
     </div>
     <div class="dropdown" dropdown>
