@@ -37,6 +37,7 @@ export class SidebarComponent implements OnInit {
   menus = [];
   routes = [];
   notifications: any = [];
+  space = ' ';
 
   unReadCount = 0;
   matSpinner = false;
@@ -44,7 +45,7 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private notificationService: NotificationService,
-    private authService: AuthService,
+    public authService: AuthService,
     public sidebarservice: SidebarService,
     private alertify: AlertifyService
   ) {
