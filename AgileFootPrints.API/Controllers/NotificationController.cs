@@ -62,10 +62,12 @@ namespace AgileFootPrints.API.Controllers
                 .Where(x => x.RecieverId == Convert.ToInt32(userId))
                 .Select(x => new
                 {
+                    x.Id,
                     x.Subject,
                     x.Message,
                     x.Sender.FirstName,
                     x.Sender.LastName,
+                    x.SenderId,
                     x.CreatedAt,
                     x.isRead,
                     x.projectId

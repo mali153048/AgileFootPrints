@@ -26,6 +26,7 @@
     "@fortawesome/fontawesome-free": "^5.7.2",
     "@icon/font-awesome": "^4.7.0-2",
     "@ng-bootstrap/ng-bootstrap": "^4.0.1",
+    "@sweetalert2/ngx-sweetalert2": "^5.0.1",
     "alertifyjs": "^1.11.2",
     "angular-6-datatable": "^0.8.0",
     "angular-bootstrap-md": "^7.4.2",
@@ -41,6 +42,7 @@
     "ngx-perfect-scrollbar": "^7.2.1",
     "ngx-spinner": "^7.0.0",
     "rxjs": "^6.0.0",
+    "sweetalert2": "^8.7.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

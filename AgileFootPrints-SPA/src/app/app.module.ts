@@ -22,6 +22,7 @@ import { ChartsModule } from 'ng2-charts';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import {
   MatTableModule,
@@ -132,7 +133,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ChartsModule,
     PerfectScrollbarModule,
     MatBottomSheetModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [
     AuthService,

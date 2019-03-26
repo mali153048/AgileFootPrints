@@ -16,6 +16,8 @@ import { SprintService } from '../_services/sprint.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { EpicComponent } from '../Epic/Epic.component';
 import { NotificationService } from '../_services/notification.service';
+import { ContributorService } from '../_services/contributor.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sidebar',
@@ -47,6 +49,7 @@ export class SidebarComponent implements OnInit {
     private notificationService: NotificationService,
     public authService: AuthService,
     public sidebarservice: SidebarService,
+    private contributorService: ContributorService,
     private alertify: AlertifyService
   ) {
     this.routes = ['/project'];
@@ -111,5 +114,19 @@ export class SidebarComponent implements OnInit {
       }
     );
     console.log(this.notifications);
+  }
+
+  accept(notificationModel: any) {
+    this.contributorService
+      .acceptContributorInviatation(notificationModel)
+      .subscribe(() => {
+        this.getNotifications();
+        Swal.fire({
+          title: 'Great!',
+          text: 'You are no contributing the project',
+          type: 'success',
+          confirmButtonText: 'OK'
+        });
+      });
   }
 }
