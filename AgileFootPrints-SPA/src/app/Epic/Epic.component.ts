@@ -207,6 +207,7 @@ export class EpicComponent implements OnInit {
         story => {
           // console.log('Story retuned from api :', story.result);
           this.getProjectEpics(this.id);
+          this.getSprints();
           this.alertify.success('New Story Creted');
         },
         error => {

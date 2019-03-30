@@ -10,6 +10,8 @@ namespace AgileFootPrints.API.Dtos
         [Required]
         public string StoryDescription { get; set; }
         public string AcceptanceCriteria { get; set; }
+        public int UserId { get; set; }
+        public int SprintId { get; set; }
         public int EpicId { get; set; }
         [Required]
         public int PriorityId { get; set; }

@@ -17,6 +17,7 @@ namespace AgileFootPrints.API.Models
         public ICollection<ProjectContributor> ProjectContributors { get; set; }
         public ICollection<Notification> NotificationsSent { get; set; }
         public ICollection<Notification> NotificationsRecieved { get; set; }
+        public ICollection<Story> Stories { get; set; }
 
     }
 }

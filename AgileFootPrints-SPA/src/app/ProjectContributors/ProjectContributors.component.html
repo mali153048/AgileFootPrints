@@ -43,8 +43,17 @@
     <strong>Success !</strong> Invitation sent. User will be able to see project
     artifacts once user accepts the invitation
   </div>
-
-  <div class="h-100 effect1" style="overflow: scroll;">
+  <div
+    *ngIf="contributors.length === 0"
+    class=" row w-100 alert alert-primary float-left"
+  >
+    <strong>Welcome! </strong> Currently no user is contributing to this project
+  </div>
+  <div
+    *ngIf="contributors.length > 0"
+    class="h-100 effect1"
+    style="overflow: scroll;"
+  >
     <div class="card card-default" id="card_contacts">
       <div
         id="contacts"

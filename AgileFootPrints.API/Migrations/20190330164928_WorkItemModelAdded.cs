@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AgileFootPrints.API.Migrations
 {
-    public partial class UpdatedNotificationEntity : Migration
+    public partial class WorkItemModelAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -360,7 +360,8 @@ namespace AgileFootPrints.API.Migrations
                     PriorityId = table.Column<int>(nullable: true),
                     SprintId = table.Column<int>(nullable: true),
                     ProjectId = table.Column<int>(nullable: true),
-                    StatusId = table.Column<int>(nullable: true)
+                    StatusId = table.Column<int>(nullable: true),
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -393,6 +394,12 @@ namespace AgileFootPrints.API.Migrations
                         name: "FK_Stories_Statuses_StatusId",
                         column: x => x.StatusId,
                         principalTable: "Statuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Stories_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -609,6 +616,11 @@ namespace AgileFootPrints.API.Migrations
                 name: "IX_Stories_StatusId",
                 table: "Stories",
                 column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stories_UserId",
+                table: "Stories",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkItems_SprintId",

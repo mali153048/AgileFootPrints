@@ -249,6 +249,8 @@ namespace AgileFootPrints.API.Migrations
 
                     b.Property<string>("StoryName");
 
+                    b.Property<int?>("UserId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EpicId");
@@ -260,6 +262,8 @@ namespace AgileFootPrints.API.Migrations
                     b.HasIndex("SprintId");
 
                     b.HasIndex("StatusId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Stories");
                 });
@@ -543,6 +547,10 @@ namespace AgileFootPrints.API.Migrations
                     b.HasOne("AgileFootPrints.API.Models.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId");
+
+                    b.HasOne("AgileFootPrints.API.Models.User", "User")
+                        .WithMany("Stories")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("AgileFootPrints.API.Models.User", b =>

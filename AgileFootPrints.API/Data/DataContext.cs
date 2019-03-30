@@ -66,6 +66,9 @@ namespace AgileFootPrints.API.Data
                 .HasOne<User>(u => u.Reciever)
                 .WithMany(s => s.NotificationsRecieved)
                 .HasForeignKey(uId => uId.RecieverId);
+            builder.Entity<User>()
+                .HasMany(x => x.Stories)
+                .WithOne(y => y.User);
 
         }
         public DataContext CreateDbContext(string[] args)

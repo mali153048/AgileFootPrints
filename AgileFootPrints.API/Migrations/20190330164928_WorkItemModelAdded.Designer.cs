@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgileFootPrints.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190321092145_UpdatedNotificationEntity")]
-    partial class UpdatedNotificationEntity
+    [Migration("20190330164928_WorkItemModelAdded")]
+    partial class WorkItemModelAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -251,6 +251,8 @@ namespace AgileFootPrints.API.Migrations
 
                     b.Property<string>("StoryName");
 
+                    b.Property<int?>("UserId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EpicId");
@@ -262,6 +264,8 @@ namespace AgileFootPrints.API.Migrations
                     b.HasIndex("SprintId");
 
                     b.HasIndex("StatusId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Stories");
                 });
@@ -545,6 +549,10 @@ namespace AgileFootPrints.API.Migrations
                     b.HasOne("AgileFootPrints.API.Models.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId");
+
+                    b.HasOne("AgileFootPrints.API.Models.User", "User")
+                        .WithMany("Stories")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("AgileFootPrints.API.Models.User", b =>

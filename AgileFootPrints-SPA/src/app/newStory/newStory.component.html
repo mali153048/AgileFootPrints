@@ -1,53 +1,88 @@
 <h2 mat-dialog-title>Story Details</h2>
-<mat-dialog-content>
-  <mat-form-field>
-    <input
-      [(ngModel)]="storyModel.storyName"
-      matInput
-      placeholder="Story Name"
-      required
-    />
-    <mat-error>Story Name is required</mat-error>
-  </mat-form-field>
-  <br />
-  <mat-form-field>
-    <textarea
-      [(ngModel)]="storyModel.storyDescription"
-      matInput
-      placeholder="Description"
-      required
-    ></textarea>
-    <mat-error>Story Description is required</mat-error>
-  </mat-form-field>
-  <br />
-  <mat-form-field>
-    <textarea
-      [(ngModel)]="storyModel.acceptanceCriteria"
-      matInput
-      placeholder="Acceptance Criteria"
-      required
-    >
-    </textarea>
-    <mat-error>Provide acceptance criteria for the story</mat-error>
-  </mat-form-field>
-  <br />
-  <mat-form-field>
-    <mat-select [(ngModel)]="storyModel.epicId" placeholder="Assign to Epic">
-      <mat-option *ngFor="let epic of projectEpics" [value]="epic.id">
-        {{ epic.epicName }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <br />
-  <mat-form-field>
-    <mat-select [(ngModel)]="storyModel.priorityId" placeholder="Priority">
-      <mat-option *ngFor="let priority of priorities" [value]="priority.id">
-        {{ priority.priority }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</mat-dialog-content>
+<div class="h-100" style="overflow: scroll">
+  <mat-dialog-content>
+    <mat-form-field>
+      <input
+        (keyup)="check()"
+        [(ngModel)]="storyModel.storyName"
+        matInput
+        placeholder="Story Name"
+        required
+      />
+      <mat-error>Story Name is required</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <textarea
+        [(ngModel)]="storyModel.storyDescription"
+        matInput
+        placeholder="Description"
+        required
+      ></textarea>
+      <mat-error>Story Description is required</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <textarea
+        [(ngModel)]="storyModel.acceptanceCriteria"
+        matInput
+        placeholder="Acceptance Criteria"
+        required
+      >
+      </textarea>
+      <mat-error>Provide acceptance criteria for the story</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-select [(ngModel)]="storyModel.epicId" placeholder="Assign to Epic">
+        <mat-option *ngFor="let epic of projectEpics" [value]="epic.id">
+          {{ epic.epicName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-select
+        [(ngModel)]="storyModel.sprintId"
+        placeholder="Assign to Epic"
+      >
+        <mat-option *ngFor="let sprint of sprints" [value]="sprint.id">
+          {{ sprint.sprintName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-select [(ngModel)]="storyModel.userId" placeholder="Assignee">
+        <mat-option
+          *ngFor="let contributor of contributors"
+          [value]="contributor.id"
+          ><img src="https://img.icons8.com/ultraviolet/40/000000/user.png" />
+          {{ contributor.firstName }}{{ space }}{{ contributor.lastName }}
+          <i
+            ><small>({{ contributor.userName }})</small></i
+          >
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-select [(ngModel)]="storyModel.priorityId" placeholder="Priority">
+        <mat-option *ngFor="let priority of priorities" [value]="priority.id">
+          {{ priority.priority }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+</div>
 <mat-dialog-actions>
   <button mat-button (click)="Close()">Close</button>
-  <button mat-raised-button color="warn" (click)="SaveStory()">Save</button>
+  <button
+    mat-raised-button
+    color="warn"
+    [disabled]="isInValid"
+    (click)="SaveStory()"
+  >
+    Save
+  </button>
 </mat-dialog-actions>
