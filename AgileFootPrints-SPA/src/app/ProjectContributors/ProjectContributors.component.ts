@@ -7,6 +7,7 @@ import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material';
 import { ProjectContributorBottomSheetComponent } from '../ProjectContributorBottomSheet/ProjectContributorBottomSheet.component';
 import { NotificationService } from '../_services/notification.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { ContributorService } from '../_services/contributor.service';
 const states = ['Alabama', 'Alaska', 'American Samoa'];
 @Component({
   selector: 'app-projectcontributors',
@@ -20,15 +21,21 @@ export class ProjectContributorsComponent implements OnInit {
   invalidUserNameCheck = false;
   isUserNull = false;
   successNotify = false;
+  projectId: string;
+  contributors = [];
+  space = ' ';
   constructor(
     private bottomSheet: MatBottomSheet,
     private authService: AuthService,
     private notificationService: NotificationService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private contributorService: ContributorService
   ) {}
 
   ngOnInit() {
     this.currentUserName = this.authService.decodedToken.unique_name;
+    this.projectId = localStorage.getItem('projectId');
+    this.getContributors();
   }
 
   checkUserName() {
@@ -83,6 +90,18 @@ export class ProjectContributorsComponent implements OnInit {
       },
       error => {
         console.log(error);
+      }
+    );
+  }
+
+  getContributors() {
+    this.contributorService.getprojectContributors(this.projectId).subscribe(
+      next => {
+        this.contributors = next;
+        console.log('contributors:', this.contributors);
+      },
+      error => {
+        this.alertify.error(error.message);
       }
     );
   }

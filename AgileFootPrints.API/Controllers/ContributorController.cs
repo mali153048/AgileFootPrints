@@ -1,10 +1,13 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AgileFootPrints.API.Data;
 using AgileFootPrints.API.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace AgileFootPrints.API.Controllers
 {
@@ -42,6 +45,31 @@ namespace AgileFootPrints.API.Controllers
             await _context.SaveChangesAsync();
             return Ok();
 
+        }
+
+        [HttpGet("getContributors/{projectId}")]
+        public async Task<IActionResult> GetContributors(string projectId)
+        {
+            if (projectId == null || projectId == "")
+                return BadRequest("Invalid data format");
+            int id = Convert.ToInt32(projectId);
+            var data = await (from user in _context.Users
+                              join pc in _context.projectContributors on user.Id equals pc.UserId
+                              join project in _context.Projects on pc.ProjectId equals project.Id
+                              where pc.ProjectId == id
+                              select new
+                              {
+                                  user.Id,
+                                  user.FirstName,
+                                  user.LastName,
+                                  user.Email,
+                                  user.UserName,
+                                  user.PhoneNumber
+                              }).ToArrayAsync();
+
+
+
+            return Ok(data);
         }
     }
 }

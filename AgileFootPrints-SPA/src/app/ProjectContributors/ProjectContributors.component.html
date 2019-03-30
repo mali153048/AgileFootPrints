@@ -18,6 +18,10 @@
         </button>
       </div>
     </div>
+
+    <p class="pull-right">
+      Total Contributors <strong>{{ contributors.length }}</strong>
+    </p>
   </div>
   <div
     *ngIf="invalidUserNameCheck === true"
@@ -38,5 +42,65 @@
   >
     <strong>Success !</strong> Invitation sent. User will be able to see project
     artifacts once user accepts the invitation
+  </div>
+
+  <div class="h-100 effect1" style="overflow: scroll;">
+    <div class="card card-default" id="card_contacts">
+      <div
+        id="contacts"
+        class="panel-collapse collapse show"
+        aria-expanded="true"
+      >
+        <ul class="list-group box " id="contact-list">
+          <li *ngFor="let contributor of contributors" class="list-group-item">
+            <div class="row w-100">
+              <div class="col-12 col-sm-6 col-md-3 px-0">
+                <img
+                  src="assets/img/user.jpg"
+                  height="100px"
+                  width="100px"
+                  alt="Mike Anamendolla"
+                  class="rounded-circle mx-auto d-block img-fluid"
+                />
+              </div>
+              <div class="col-12 col-sm-6 col-md-9 text-center text-sm-left">
+                <button class="pull-right " mat-raised-button color="warn">
+                  Contact
+                </button>
+                <button class="pull-right" mat-raised-button color="primary">
+                  Remove
+                </button>
+                <strong
+                  >{{ contributor.firstName }}
+                  {{ space }}
+                  {{ contributor.lastName }}</strong
+                >
+                <br />
+                <span
+                  class="fa fa-phone fa-fw text-muted"
+                  data-toggle="tooltip"
+                  title=""
+                  data-original-title="(870) 288-4149"
+                ></span>
+                <span class="text-muted small">
+                  0{{ contributor.phoneNumber }}
+                </span>
+                <br />
+                <span
+                  class="fa fa-envelope fa-fw text-muted"
+                  data-toggle="tooltip"
+                  data-original-title=""
+                  title=""
+                ></span>
+                <span class="text-muted small text-truncate">
+                  {{ contributor.email }}
+                </span>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <!--/contacts list-->
+      </div>
+    </div>
   </div>
 </div>

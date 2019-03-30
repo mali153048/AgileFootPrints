@@ -19,4 +19,8 @@ export class ContributorService {
       model
     );
   }
+
+  getprojectContributors(projectId: string): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'getContributors/' + projectId);
+  }
 }
