@@ -37,6 +37,7 @@
     "ng-mat-search-bar": "^3.0.1",
     "ng-pick-datetime": "^7.0.0",
     "ng2-charts": "^2.0.0-beta.18",
+    "ng6-toastr-notifications": "^1.0.4",
     "ngx-bootstrap": "^3.0.1",
     "ngx-daterangepicker": "^2.1.0",
     "ngx-perfect-scrollbar": "^7.2.1",

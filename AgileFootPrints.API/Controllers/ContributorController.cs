@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AgileFootPrints.API.Data;
+using AgileFootPrints.API.Dtos;
 using AgileFootPrints.API.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -70,6 +71,22 @@ namespace AgileFootPrints.API.Controllers
 
 
             return Ok(data);
+        }
+
+        [HttpPost("removeContributor/{projectId}")]
+        public async Task<IActionResult> RemoveContributor(string projectId,
+         ContributorDto contributor)
+        {
+            var user = await _context.Users.FindAsync(contributor.Id);
+            if (user == null || projectId == null || projectId == "")
+                return NotFound();
+
+            var projectContributor = await _context.projectContributors
+                .Where(x => x.ProjectId == Convert.ToInt32(projectId) && x.UserId == user.Id)
+                .FirstOrDefaultAsync();
+            _context.projectContributors.Remove(projectContributor);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }

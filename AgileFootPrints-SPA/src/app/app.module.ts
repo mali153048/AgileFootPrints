@@ -23,6 +23,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { ToastrModule } from 'ng6-toastr-notifications';
 
 import {
   MatTableModule,
@@ -67,6 +68,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SubNavBarComponent } from './subNavBar/subNavBar.component';
 import { ProjectContributorsComponent } from './ProjectContributors/ProjectContributors.component';
 import { ProjectContributorBottomSheetComponent } from './ProjectContributorBottomSheet/ProjectContributorBottomSheet.component';
+import { MailComponent } from './mail/mail.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -91,7 +93,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SidebarComponent,
     SubNavBarComponent,
     ProjectContributorsComponent,
-    ProjectContributorBottomSheetComponent
+    ProjectContributorBottomSheetComponent,
+    MailComponent
   ],
   imports: [
     BrowserModule,
@@ -134,7 +137,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     MatBottomSheetModule,
     MatProgressSpinnerModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
     AuthService,
@@ -156,7 +160,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NewEpicComponent,
     NewSprintComponent,
     SprintConfigComponent,
-    ProjectContributorBottomSheetComponent
+    ProjectContributorBottomSheetComponent,
+    MailComponent
   ]
 })
 export class AppModule {}

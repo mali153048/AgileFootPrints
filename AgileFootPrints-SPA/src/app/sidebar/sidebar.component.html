@@ -73,10 +73,13 @@
   </div>
   <div class="sidebar-footer" style="padding-bottom: 80px;">
     <div class="dropdown" dropdown>
-      <a (click)="toggleSpinner()" dropdownToggle>
+      <a (click)="toggleNotificationSpinner()" dropdownToggle>
         <i class="fa fa-bell"></i>
-        <span class="badge badge-pill badge-warning notification">
-          {{ unReadCount }}</span
+        <span
+          *ngIf="notificationsUnReadCount > 0"
+          class="badge badge-pill badge-warning notification"
+        >
+          {{ notificationsUnReadCount }}</span
         >
       </a>
       <div
@@ -132,9 +135,14 @@
       </div>
     </div>
     <div class="dropdown" dropdown>
-      <a href="#" dropdownToggle>
+      <a (click)="toggleMailsSpinner()" dropdownToggle>
         <i class="fa fa-envelope"></i>
-        <span class="badge badge-pill badge-success notification">7</span>
+        <span
+          *ngIf="mailsUnReadCount > 0"
+          class="badge badge-pill badge-success notification"
+        >
+          {{ mailsUnReadCount }}
+        </span>
       </a>
       <div class="dropdown-menu messages" *dropdownMenu>
         <div class="messages-header">
@@ -142,54 +150,32 @@
           Messages
         </div>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item">
+        <i style="padding-left: 20px;" *ngIf="mails.length === 0"
+          >No mails recieved
+        </i>
+        <a *ngFor="let mail of mails" class="dropdown-item">
           <div class="message-content">
             <div class="pic">
               <img src="assets/img/user.jpg" alt="" />
             </div>
             <div class="content">
               <div class="message-title">
-                <strong> Jhon doe</strong>
+                <strong>
+                  {{ mail.firstName }}
+                  {{ space }}
+                  {{ mail.lastName }}</strong
+                >
               </div>
               <div class="message-detail">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-                totam explicabo
+                {{ mail.message }}
+              </div>
+              <div class="notification-time">
+                {{ mail.createdAt | date: 'medium' }}
               </div>
             </div>
           </div>
         </a>
-        <a class="dropdown-item">
-          <div class="message-content">
-            <div class="pic">
-              <img src="assets/img/user.jpg" alt="" />
-            </div>
-            <div class="content">
-              <div class="message-title">
-                <strong> Jhon doe</strong>
-              </div>
-              <div class="message-detail">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-                totam explicabo
-              </div>
-            </div>
-          </div>
-        </a>
-        <a class="dropdown-item">
-          <div class="message-content">
-            <div class="pic">
-              <img src="assets/img/user.jpg" alt="" />
-            </div>
-            <div class="content">
-              <div class="message-title">
-                <strong> Jhon doe</strong>
-              </div>
-              <div class="message-detail">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-                totam explicabo
-              </div>
-            </div>
-          </div>
-        </a>
+
         <div class="dropdown-divider"></div>
         <a class="dropdown-item text-center">View all messages</a>
       </div>

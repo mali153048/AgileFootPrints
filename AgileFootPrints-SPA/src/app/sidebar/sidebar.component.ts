@@ -39,9 +39,10 @@ export class SidebarComponent implements OnInit {
   menus = [];
   routes = [];
   notifications: any = [];
+  mails: any = [];
   space = ' ';
-
-  unReadCount = 0;
+  mailsUnReadCount = 0;
+  notificationsUnReadCount = 0;
   matSpinner = false;
   matSprinnerColor = 'warn';
 
@@ -59,11 +60,17 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.matSpinner = false;
     this.matSprinnerColor = 'warn';
-    this.unReadCount = 0;
+    this.notificationsUnReadCount = 0;
+    this.mailsUnReadCount = 0;
     this.getNotifications();
   }
-  toggleSpinner() {
-    this.unReadCount = 0;
+  toggleNotificationSpinner() {
+    this.notificationsUnReadCount = 0;
+    this.matSpinner = true;
+    this.getNotifications();
+  }
+  toggleMailsSpinner() {
+    this.mailsUnReadCount = 0;
     this.matSpinner = true;
     this.getNotifications();
   }
@@ -98,10 +105,26 @@ export class SidebarComponent implements OnInit {
   getNotifications() {
     this.notificationService.getNotifications().subscribe(
       data => {
-        this.notifications = data;
+        console.log(data);
+        data.forEach(element => {
+          if (element.isMail === true) {
+            this.mails.push(element);
+          } else {
+            this.notifications.push(element);
+          }
+        });
+
         this.notifications.forEach(element => {
-          if (element.isRead === false) {
-            this.unReadCount += 1;
+          if (element.isRead === false && element.isNotification === true) {
+            this.notificationsUnReadCount += 1;
+          }
+          setInterval(() => {
+            this.matSpinner = false;
+          }, 2000);
+        });
+        this.mails.forEach(element => {
+          if (element.isRead === false && element.isMail === true) {
+            this.mailsUnReadCount += 1;
           }
           setInterval(() => {
             this.matSpinner = false;

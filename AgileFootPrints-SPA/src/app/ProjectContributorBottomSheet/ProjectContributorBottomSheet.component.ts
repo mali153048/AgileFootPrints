@@ -26,6 +26,10 @@ export class ProjectContributorBottomSheetComponent implements OnInit {
     this.userData = {};
     this.projectId = localStorage.getItem('projectId');
     this.userData.projectId = +this.projectId;
+    this.userData.isNotification = true;
+    this.userData.subject = 'Project Invitation';
+    this.userData.message = 'You have been invited to contribute in a project';
+    this.userData.isMail = false;
     this.bottomSheetRef.dismiss(this.userData);
   }
   close() {

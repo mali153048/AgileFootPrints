@@ -23,4 +23,11 @@ export class ContributorService {
   getprojectContributors(projectId: string): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'getContributors/' + projectId);
   }
+
+  removeContributor(contributorModel: any, projectId: string): Observable<any> {
+    return this.http.post(
+      this.baseUrl + 'removeContributor/' + projectId,
+      contributorModel
+    );
+  }
 }

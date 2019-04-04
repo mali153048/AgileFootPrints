@@ -28,7 +28,7 @@
           User {{ authService.decodedToken?.unique_name | titlecase }}
         </a>
 
-        <div class="dropdown-menu mt-3" *dropdownMenu>
+        <div class="dropdown-menu mt-3 pt-5" *dropdownMenu>
           <a class="dropdown-item" [routerLink]="['/userProfile']"> Profile</a>
           <a class="dropdown-item" href="#">Another action</a>
           <div class="dropdown-divider"></div>

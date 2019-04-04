@@ -15,11 +15,12 @@ namespace AgileFootPrints.API.Models
         public DateTime CreatedAt { get; set; }
         public int projectId { get; set; }
         public Project Project { get; set; }
+        public bool isMail { get; set; }
+        public bool isNotification { get; set; }
         public Notification()
         {
             this.CreatedAt = DateTime.Now;
-            this.Subject = "Project Invitation";
-            this.Message = "You have been invited to contribute in a project.";
+
         }
 
     }

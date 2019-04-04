@@ -53,11 +53,13 @@ namespace AgileFootPrints.API.Data
             builder.Entity<ProjectContributor>()
                 .HasOne(bc => bc.Project)
                 .WithMany(b => b.ProjectContributors)
-                .HasForeignKey(bc => bc.ProjectId);
+                .HasForeignKey(bc => bc.ProjectId)
+                .OnDelete(DeleteBehavior.SetNull);
             builder.Entity<ProjectContributor>()
                 .HasOne(bc => bc.User)
                 .WithMany(c => c.ProjectContributors)
-                .HasForeignKey(bc => bc.UserId);
+                .HasForeignKey(bc => bc.UserId)
+                .OnDelete(DeleteBehavior.SetNull);
             builder.Entity<Notification>()
                 .HasOne<User>(u => u.Sender)
                 .WithMany(s => s.NotificationsSent)

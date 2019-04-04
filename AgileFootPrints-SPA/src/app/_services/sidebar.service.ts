@@ -58,7 +58,7 @@ export class SidebarService {
       ] */
     },
     {
-      title: 'Charts',
+      title: 'My Tasks',
       icon: 'fa fa-chart-line',
       active: false,
       type: 'dropdown',

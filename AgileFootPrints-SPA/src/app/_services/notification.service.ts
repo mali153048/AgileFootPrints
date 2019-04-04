@@ -30,4 +30,8 @@ export class NotificationService {
     console.log(userId);
     return this.http.get<any>(this.baseUrl + 'getNotifications/' + userId);
   }
+
+  sendMail(mailModel: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'addNew', mailModel);
+  }
 }

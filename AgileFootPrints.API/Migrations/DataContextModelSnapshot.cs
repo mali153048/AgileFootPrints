@@ -83,6 +83,10 @@ namespace AgileFootPrints.API.Migrations
 
                     b.Property<string>("Subject");
 
+                    b.Property<bool>("isMail");
+
+                    b.Property<bool>("isNotification");
+
                     b.Property<bool>("isRead");
 
                     b.Property<int>("projectId");
@@ -498,12 +502,12 @@ namespace AgileFootPrints.API.Migrations
                     b.HasOne("AgileFootPrints.API.Models.Project", "Project")
                         .WithMany("ProjectContributors")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("AgileFootPrints.API.Models.User", "User")
                         .WithMany("ProjectContributors")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("AgileFootPrints.API.Models.Revision", b =>

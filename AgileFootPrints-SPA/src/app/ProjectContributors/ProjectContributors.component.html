@@ -23,31 +23,47 @@
       Total Contributors <strong>{{ contributors.length }}</strong>
     </p>
   </div>
-  <div
-    *ngIf="invalidUserNameCheck === true"
-    class=" row w-100 alert alert-danger float-left"
-  >
-    <strong>ERROR !</strong> You cannot search your own username
-  </div>
-  <div
-    *ngIf="isUserNull === true"
-    class=" row w-100 alert alert-danger float-left"
-  >
-    <strong>Not Found !</strong> No User found that matches the specified
-    username
-  </div>
-  <div
-    *ngIf="successNotify === true"
-    class=" row w-100 alert alert-success float-left"
-  >
-    <strong>Success !</strong> Invitation sent. User will be able to see project
-    artifacts once user accepts the invitation
-  </div>
-  <div
-    *ngIf="contributors.length === 0"
-    class=" row w-100 alert alert-primary float-left"
-  >
-    <strong>Welcome! </strong> Currently no user is contributing to this project
+  <div class="row">
+    <div
+      *ngIf="invalidUserNameCheck === true"
+      class=" row w-100 alert alert-danger float-left"
+    >
+      <strong>ERROR !</strong> You cannot search your own username
+    </div>
+    <div
+      *ngIf="isUserNull === true"
+      class=" row w-100 alert alert-danger float-left"
+    >
+      <strong>Not Found !</strong> No User found that matches the specified
+      username
+    </div>
+    <div
+      *ngIf="successNotify === true"
+      class=" row w-100 alert alert-success float-left"
+    >
+      <strong>Success !</strong> Invitation sent. User will be able to see
+      project artifacts once user accepts the invitation
+    </div>
+    <div
+      *ngIf="contributors.length === 0"
+      class=" row w-100 alert alert-primary float-left"
+    >
+      <strong>Welcome! </strong> Currently no user is contributing to this
+      project
+    </div>
+    <div
+      *ngIf="isDuplicate === true"
+      class=" row w-100 alert alert-warning float-left"
+    >
+      <strong>Oops! </strong> The user is already contributing to this project
+    </div>
+    <div
+      *ngIf="removeSuccess === true"
+      class=" row w-100 alert alert-primary float-left"
+    >
+      <strong>Success! </strong> User Removed. The User will no loger be able to
+      view this project.
+    </div>
   </div>
   <div
     *ngIf="contributors.length > 0"
@@ -73,10 +89,20 @@
                 />
               </div>
               <div class="col-12 col-sm-6 col-md-9 text-center text-sm-left">
-                <button class="pull-right " mat-raised-button color="warn">
+                <button
+                  (click)="contact(contributor.userName)"
+                  class="pull-right "
+                  mat-raised-button
+                  color="warn"
+                >
                   Contact
                 </button>
-                <button class="pull-right" mat-raised-button color="primary">
+                <button
+                  (click)="removeContributor(contributor)"
+                  class="pull-right"
+                  mat-raised-button
+                  color="primary"
+                >
                   Remove
                 </button>
                 <strong

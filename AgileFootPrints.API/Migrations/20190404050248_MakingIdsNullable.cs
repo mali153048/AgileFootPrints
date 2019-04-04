@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AgileFootPrints.API.Migrations
 {
-    public partial class WorkItemModelAdded : Migration
+    public partial class MakingIdsNullable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -269,7 +269,9 @@ namespace AgileFootPrints.API.Migrations
                     isRead = table.Column<bool>(nullable: false),
                     RecieverId = table.Column<int>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
-                    projectId = table.Column<int>(nullable: false)
+                    projectId = table.Column<int>(nullable: false),
+                    isMail = table.Column<bool>(nullable: false),
+                    isNotification = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -309,13 +311,13 @@ namespace AgileFootPrints.API.Migrations
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_projectContributors_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(

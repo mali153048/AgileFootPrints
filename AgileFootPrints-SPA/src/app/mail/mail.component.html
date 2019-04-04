@@ -1,0 +1,40 @@
+<mat-dialog-content>
+  <h2>Mail</h2>
+  <hr />
+  <div class="row col-sm-10 text-light rounded bg-info">
+    <div class="pt-2 pr-4">To:</div>
+    <i class="fa fa-user-circle" style="font-size: 40px;"></i>
+    <div class="pt-2 pl-3">{{ to }}</div>
+  </div>
+  <hr />
+  <mat-form-field>
+    <input
+      [(ngModel)]="subject"
+      (keyup)="check()"
+      matInput
+      placeholder="Subject"
+      required
+    />
+    <mat-error>Subject Name is required</mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <textarea
+      (keyup)="check()"
+      [(ngModel)]="message"
+      matInput
+      placeholder="Message"
+      required
+    ></textarea>
+    <mat-error>Message is required</mat-error>
+  </mat-form-field>
+  <br />
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button (click)="close()" mat-raised-button color="primary">
+    Close
+  </button>
+  <button [disabled]="disable" (click)="send()" mat-raised-button color="warn">
+    <i class="fa fa-paper-plane"></i>
+  </button>
+</mat-dialog-actions>

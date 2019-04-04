@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgileFootPrints.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190330164928_WorkItemModelAdded")]
-    partial class WorkItemModelAdded
+    [Migration("20190404050248_MakingIdsNullable")]
+    partial class MakingIdsNullable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,6 +84,10 @@ namespace AgileFootPrints.API.Migrations
                     b.Property<int>("SenderId");
 
                     b.Property<string>("Subject");
+
+                    b.Property<bool>("isMail");
+
+                    b.Property<bool>("isNotification");
 
                     b.Property<bool>("isRead");
 
@@ -500,12 +504,12 @@ namespace AgileFootPrints.API.Migrations
                     b.HasOne("AgileFootPrints.API.Models.Project", "Project")
                         .WithMany("ProjectContributors")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("AgileFootPrints.API.Models.User", "User")
                         .WithMany("ProjectContributors")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("AgileFootPrints.API.Models.Revision", b =>
