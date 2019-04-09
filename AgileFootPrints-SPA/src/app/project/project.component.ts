@@ -12,6 +12,7 @@ import { AlertifyService } from '../_services/alertify.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { Router } from '@angular/router';
 import { EpicService } from '../_services/epic.service';
+import { ContributorService } from '../_services/contributor.service';
 
 @Component({
   selector: 'app-project',
@@ -19,13 +20,14 @@ import { EpicService } from '../_services/epic.service';
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
-  userId = this.authService.decodedToken.nameid;
+  userId: string; // this.authService.decodedToken.nameid;
   userProjects = [];
   modalRef: BsModalRef;
   isCollapsed = true;
   projectModel: any = {};
   projectId: string;
   projectEpics = [];
+  contributions = [];
 
   constructor(
     private authService: AuthService,
@@ -34,10 +36,13 @@ export class ProjectComponent implements OnInit {
     private modalService: BsModalService,
     private epicService: EpicService,
     private router: Router
-  ) {}
+  ) {
+    this.userId = this.authService.decodedToken.nameid;
+  }
 
   ngOnInit() {
     this.getUserProjects();
+    this.getContributions();
   }
 
   getUserProjects() {
@@ -80,5 +85,17 @@ export class ProjectComponent implements OnInit {
     this.projectId = id.toString();
     this.epicService.changeId(this.projectId);
     this.router.navigate(['/epic']);
+  }
+
+  getContributions() {
+    this.projectService.projectContributions(this.userId).subscribe(
+      next => {
+        this.contributions = next;
+        console.log('Contributions', this.contributions);
+      },
+      error => {
+        this.alertify.error(error.message);
+      }
+    );
   }
 }

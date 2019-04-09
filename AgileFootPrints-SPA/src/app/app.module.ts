@@ -24,6 +24,7 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ToastrModule } from 'ng6-toastr-notifications';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 import {
   MatTableModule,
@@ -63,7 +64,7 @@ import { NewEpicComponent } from './NewEpic/NewEpic.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NewSprintComponent } from './NewSprint/NewSprint.component';
 import { SprintConfigComponent } from './SprintConfig/SprintConfig.component';
-import { from } from 'rxjs';
+
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SubNavBarComponent } from './subNavBar/subNavBar.component';
 import { ProjectContributorsComponent } from './ProjectContributors/ProjectContributors.component';
@@ -138,7 +139,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatBottomSheetModule,
     MatProgressSpinnerModule,
     SweetAlert2Module.forRoot(),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgScrollbarModule
   ],
   providers: [
     AuthService,

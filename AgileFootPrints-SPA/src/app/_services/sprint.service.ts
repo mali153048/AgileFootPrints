@@ -43,4 +43,9 @@ export class SprintService {
   getSprintStories(projectId: string): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'getSprintStories/' + projectId);
   }
+
+  startNow(sprintIds: any) {
+    console.log('SP ids', sprintIds);
+    // return this.http.post<any>(this.baseUrl + 'startSprint', sprintIds);
+  }
 }

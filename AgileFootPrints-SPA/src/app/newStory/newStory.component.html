@@ -42,10 +42,7 @@
     </mat-form-field>
     <br />
     <mat-form-field>
-      <mat-select
-        [(ngModel)]="storyModel.sprintId"
-        placeholder="Assign to Epic"
-      >
+      <mat-select [(ngModel)]="storyModel.sprintId" placeholder="Sprint">
         <mat-option *ngFor="let sprint of sprints" [value]="sprint.id">
           {{ sprint.sprintName }}
         </mat-option>

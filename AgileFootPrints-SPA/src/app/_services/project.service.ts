@@ -37,4 +37,8 @@ export class ProjectService {
       project
     );
   }
+
+  projectContributions(userId: string): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'myContributions/' + userId);
+  }
 }

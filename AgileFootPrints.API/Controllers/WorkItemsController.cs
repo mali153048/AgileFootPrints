@@ -19,11 +19,11 @@ namespace AgileFootPrints.API.Controllers
         {
             _context = context;
         }
-        [HttpGet("getUserWorkItems/{id}")]
-        public async Task<IActionResult> GetUserWorkItems(string id)
+        [HttpGet("getUserWorkItems/{userId}")]
+        public async Task<IActionResult> GetUserWorkItems(string userId)
         {
-            int userId = Convert.ToInt32(id);
-            var list = await _context.WorkItems.Where(x => x.UserId == userId).ToListAsync();
+            int Id = Convert.ToInt32(userId);
+            var list = await _context.Stories.Where(x => x.UserId == Id).ToListAsync();
             return Ok(list);
         }
 

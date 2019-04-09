@@ -52,6 +52,7 @@ export class EpicComponent implements OnInit {
   projectDetails: any = {};
   test = [];
   response: any;
+  startSprintIds = [];
 
   displayedColumns: string[] = [
     'priority',
@@ -86,7 +87,6 @@ export class EpicComponent implements OnInit {
     this.spinner.show();
 
     setTimeout(() => {
-      /** spinner ends after 5 seconds */
       this.spinner.hide();
     }, 1000);
     this.getSprints();
@@ -107,7 +107,7 @@ export class EpicComponent implements OnInit {
         this.projectDetails.projectName = next[0].projectName;
         this.projectDetails.projectDescription = next[0].projectDescription;
         this.projectDetails.projectKey = next[0].projectKey;
-        console.log(this.projectEpics); // Logs data to chrome console
+        console.log('Epics', this.projectEpics); // Logs data to chrome console
       },
       error => {
         this.alertify.error(error);
@@ -251,8 +251,9 @@ export class EpicComponent implements OnInit {
     this.epicId = id.toString();
     console.log('Epic Id: ' + this.epicId);
   }
-  editEpic() {
+  editEpic(epicId: string) {
     // this.eId = this.epicId.toString();
+    this.epicId = epicId;
     this.epicService.getEpic(this.epicId, this.id).subscribe(epic => {
       this.epicToForward = epic;
       const dialogConfig = new MatDialogConfig();
@@ -281,10 +282,11 @@ export class EpicComponent implements OnInit {
       });
     });
   }
-  deleteEpic() {
+  deleteEpic(epicId: string) {
     this.alertify.confirm(
       'The Epic will be deleted. However the stories in Epics will not be deleted. Confirm Delete ? ',
       () => {
+        this.epicId = epicId;
         this.epicService.deleteEpic(this.epicId).subscribe(
           res => {
             this.getProjectEpics(this.id);
@@ -335,7 +337,20 @@ export class EpicComponent implements OnInit {
             element.startDate = undefined;
             element.endDate = undefined;
           }
+          console.log('Sprint is ', element);
+          if (
+            element.startDate === new Date() &&
+            element.statusId !== 2 // sprint must not be already started
+          ) {
+            // send element.id
+            this.startSprintIds.push(element.id);
+          }
+          console.log('yo', this.startSprintIds);
         });
+        if (this.startSprintIds.length > 0) {
+          console.log(this.startSprintIds);
+          this.sprintService.startNow(this.startSprintIds);
+        }
         this.proejctSprints = next;
         console.log(this.proejctSprints);
       },

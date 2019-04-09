@@ -98,5 +98,33 @@ namespace AgileFootPrints.API.Controllers
             return Ok(project);
         }
 
+
+        [HttpGet("myContributions/{userId}")]
+        public async Task<IActionResult> UserProjectContributions(string userId)
+        {
+            var data = await (from user in _context.Users
+                              join pc in _context.projectContributors on user.Id equals pc.UserId
+                              join project in _context.Projects on pc.ProjectId equals project.Id
+                              where pc.UserId == Convert.ToInt32(userId)
+                              select new
+                              {
+                                  //getting project details to which the user is contributing
+                                  // along with project owner details 
+                                  userId = project.User.Id,
+                                  firstName = project.User.FirstName,
+                                  lastName = project.User.LastName,
+                                  email = project.User.Email,
+                                  userName = project.User.UserName,
+                                  phoneNumber = project.User.PhoneNumber,
+                                  projectId = project.Id,
+                                  projectName = project.ProjectName,
+                                  projectKey = project.ProjectKey,
+                                  project.Status.status
+                              }).ToArrayAsync();
+            if (data == null)
+                return BadRequest();
+            return Ok(data);
+        }
+
     }
 }

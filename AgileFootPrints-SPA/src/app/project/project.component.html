@@ -1,7 +1,9 @@
 <div style="margin-left: 250px;" class="mt-5">
   <button
     type="button"
-    class="btn btn-success m-3"
+    class=" m-3 ml-4"
+    mat-raised-button
+    color="warn"
     (click)="openModal(template)"
   >
     Create New &nbsp; <i class="fa fa-plus-circle" style="font-size: 20px;"></i>
@@ -60,7 +62,7 @@
     </div>
   </ng-template>
 
-  <div class="row ml-4">
+  <div class="row w-100 ml-4">
     <div class="col-md-5">
       <div class="card  ">
         <div class="card-header  text-light w-100">
@@ -87,6 +89,45 @@
           </div>
         </perfect-scrollbar>
       </div>
+    </div>
+    <div class="col-md-6">
+      <ul class="list-group">
+        <li class="list-group-item active">
+          Project Contributions
+        </li>
+        <li *ngFor="let project of contributions" class="list-group-item ">
+          <div class="d-inline-block">
+            {{ project.projectName }}
+          </div>
+          <div class="d-inline-block ml-3 badge badge-info">
+            {{ project.projectKey }}
+          </div>
+          <div class="d-inline-block ml-3 ">
+            <small>
+              <i>(Supervised by: {{ project.userName }} )</i>
+            </small>
+          </div>
+          <div class="d-inline-block ml-3 pull-right">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>supervisor_account</mat-icon>
+                <span>Supervisor</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>description</mat-icon>
+                <span>View Artifacts</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>delete_outline</mat-icon>
+                <span>Remove</span>
+              </button>
+            </mat-menu>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

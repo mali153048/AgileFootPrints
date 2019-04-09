@@ -107,6 +107,12 @@ namespace AgileFootPrints.API.Controllers
             var result1 = await _context.Stories.Include(x => x.Sprint).Where(x => x.Sprint.StatusId == 2 && x.ProjectId == Convert.ToInt32(projectId)).ToListAsync();
             return Ok(result1);
         }
+
+        [HttpPost("startSprint")]
+        public async Task<IActionResult> StartSprint([FromBody] int[] sprintIds)
+        {
+            return Ok();
+        }
     }
 
 

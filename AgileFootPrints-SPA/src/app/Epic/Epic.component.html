@@ -59,7 +59,74 @@
     </div>
     <small>{{ projectDetails.projectDescription }}</small>
   </div>
-  <!-- dropdowns -->
+
+  <div
+    class="col-md-5"
+    style="margin-top: 10px; max-height:150px; overflow-y:scroll;"
+  >
+    <div *ngIf="projectEpics.length === 0" class="bg-info rounded mt-2">
+      <span class="pl-3 badge badge-info text-light">
+        No Epic has been created yet
+      </span>
+    </div>
+
+    <div class="mt-2">
+      <ul *ngIf="projectEpics.length > 0" class="list-group">
+        <li class="list-group-item justify-content-between bg-info text-light">
+          <h5 style="display: inline">Epics</h5>
+          <span class="pl-3"
+            ><a
+              (click)="newEpic()"
+              class=" btn-link"
+              style="color: purple; cursor: pointer;"
+              >New</a
+            >
+          </span>
+        </li>
+        <li
+          *ngFor="let epic of projectEpics"
+          class="list-group-item justify-content-between"
+          style="line-height: 20px"
+        >
+          <div class="row w-100">
+            <div class="col-md-auto">
+              {{ epic.epicName }}
+            </div>
+            <div class=" col-md-2 pl-2">
+              <span
+                class="badge badge-danger"
+                (click)="deleteEpic(epic.id)"
+                style="cursor: pointer"
+              >
+                <i class="fa fa-trash "></i>
+              </span>
+              <span
+                (click)="editEpic(epic.id)"
+                class="badge badge-primary ml-2"
+                style="cursor: pointer"
+              >
+                <i class="fa fa-edit "></i>
+              </span>
+            </div>
+            <div class="col-md-7">
+              <span
+                *ngIf="epic.stories !== null"
+                class="badge badge-success badge-pill pull-right"
+              >
+                {{ epic.stories.length }}
+              </span>
+              <span
+                *ngIf="epic.stories === null"
+                class="badge badge-success badge-pill pull-right"
+              >
+                <small>No stories in this epic</small>
+              </span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
 <br />
 <ngx-spinner
