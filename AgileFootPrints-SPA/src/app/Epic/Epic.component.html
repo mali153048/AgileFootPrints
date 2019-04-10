@@ -212,8 +212,16 @@
                   *ngIf="sprint.endDate === undefined"
                   >Not yet Specified</i
                 >
-
-                <div class="pl-5">
+                <small class="text-light pt-2" *ngIf="sprint.statusId === 1"
+                  >(Status: To Do)</small
+                >
+                <small class="text-light pt-2" *ngIf="sprint.statusId === 2"
+                  >(Status: In progress)</small
+                >
+                <small class="text-light pt-2" *ngIf="sprint.statusId === 3"
+                  >(Status: Completed)</small
+                >
+                <div class="pl-5 pull-right">
                   <button mat-icon-button [matMenuTriggerFor]="menu">
                     <mat-icon>more_vert</mat-icon>
                   </button>

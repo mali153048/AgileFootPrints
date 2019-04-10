@@ -338,9 +338,11 @@ export class EpicComponent implements OnInit {
             element.endDate = undefined;
           }
           console.log('Sprint is ', element);
+          console.log(element.startDate);
+          console.log(new Date());
           if (
-            element.startDate === new Date() &&
-            element.statusId !== 2 // sprint must not be already started
+            new Date(element.startDate).getDate() === new Date().getDate() &&
+            element.statusId === 1 // sprint must not be already started
           ) {
             // send element.id
             this.startSprintIds.push(element.id);
@@ -348,8 +350,8 @@ export class EpicComponent implements OnInit {
           console.log('yo', this.startSprintIds);
         });
         if (this.startSprintIds.length > 0) {
-          console.log(this.startSprintIds);
-          this.sprintService.startNow(this.startSprintIds);
+          // console.log(this.startSprintIds);
+          this.sprintService.startNow(this.startSprintIds).subscribe();
         }
         this.proejctSprints = next;
         console.log(this.proejctSprints);

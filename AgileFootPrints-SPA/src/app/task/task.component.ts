@@ -11,6 +11,7 @@ import {
   CdkDragEnter
 } from '@angular/cdk/drag-drop';
 import { AlertifyService } from '../_services/alertify.service';
+import { Toastr, ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-task',
@@ -35,7 +36,8 @@ export class TaskComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private sprintService: SprintService,
     private storyService: StoryService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private toastrService: ToastrManager
   ) {}
 
   ngOnInit() {
@@ -60,7 +62,7 @@ export class TaskComponent implements OnInit {
     let projectId: string = localStorage.getItem('projectId');
     this.sprintService.getSprintStories(projectId).subscribe(response => {
       // tslint:disable-next-line:prefer-const
-
+      // console.log('uuuddd', response);
       this.stories = response;
       this.stories.forEach(element => {
         if (element.statusId === 1) {
@@ -82,7 +84,7 @@ export class TaskComponent implements OnInit {
       ];
     });
   }
-  completeNotify() {
+  sprintIncompleteNotify() {
     this.alertify.confirm(
       'Not all stories have been completed, Do you wish to continue ?',
       () => {}
@@ -161,5 +163,32 @@ export class TaskComponent implements OnInit {
         console.log('error');
       }
     );
+  }
+
+  completeSprint(toCompleteId: number) {
+    let inCompleteCount = 0;
+    const sprint: any = this.stories.filter(x => x.sprint.id === toCompleteId);
+    console.log('This is to be marked', sprint);
+    sprint.forEach(element => {
+      if (element.statusId !== 3) {
+        inCompleteCount += 1;
+      }
+    });
+    if (inCompleteCount > 0) {
+      this.alertify.confirm(
+        'Not all stories have been completed, Do you wish to continue ? ' +
+          'Incomplete stories will be put back in product backlog',
+        () => {
+          this.sprintService.completeSprint(toCompleteId).subscribe(
+            () => {
+              this.toastrService.infoToastr('This is info toast.', 'Info');
+            },
+            error => {
+              this.toastrService.errorToastr(error.message);
+            }
+          );
+        }
+      );
+    }
   }
 }

@@ -12,6 +12,26 @@
 </div>
 
 <div class="container " style="margin-left: 300px;margin-top: 90px;">
+  <div class="row pull-right">
+    <div class="dropdown" dropdown>
+      <button
+        class="dropdown-toggle  text-light mt-5 btn btn-primary "
+        dropdownToggle
+      >
+        <i class="fa fa-clipboard-check "></i>Complete
+      </button>
+      <div class="dropdown-menu " *dropdownMenu>
+        <a
+          class="dropdown-item"
+          style="cursor: pointer"
+          *ngFor="let story of stories"
+          (click)="completeSprint(story.sprint.id)"
+        >
+          {{ story.sprint.sprintName }}
+        </a>
+      </div>
+    </div>
+  </div>
   <hr />
   <div class="card bg-danger">
     <div class="card-header text-light"><h4>To Do</h4></div>

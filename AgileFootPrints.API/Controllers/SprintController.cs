@@ -111,6 +111,31 @@ namespace AgileFootPrints.API.Controllers
         [HttpPost("startSprint")]
         public async Task<IActionResult> StartSprint([FromBody] int[] sprintIds)
         {
+            if (sprintIds.Length == 0)
+                return BadRequest();
+            foreach (var sprintId in sprintIds)
+            {
+                var sprint = _context.Sprints.Where(x => x.Id == sprintId)
+                            .FirstOrDefault();
+                if (sprint != null)
+                {
+                    sprint.StatusId = 2;
+
+                }
+
+            }
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpGet("completeSprint/{sprintId}")]
+        public async Task<IActionResult> CompleteSprint(string sprintId)
+        {
+            var sprint = _context.Sprints.Where(x => x.Id == Convert.ToInt32(sprintId)).FirstOrDefault();
+            if (sprint == null)
+                return BadRequest();
+            sprint.StatusId = 3;
+            await _context.SaveChangesAsync();
             return Ok();
         }
     }
