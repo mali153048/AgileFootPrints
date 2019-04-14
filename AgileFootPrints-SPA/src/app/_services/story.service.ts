@@ -61,4 +61,8 @@ export class StoryService {
       null
     );
   }
+
+  getUserTasks(userName: string): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'userTasks/' + userName);
+  }
 }

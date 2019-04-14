@@ -70,6 +70,8 @@ import { SubNavBarComponent } from './subNavBar/subNavBar.component';
 import { ProjectContributorsComponent } from './ProjectContributors/ProjectContributors.component';
 import { ProjectContributorBottomSheetComponent } from './ProjectContributorBottomSheet/ProjectContributorBottomSheet.component';
 import { MailComponent } from './mail/mail.component';
+import { LandingPageComponent } from './landingPage/landingPage.component';
+import { MyTaskComponent } from './my-task/my-task.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -95,7 +97,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SubNavBarComponent,
     ProjectContributorsComponent,
     ProjectContributorBottomSheetComponent,
-    MailComponent
+    MailComponent,
+    LandingPageComponent,
+    MyTaskComponent
   ],
   imports: [
     BrowserModule,

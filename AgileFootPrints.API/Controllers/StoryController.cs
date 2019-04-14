@@ -140,5 +140,17 @@ namespace AgileFootPrints.API.Controllers
             return Ok();
         }
 
+        [HttpGet("userTasks/{username}")]
+        public async Task<IActionResult> GetUserTasks(string username)
+        {
+            var user = _context.Users.Where(x => x.UserName == username).FirstOrDefault();
+            if (user == null)
+                return BadRequest();
+            /*  var data = await _context.Stories.Include(x => x.Project)
+                 .ThenInclude(x => x.Sprints).ThenInclude(x => x.project)
+                 .Where(x => x.UserId == user.Id).ToArrayAsync(); */
+            return Ok();
+        }
+
     }
 }

@@ -7,6 +7,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { EpicComponent } from './Epic/Epic.component';
 import { UserProfileComponent } from './UserProfile/UserProfile.component';
 import { ProjectContributorsComponent } from './ProjectContributors/ProjectContributors.component';
+import { MyTaskComponent } from './my-task/my-task.component';
 
 export const appRoutes: Routes = [
   {
@@ -32,6 +33,11 @@ export const appRoutes: Routes = [
   {
     path: 'contributors',
     component: ProjectContributorsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'usertasks',
+    component: MyTaskComponent,
     canActivate: [AuthGuard]
   },
 

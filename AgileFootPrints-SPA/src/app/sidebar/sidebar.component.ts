@@ -53,7 +53,7 @@ export class SidebarComponent implements OnInit {
     private contributorService: ContributorService,
     private alertify: AlertifyService
   ) {
-    this.routes = ['/project'];
+    this.routes = ['/project', '', '/usertasks'];
     this.menus = sidebarservice.getMenuList();
   }
 
