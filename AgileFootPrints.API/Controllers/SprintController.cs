@@ -13,7 +13,7 @@ namespace AgileFootPrints.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
+    [Authorize]
     public class SprintController : ControllerBase
     {
         private readonly DataContext _context;

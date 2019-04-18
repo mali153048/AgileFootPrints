@@ -14,7 +14,7 @@ namespace AgileFootPrints.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
+    [Authorize]
     public class ContributorController : ControllerBase
     {
         private readonly DataContext _context;

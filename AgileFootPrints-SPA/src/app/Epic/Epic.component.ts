@@ -88,7 +88,7 @@ export class EpicComponent implements OnInit {
 
     setTimeout(() => {
       this.spinner.hide();
-    }, 1000);
+    }, 2000);
     this.getSprints();
     console.log(this.projectEpics);
   }

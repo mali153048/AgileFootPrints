@@ -1,5 +1,205 @@
-<div class="container m-5 pt-5" style="padding-left: 250px;">
-  <p>
-    my-task works!
-  </p>
+<div class="container mt-5 pull-left">
+  <head>
+    <script src=".\node_modules\chart.js\src\chart.js"></script>
+  </head>
+  <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+  ></ngx-spinner>
+  <div style="padding-left: 250px;">
+    <app-subnavbar></app-subnavbar>
+  </div>
+
+  <div class="container " style="margin-left: 300px;margin-top: 90px;">
+    <hr />
+    <div class="row">
+      <p class="badge badge-info text-light mt-3 mb-3 ml-3">
+        {{ toDo.length }} {{ space }} stories have been assigned to you
+      </p>
+    </div>
+    <div class="card bg-danger">
+      <div class="card-header text-light"><h4>To Do</h4></div>
+
+      <div
+        cdkDropList
+        #Todo="cdkDropList"
+        [cdkDropListData]="toDo"
+        [cdkDropListConnectedTo]="[InProgress, Completed]"
+        class="example-list"
+        (cdkDropListDropped)="dropToDo($event)"
+      >
+        <p
+          *ngIf="toDo.length === 0 || toDo === null"
+          style="font-style: italic;text-align: center;color: red"
+        >
+          No work to do.
+        </p>
+        <div class="d-flex flex-row" *ngFor="let story of toDo" cdkDrag>
+          <div class="p-2">{{ story.storyName }}</div>
+          <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <span
+                  ><strong>Sprint: </strong> {{ space }}{{ story.sprintName }}
+                </span>
+              </button>
+              <button mat-menu-item>
+                <span
+                  ><strong> Epic:</strong> {{ space }}{{ story.epicName }}</span
+                >
+              </button>
+              <button mat-menu-item>
+                <span
+                  ><strong> Project:</strong> {{ space
+                  }}{{ story.projectName }}</span
+                >
+              </button>
+              <button mat-menu-item>
+                <span
+                  ><strong> Assigned By:</strong> {{ space
+                  }}{{ story.userName }}</span
+                >
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-primary">
+      <div class="card-header text-light"><h4>In Progress</h4></div>
+
+      <div
+        cdkDropList
+        #InProgress="cdkDropList"
+        [cdkDropListData]="inProgress"
+        [cdkDropListConnectedTo]="[Todo, Completed]"
+        class="example-list"
+        (cdkDropListDropped)="dropInProgress($event)"
+      >
+        <p
+          *ngIf="inProgress.length === 0 || inProgress === null"
+          style="font-style: italic;text-align: center;color: blue"
+        >
+          No stories In progress
+        </p>
+        <div
+          class="d-flex flex-row"
+          *ngFor="let storyInProgress of inProgress"
+          cdkDrag
+        >
+          <div class="p-2" style="color: black">
+            {{ storyInProgress.storyName }}
+          </div>
+
+          <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <span
+                  ><strong>Sprint: </strong> {{ space
+                  }}{{ storyInProgress.sprintName }}
+                </span>
+              </button>
+              <button mat-menu-item>
+                <span
+                  ><strong> Epic:</strong> {{ space
+                  }}{{ storyInProgress.epicName }}</span
+                >
+              </button>
+              <button mat-menu-item>
+                <span
+                  ><strong> Project:</strong> {{ space
+                  }}{{ storyInProgress.projectName }}</span
+                >
+              </button>
+              <button mat-menu-item>
+                <span
+                  ><strong> Assigned By:</strong> {{ space
+                  }}{{ storyInProgress.userName }}</span
+                >
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card bg-success">
+      <div class="card-header text-light"><h4>Completed</h4></div>
+
+      <div
+        cdkDropList
+        #Completed="cdkDropList"
+        [cdkDropListData]="completed"
+        [cdkDropListConnectedTo]="[Todo, InProgress]"
+        class="example-list"
+        (cdkDropListDropped)="dropCompleted($event)"
+      >
+        <p
+          *ngIf="completed.length === 0 || completed === null"
+          style="font-style: italic; text-align: center;color: green"
+        >
+          No stories have been completed
+        </p>
+        <div
+          class="d-flex flex-row"
+          *ngFor="let storyCompleted of completed"
+          cdkDrag
+        >
+          <div class="p-2">{{ storyCompleted.storyName }}</div>
+
+          <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <span
+                  ><strong>Sprint: </strong> {{ space
+                  }}{{ storyCompleted.sprintName }}
+                </span>
+              </button>
+              <button mat-menu-item>
+                <span
+                  ><strong> Epic:</strong> {{ space
+                  }}{{ storyCompleted.epicName }}</span
+                >
+              </button>
+              <button mat-menu-item>
+                <span
+                  ><strong> Project:</strong> {{ space
+                  }}{{ storyCompleted.projectName }}</span
+                >
+              </button>
+              <button mat-menu-item>
+                <span
+                  ><strong> Assigned By:</strong> {{ space
+                  }}{{ storyCompleted.userName }}</span
+                >
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div>
+    <div style="display: block">
+      <canvas
+        style="position: relative; height:20vh; width:40vw"
+        baseChart
+        [data]="doughnutChartData"
+        [labels]="doughnutChartLabels"
+        [chartType]="doughnutChartType"
+      >
+      </canvas>
+    </div>
+  </div> -->
 </div>

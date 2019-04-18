@@ -13,6 +13,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { Router } from '@angular/router';
 import { EpicService } from '../_services/epic.service';
 import { ContributorService } from '../_services/contributor.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-project',
@@ -31,6 +32,7 @@ export class ProjectComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private spinner: NgxSpinnerService,
     private projectService: ProjectService,
     private alertify: AlertifyService,
     private modalService: BsModalService,
@@ -41,8 +43,14 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner.show();
+
     this.getUserProjects();
     this.getContributions();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 2000);
   }
 
   getUserProjects() {

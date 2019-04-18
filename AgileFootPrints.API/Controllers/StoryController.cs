@@ -15,7 +15,7 @@ namespace AgileFootPrints.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
+    [Authorize]
     public class StoryController : ControllerBase
     {
         private readonly DataContext _context;
@@ -146,10 +146,31 @@ namespace AgileFootPrints.API.Controllers
             var user = _context.Users.Where(x => x.UserName == username).FirstOrDefault();
             if (user == null)
                 return BadRequest();
-            /*  var data = await _context.Stories.Include(x => x.Project)
-                 .ThenInclude(x => x.Sprints).ThenInclude(x => x.project)
-                 .Where(x => x.UserId == user.Id).ToArrayAsync(); */
-            return Ok();
+
+            var data = await (from story in _context.Stories
+
+                              where story.UserId == user.Id
+                              select new
+                              {
+                                  storyid = story.Id,
+                                  story.StoryName,
+                                  story.StoryDescription,
+                                  story.Status.status,
+                                  statusId = story.Status.Id,
+                                  projectId = story.Project.Id,
+                                  story.Project.ProjectName,
+                                  story.Project.ProjectDescription,
+                                  story.Project.ProjectKey,
+                                  epicId = story.Epic.Id,
+                                  story.Epic.EpicName,
+                                  story.Epic.EpicDescription,
+                                  userId = story.Project.User.Id,
+                                  sprintId = story.Sprint.Id,
+                                  story.Sprint.SprintName,
+                                  story.Project.User.UserName
+                              }).ToArrayAsync();
+
+            return Ok(data);
         }
 
     }

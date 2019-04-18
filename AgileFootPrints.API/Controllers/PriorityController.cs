@@ -9,7 +9,7 @@ namespace AgileFootPrints.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
+    [Authorize]
     public class PriorityController : ControllerBase
     {
         private readonly DataContext _context;

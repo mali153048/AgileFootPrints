@@ -69,7 +69,14 @@
         No Epic has been created yet
       </span>
     </div>
-
+    <span *ngIf="projectEpics.length === 0" class="pl-3"
+      ><a
+        (click)="newEpic()"
+        class=" btn-link"
+        style="color: purple; cursor: pointer;"
+        >New</a
+      >
+    </span>
     <div class="mt-2">
       <ul *ngIf="projectEpics.length > 0" class="list-group">
         <li class="list-group-item justify-content-between bg-info text-light">

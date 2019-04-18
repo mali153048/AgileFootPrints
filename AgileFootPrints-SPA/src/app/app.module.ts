@@ -72,11 +72,15 @@ import { ProjectContributorBottomSheetComponent } from './ProjectContributorBott
 import { MailComponent } from './mail/mail.component';
 import { LandingPageComponent } from './landingPage/landingPage.component';
 import { MyTaskComponent } from './my-task/my-task.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
+export function tokenGetter() {
+  return localStorage.getItem('userToken');
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -144,7 +148,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatProgressSpinnerModule,
     SweetAlert2Module.forRoot(),
     ToastrModule.forRoot(),
-    NgScrollbarModule
+    NgScrollbarModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:5000'],
+        blacklistedRoutes: ['localhost:5000/api/auth']
+      }
+    })
   ],
   providers: [
     AuthService,
