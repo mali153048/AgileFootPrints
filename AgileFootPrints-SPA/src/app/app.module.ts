@@ -73,6 +73,7 @@ import { MailComponent } from './mail/mail.component';
 import { LandingPageComponent } from './landingPage/landingPage.component';
 import { MyTaskComponent } from './my-task/my-task.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { UserScrumRoleComponent } from './UserScrumRole/UserScrumRole.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -103,7 +104,8 @@ export function tokenGetter() {
     ProjectContributorBottomSheetComponent,
     MailComponent,
     LandingPageComponent,
-    MyTaskComponent
+    MyTaskComponent,
+    UserScrumRoleComponent
   ],
   imports: [
     BrowserModule,

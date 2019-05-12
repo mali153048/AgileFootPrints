@@ -8,6 +8,7 @@ import { EpicComponent } from './Epic/Epic.component';
 import { UserProfileComponent } from './UserProfile/UserProfile.component';
 import { ProjectContributorsComponent } from './ProjectContributors/ProjectContributors.component';
 import { MyTaskComponent } from './my-task/my-task.component';
+import { UserScrumRoleComponent } from './UserScrumRole/UserScrumRole.component';
 
 export const appRoutes: Routes = [
   {
@@ -38,6 +39,11 @@ export const appRoutes: Routes = [
   {
     path: 'usertasks',
     component: MyTaskComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'projecrRoles',
+    component: UserScrumRoleComponent,
     canActivate: [AuthGuard]
   },
 

@@ -28,7 +28,8 @@ namespace AgileFootPrints.API.Data
         public DbSet<CodeFile> CodeFiles { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<CodeFileRevision> CodeFileRevisions { get; set; }
-
+        public DbSet<ScrumRoles> ScrumRoles { get; set; }
+        public DbSet<UserProjectRole> UserProjectRole { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -71,7 +72,16 @@ namespace AgileFootPrints.API.Data
             builder.Entity<User>()
                 .HasMany(x => x.Stories)
                 .WithOne(y => y.User);
-
+            /* builder.Entity<UserProjectRole>()
+                .HasIndex(roles => new { roles.UserId, roles.ProjectId })
+               .IsUnique(true); */
+            /* builder.Entity<User>()
+                .HasMany(x => x.UserProjectRole)
+                .WithOne(c => c.User).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Project>()
+                .HasMany(x => x.UserProjectRole)
+                .WithOne(c => c.Project).OnDelete(DeleteBehavior.Cascade);
+ */
         }
         public DataContext CreateDbContext(string[] args)
         {

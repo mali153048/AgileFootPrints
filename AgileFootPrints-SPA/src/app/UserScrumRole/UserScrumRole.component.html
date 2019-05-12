@@ -1,0 +1,44 @@
+<app-subnavbar></app-subnavbar>
+<div class="container">
+  <div style="padding-left: 150px;margin-top: 150px">
+    <div class="row">
+      <div class="card">
+        <div class="card-header">
+          SCRUM Role Management
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field>
+                <mat-label>Project Users</mat-label>
+                <mat-select [(ngModel)]="selectedUserId">
+                  <mat-option>None</mat-option>
+                  <mat-option *ngFor="let user of usersList" [value]="user.id">
+                    {{ user.userName }}- {{ user.id }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-5">
+              <mat-form-field>
+                <mat-label>SCRUM Roles</mat-label>
+                <mat-select [(ngModel)]="selectedRoleId">
+                  <mat-option>None</mat-option>
+                  <mat-option *ngFor="let role of scrumRoles" [value]="role.id">
+                    {{ role.scrumRoleName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button (click)="assignRole()" class="btn btn-primary">
+            Assign Role
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

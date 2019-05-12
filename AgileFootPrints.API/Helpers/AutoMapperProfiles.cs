@@ -19,6 +19,8 @@ namespace AgileFootPrints.API.Helpers
             CreateMap<Epic, EpicToReturnDto>();
             CreateMap<EpicToReturnDto, Epic>();
             CreateMap<SprintDto, Sprint>();
+            CreateMap<ScrumRoleDto, UserProjectRole>();
+            CreateMap<UserProjectRole, ScrumRoleDto>();
 
         }
     }

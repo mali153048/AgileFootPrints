@@ -3,14 +3,16 @@ using System;
 using AgileFootPrints.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AgileFootPrints.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190509075214_UserProjectRoleModule")]
+    partial class UserProjectRoleModule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -365,7 +367,8 @@ namespace AgileFootPrints.API.Migrations
 
                     b.HasIndex("ScrumRolesId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId", "ProjectId")
+                        .IsUnique();
 
                     b.ToTable("UserProjectRole");
                 });
@@ -606,7 +609,7 @@ namespace AgileFootPrints.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("AgileFootPrints.API.Models.ScrumRoles", "ScrumRole")
-                        .WithMany()
+                        .WithMany("UserProjectRole")
                         .HasForeignKey("ScrumRolesId")
                         .OnDelete(DeleteBehavior.Cascade);
 
