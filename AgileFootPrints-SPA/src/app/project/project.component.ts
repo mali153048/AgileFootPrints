@@ -14,6 +14,9 @@ import { Router } from '@angular/router';
 import { EpicService } from '../_services/epic.service';
 import { ContributorService } from '../_services/contributor.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { EditProjectComponent } from '../editProject/editProject.component';
+import { RoleBasedProjectViewComponent } from '../RoleBasedProjectView/RoleBasedProjectView.component';
 
 @Component({
   selector: 'app-project',
@@ -37,7 +40,8 @@ export class ProjectComponent implements OnInit {
     private alertify: AlertifyService,
     private modalService: BsModalService,
     private epicService: EpicService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {
     this.userId = this.authService.decodedToken.nameid;
   }
@@ -105,5 +109,33 @@ export class ProjectComponent implements OnInit {
         this.alertify.error(error.message);
       }
     );
+  }
+
+  ViewArtifacts(project: any) {
+    this.projectService
+      .viewProjectArtifacts(this.userId, project.projectId)
+      .subscribe(
+        next => {
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.disableClose = false;
+          dialogConfig.autoFocus = true;
+
+          dialogConfig.data = {
+            userRoleList: next,
+            projectId: project.projectId
+          };
+          dialogConfig.height = '600px';
+          dialogConfig.width = '1500px';
+
+          const dialogRef = this.dialog.open(
+            RoleBasedProjectViewComponent,
+            dialogConfig
+          );
+          dialogRef.afterClosed().subscribe(result => {});
+        },
+        error => {
+          this.alertify.error(error.message);
+        }
+      );
   }
 }

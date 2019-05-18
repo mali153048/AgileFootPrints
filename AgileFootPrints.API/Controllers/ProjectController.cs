@@ -126,5 +126,26 @@ namespace AgileFootPrints.API.Controllers
             return Ok(data);
         }
 
+
+        [HttpPost("viewProjectArtifacts/{contributorsId}/{projectId}")]
+        public async Task<IActionResult> ViewProjectArtifacts(string contributorsId, string projectId)
+        {
+            var isInRole = await _context.UserProjectRole.Where(x => x.UserId == Convert.ToInt32(contributorsId)
+                              && x.ProjectId == Convert.ToInt32(projectId)).ToArrayAsync();
+
+
+            return Ok(isInRole);
+        }
+        [HttpGet("getProjectName/{projectId}")]
+        public async Task<IActionResult> GetProjectName(string projectId)
+        {
+            var name = await _context.Projects.Where(x => x.Id == Convert.ToInt32(projectId))
+                        .Select(x => new { x.ProjectName }).FirstOrDefaultAsync();
+            if (name == null)
+                return NotFound();
+            return Ok(name);
+        }
     }
+
+
 }

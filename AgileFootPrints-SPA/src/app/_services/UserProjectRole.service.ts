@@ -25,4 +25,15 @@ export class UserProjectRoleService {
       ScrumRolesId
     });
   }
+
+  getUserRoles(projectId: string): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'getUserRoles/' + projectId);
+  }
+
+  removeRole(projectId: string, roleModel: any): Observable<any> {
+    return this.http.post<any>(
+      this.baseUrl + 'removeRole/' + projectId,
+      roleModel
+    );
+  }
 }

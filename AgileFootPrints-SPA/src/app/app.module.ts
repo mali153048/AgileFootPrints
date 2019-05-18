@@ -25,7 +25,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-
+import { MatTabsModule } from '@angular/material/tabs';
 import {
   MatTableModule,
   MatPaginatorModule,
@@ -74,6 +74,7 @@ import { LandingPageComponent } from './landingPage/landingPage.component';
 import { MyTaskComponent } from './my-task/my-task.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { UserScrumRoleComponent } from './UserScrumRole/UserScrumRole.component';
+import { RoleBasedProjectViewComponent } from './RoleBasedProjectView/RoleBasedProjectView.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -105,7 +106,8 @@ export function tokenGetter() {
     MailComponent,
     LandingPageComponent,
     MyTaskComponent,
-    UserScrumRoleComponent
+    UserScrumRoleComponent,
+    RoleBasedProjectViewComponent
   ],
   imports: [
     BrowserModule,
@@ -151,6 +153,7 @@ export function tokenGetter() {
     SweetAlert2Module.forRoot(),
     ToastrModule.forRoot(),
     NgScrollbarModule,
+    MatTabsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -180,7 +183,8 @@ export function tokenGetter() {
     NewSprintComponent,
     SprintConfigComponent,
     ProjectContributorBottomSheetComponent,
-    MailComponent
+    MailComponent,
+    RoleBasedProjectViewComponent
   ]
 })
 export class AppModule {}

@@ -41,4 +41,18 @@ export class ProjectService {
   projectContributions(userId: string): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'myContributions/' + userId);
   }
+
+  viewProjectArtifacts(
+    contributorId: string,
+    projectId: string
+  ): Observable<any> {
+    return this.http.post<any>(
+      this.baseUrl + 'viewProjectArtifacts/' + contributorId + '/' + projectId,
+      null
+    );
+  }
+
+  getProjectName(projectId: string): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'getProjectName/' + projectId);
+  }
 }

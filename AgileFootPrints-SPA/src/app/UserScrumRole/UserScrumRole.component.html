@@ -1,43 +1,119 @@
 <app-subnavbar></app-subnavbar>
 <div class="container">
-  <div style="padding-left: 150px;margin-top: 150px">
+  <div style="padding-left: 80px;margin-top: 150px">
     <div class="row">
-      <div class="card">
-        <div class="card-header">
-          SCRUM Role Management
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-6">
-              <mat-form-field>
-                <mat-label>Project Users</mat-label>
-                <mat-select [(ngModel)]="selectedUserId">
-                  <mat-option>None</mat-option>
-                  <mat-option *ngFor="let user of usersList" [value]="user.id">
-                    {{ user.userName }}- {{ user.id }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-5">
-              <mat-form-field>
-                <mat-label>SCRUM Roles</mat-label>
-                <mat-select [(ngModel)]="selectedRoleId">
-                  <mat-option>None</mat-option>
-                  <mat-option *ngFor="let role of scrumRoles" [value]="role.id">
-                    {{ role.scrumRoleName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+      <div *ngIf="disableBtn === true" class="alert alert-danger">
+        <strong>Not Allowed!</strong> Select User and its Scrum Role from the
+        dropdown
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-info text-light">
+            SCRUM Role Management
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-label>Contributors</mat-label>
+                  <mat-select [(ngModel)]="selectedUserId">
+                    <mat-option>None</mat-option>
+                    <mat-option
+                      *ngFor="let user of usersList"
+                      [value]="user.id"
+                    >
+                      {{ user.userName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-5">
+                <mat-form-field>
+                  <mat-label>SCRUM Roles</mat-label>
+                  <mat-select [(ngModel)]="selectedRoleId">
+                    <mat-option>None</mat-option>
+                    <mat-option
+                      *ngFor="let role of scrumRoles"
+                      [value]="role.id"
+                    >
+                      {{ role.scrumRoleName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="card-footer">
-          <button (click)="assignRole()" class="btn btn-primary">
-            Assign Role
-          </button>
+          <div class="card-footer">
+            <button (click)="assignRole()" class="btn btn-primary">
+              Assign Role
+            </button>
+          </div>
         </div>
+        <br /><br />
+        <div class="card">
+          <div class="card-header bg-danger text-light">
+            User-Role Description
+          </div>
+          <div class="card-body">
+            <li *ngFor="let item of userRole">
+              <small><b>FullName: </b></small>
+              <small
+                ><i>{{ item.firstName }}{{ space }}{{ item.lastName }}</i>
+                --
+                <b>Role: </b>
+                <i>{{ item.roleName }}</i></small
+              >
+              <small style="padding-left: 5px"
+                ><button class="btn btn-link" (click)="deleteRole(item)">
+                  Remove
+                </button></small
+              >
+            </li>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-md-5 shadow-lg ml-5 "
+        style="height: 500px; overflow-y: scroll;"
+      >
+        <h5><b>Scrum Master :</b></h5>
+        <i
+          >The scrum master is the team role responsible for ensuring the team
+          lives agile values and principles and follows the processes and
+          practices that the team agreed they would use. The responsibilities of
+          this role include:
+          <li>Clearing obstacles</li>
+          <li>Establishing an environmentwhere the team can be effective</li>
+          <li>Addressing team dynamics</li>
+          <li>
+            Ensuring a good relationship between the team and product owner as
+            well as others outside the team
+          </li>
+          <li>
+            Protecting the team from outside interruptions and distractions.
+          </li>
+        </i>
+        <h5><b>Product Owner:</b></h5>
+        <i>
+          The product owner takes the lead in many areas of product development.
+          One day they will need to access their deep well of market knowledge
+          to strategize and present their vision to stakeholders.
+          <li>Defining the vision</li>
+          <li>Managing the product backlog</li>
+          <li>Prioritizing needs</li>
+          <li>Overseeing development stages</li>
+          <li>Anticipating client needs</li>
+          <li>Acting as primary liaison</li>
+          <h5><b>Developer :</b></h5>
+          <i
+            >The developer is the one who is assigned tasks or chooses tasks to
+            implement from active sprints</i
+          >
+        </i>
       </div>
     </div>
   </div>
