@@ -145,6 +145,39 @@ namespace AgileFootPrints.API.Controllers
                 return NotFound();
             return Ok(name);
         }
+        [HttpGet("getProjectStories/{projectId}")]
+        public async Task<IActionResult> GetProjectStories(string projectId)
+        {
+            if (projectId == null || projectId == "")
+            {
+                return BadRequest();
+            }
+            var stories = await _context.Stories.Include(x => x.User).Where(x => x.ProjectId == Convert.ToInt32(projectId)).ToArrayAsync();
+
+            return Ok(stories);
+        }
+
+        [HttpGet("getProjectSprints/{projectId}")]
+        public async Task<IActionResult> GetProjectSprints(string projectId)
+        {
+            if (projectId == null || projectId == "")
+            {
+                return BadRequest();
+            }
+            var Sprints = await _context.Sprints.Where(x => x.projectId == Convert.ToInt32(projectId)).ToArrayAsync();
+            return Ok(Sprints);
+        }
+
+        [HttpGet("getProjectEpics/{projectId}")]
+        public async Task<IActionResult> GetProjectEpics(string projectId)
+        {
+            if (projectId == null || projectId == "")
+            {
+                return BadRequest();
+            }
+            var Epics = await _context.Epics.Where(x => x.ProjectId == Convert.ToInt32(projectId)).ToArrayAsync();
+            return Ok(Epics);
+        }
     }
 
 

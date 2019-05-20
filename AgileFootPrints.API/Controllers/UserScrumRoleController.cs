@@ -35,11 +35,38 @@ namespace AgileFootPrints.API.Controllers
         [HttpPost("assignRole")]
         public async Task<IActionResult> AssignRole(ScrumRoleDto scrumRoleDto)
         {
-
+            bool ProduOwnerExists = false;
+            bool ScrumMasterExists = false;
             var check = _context.UserProjectRole.Where(x => x.UserId == scrumRoleDto.UserId
-                         && x.ProjectId == scrumRoleDto.ProjectId
-                         && x.ScrumRolesId == scrumRoleDto.ScrumRolesId).FirstOrDefault();
-            if (check != null)
+                         && x.ProjectId == scrumRoleDto.ProjectId &&
+                         x.ScrumRolesId == scrumRoleDto.ScrumRolesId).FirstOrDefault();
+            if (scrumRoleDto.ScrumRolesId == 1)
+            {
+                var ProductOwnerCheck = await _context.UserProjectRole
+                                       .Where(x => x.ProjectId == scrumRoleDto.ProjectId
+                                        && x.ScrumRolesId == 1).FirstOrDefaultAsync();
+                //Check if produc owner exist against this project
+                if (ProductOwnerCheck != null)
+                {
+                    ProduOwnerExists = true;
+                }
+
+            }
+            if (scrumRoleDto.ScrumRolesId == 2)
+            {
+                var ScrumMasterCheck = await _context.UserProjectRole
+                                       .Where(x => x.ProjectId == scrumRoleDto.ProjectId
+                                        && x.ScrumRolesId == 2).FirstOrDefaultAsync();
+                //Check if Scru m master exist against this project
+                if (ScrumMasterCheck != null)
+                {
+                    ScrumMasterExists = true;
+                }
+
+            }
+
+
+            if (check != null || ProduOwnerExists == true || ScrumMasterExists == true)
             {
                 return BadRequest();
             }

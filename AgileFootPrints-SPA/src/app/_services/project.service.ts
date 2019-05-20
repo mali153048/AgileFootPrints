@@ -55,4 +55,16 @@ export class ProjectService {
   getProjectName(projectId: string): Observable<any> {
     return this.http.get<any>(this.baseUrl + 'getProjectName/' + projectId);
   }
+
+  getProjectStories(projectId: string): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'getProjectStories/' + projectId);
+  }
+
+  getProjectSprints(projectId: string): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'getProjectSprints/' + projectId);
+  }
+
+  getProjectEpics(projectId: string): Observable<any> {
+    return this.http.get<any>(this.baseUrl + 'getProjectEpics/' + projectId);
+  }
 }

@@ -1,50 +1,169 @@
 <!-- <p *ngFor="let item of userRolesList">{{ item.scrumRolesId }}</p> -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
-  <a class="navbar-brand" href="#">{{ projectName }}</a>
+  <a class="navbar-brand" href="#">{{ proName }}</a>
 </nav>
 <mat-tab-group (selectedTabChange)="tabChanged($event)">
   <mat-tab label="Project">
-    <div class="col-md-4">
-      <div class="shadow-lg">
-        <div class="m-3">
-          <b>NOTE</b><br />
-          <small>
-            You have following roles for this project. Based on roles you'll be
-            able to manipulate project artifacts.<br /><i
-              >Project will open in 'View Only' mode if no role is assigned</i
-            >
-          </small>
-          <small *ngFor="let role of userRolesList">
-            <li *ngIf="role.scrumRolesId === 1">Product Owner</li>
-            <li *ngIf="role.scrumRolesId === 2">SCRUM Master</li>
-            <li *ngIf="role.scrumRolesId === 3">Developer</li>
-            <li *ngIf="userRolesList.length === 0">
-              You have not been assigned any role yet
-            </li>
-          </small>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="shadow-lg text-light" style="background: orange">
+          <div class="m-3">
+            <b>NOTE</b><br />
+            <small>
+              You have following roles for this project. Based on roles you'll
+              be able to manipulate project artifacts.<br /><i
+                >Project will open in 'View Only' mode if no role is assigned</i
+              >
+            </small>
+            <small *ngFor="let role of userRolesList">
+              <li *ngIf="userRolesList.length === 0">
+                You have not been assigned any role yet
+              </li>
+              <li *ngIf="role.scrumRolesId === 1">Product Owner</li>
+              <li *ngIf="role.scrumRolesId === 2">SCRUM Master</li>
+              <li *ngIf="role.scrumRolesId === 3">Developer</li>
+            </small>
+          </div>
         </div>
       </div>
+      <div class="col-md-4">
+        <div class="shadow-lg text-light " style="background: orchid">
+          <div class="m-3">
+            <small>
+              <b>Project Name</b><i> {{ projectInfo.projectName }}</i></small
+            >
+            <br />
+            <small>
+              <b>Description</b>{{ space }}
+              <i>{{ projectInfo.projectDescription }}</i></small
+            >
+            <br />
+            <small>
+              <b>Key</b>{{ space }}
+              <i class="badge badge-danger">{{ projectInfo.projectKey }}</i>
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="shadow-lg text-light " style="background:lightgreen">
+          <div class="m-3">
+            <b>Counts</b><br />
+            <li>
+              <small>
+                <b>Story Count</b>{{ space }}---<i>
+                  {{ stories.length }}</i
+                ></small
+              >
+            </li>
+            <li>
+              <small>
+                <b>Sprint Count</b>{{ space }}---
+                <i>{{ sprints.length }}</i></small
+              >
+            </li>
 
-      <div class="shadow-lg ">
-        <div class="m-3">
-          <small>
-            <b>Project Name</b><i> {{ projectInfo.projectName }}</i></small
-          >
-          <br />
-          <small>
-            <b>Description</b>{{ space }}
-            <i>{{ projectInfo.projectDescription }}</i></small
-          >
-          <br />
-          <small>
-            <b>Key</b>{{ space }}
-            <i class="badge badge-danger">{{ projectInfo.projectKey }}</i>
-          </small>
+            <li>
+              <small>
+                <b>Epic Count</b>{{ space }}---
+                <i>{{ epics.length }}</i>
+              </small>
+            </li>
+            <li>
+              <small>
+                <b>Contributor Count</b>{{ space }}---
+                <i>{{ contributors.length }}</i>
+              </small>
+            </li>
+          </div>
         </div>
       </div>
     </div>
+    <div class="row"></div>
   </mat-tab>
-  <mat-tab label="Stories"> Content 1 </mat-tab>
+  <mat-tab label="Stories">
+    <mat-list>
+      <div class="row">
+        <h3 mat-subheader>Project User Stories</h3>
+        <button class="btn btn-link">
+          Create New
+        </button>
+      </div>
+      <div class="row bg-success ">
+        <div class="col-md-2 ">
+          <mat-list-item class="text-light">Story Name</mat-list-item>
+        </div>
+        <div class="col-md-3 ">
+          <mat-list-item class="text-light">Description</mat-list-item>
+        </div>
+        <div class="col-md-1">
+          <mat-list-item class="text-light">Priority</mat-list-item>
+        </div>
+        <div class="col-md-2">
+          <mat-list-item class="text-light">Worked by</mat-list-item>
+        </div>
+        <div class="col-md-1" *ngIf="isProductOwner === true">
+          <mat-list-item class="text-light">Actions</mat-list-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <mat-list-item *ngFor="let story of stories">
+            <small>{{ story.storyName }}</small>
+          </mat-list-item>
+        </div>
+
+        <div class="col-md-3">
+          <mat-list-item *ngFor="let story of stories">
+            <small>{{ story.storyDescription }}</small>
+          </mat-list-item>
+        </div>
+        <div class="col-md-1">
+          <mat-list-item *ngFor="let story of stories">
+            <i
+              *ngIf="story.priorityId === 1"
+              style="color: red"
+              class="fa fa-chevron-up"
+            ></i>
+            <i
+              *ngIf="story.priorityId === 2"
+              style="color: yellow"
+              class="fa fa-chevron-up"
+            ></i>
+            <i
+              *ngIf="story.priorityId === 3"
+              style="color: greenyellow"
+              class="fa fa-chevron-up"
+            ></i>
+          </mat-list-item>
+        </div>
+        <div class="col-md-2">
+          <mat-list-item *ngFor="let assigee of stories">
+            <img
+              src="https://img.icons8.com/ultraviolet/40/000000/user.png"
+              height="23px"
+              width="23px"
+            />
+            <small
+              >{{ assigee.user.firstName }}{{ space
+              }}{{ assigee.user.lastName }}({{ assigee.user.userName }})</small
+            >
+          </mat-list-item>
+        </div>
+        <div class="col-md-1" *ngIf="isProductOwner === true">
+          <mat-list-item *ngFor="let story of stories">
+            <a
+              class="btn"
+              (click)="deleteStory(story.id)"
+              style="border-radius:50%;color: red "
+            >
+              <i class="fa fa-trash"></i>
+            </a>
+          </mat-list-item>
+        </div>
+      </div>
+    </mat-list>
+  </mat-tab>
   <mat-tab label="Sprints"> Content 2 </mat-tab>
   <mat-tab label="Epics"> Content 3 </mat-tab>
   <mat-tab label="Contributors"> Content 3 </mat-tab>
