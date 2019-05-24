@@ -73,6 +73,14 @@ namespace AgileFootPrints.API.Data
             builder.Entity<User>()
                 .HasMany(x => x.Stories)
                 .WithOne(y => y.User);
+            builder.Entity<Meeting>()
+                .HasOne<User>(u => u.User)
+                .WithMany(m => m.Meetings)
+                .HasForeignKey(f => f.UserId).OnDelete(DeleteBehavior.SetNull);
+            builder.Entity<Meeting>()
+                .HasOne<Project>(p => p.Project)
+                .WithMany(m => m.Meetings)
+                .HasForeignKey(f => f.ProjectId).OnDelete(DeleteBehavior.SetNull);
             /* builder.Entity<UserProjectRole>()
                 .HasIndex(roles => new { roles.UserId, roles.ProjectId })
                .IsUnique(true); */
