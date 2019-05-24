@@ -30,6 +30,7 @@ namespace AgileFootPrints.API.Data
         public DbSet<CodeFileRevision> CodeFileRevisions { get; set; }
         public DbSet<ScrumRoles> ScrumRoles { get; set; }
         public DbSet<UserProjectRole> UserProjectRole { get; set; }
+        public DbSet<Meeting> Meetings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -3,14 +3,16 @@ using System;
 using AgileFootPrints.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AgileFootPrints.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190521082534_MeetingModule")]
+    partial class MeetingModule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,26 +77,19 @@ namespace AgileFootPrints.API.Migrations
 
                     b.Property<DateTime>("CreateAt");
 
-                    b.Property<DateTime>("Date");
-
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<string>("EndTime")
-                        .IsRequired();
+                    b.Property<DateTime>("EndTime");
 
                     b.Property<int>("ProjectId");
 
-                    b.Property<string>("StartTime")
-                        .IsRequired();
+                    b.Property<DateTime>("StartTime");
 
                     b.Property<string>("Subject")
                         .IsRequired();
 
                     b.Property<int>("UserId");
-
-                    b.Property<string>("Venue")
-                        .IsRequired();
 
                     b.HasKey("Id");
 

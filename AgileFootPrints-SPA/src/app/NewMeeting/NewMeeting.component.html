@@ -1,0 +1,81 @@
+<h4>Schedule Meeting</h4>
+<small *ngIf="isModelStateValid === false" style="color: red">
+  * All fields are required
+</small>
+<div class="row">
+  <div class="col-md-5">
+    <mat-form-field class="w-100">
+      <input [(ngModel)]="meeting.subject" matInput placeholder="Subject" />
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-9">
+    <mat-form-field class="w-100">
+      <textarea
+        [(ngModel)]="meeting.description"
+        matInput
+        placeholder="Description"
+      ></textarea>
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <mat-form-field class="example-full-width">
+      <input
+        matInput
+        [min]="minDate"
+        [max]="maxDate"
+        [matDatepicker]="startsAt"
+        placeholder="Date"
+        [(ngModel)]="meeting.Date"
+      />
+      <mat-datepicker-toggle matSuffix [for]="startsAt"></mat-datepicker-toggle>
+      <mat-datepicker #startsAt></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="w-100">
+      <input [(ngModel)]="meeting.venue" matInput placeholder="Venue" />
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class=" col-md-3">
+    <input
+      class="form-control"
+      [ngxTimepicker]="startTimepicker"
+      [disableClick]="true"
+      readonly
+      placeholder="Start Time"
+      [(ngModel)]="meeting.startTime"
+    />
+    <ngx-material-timepicker-toggle
+      [for]="startTimepicker"
+    ></ngx-material-timepicker-toggle>
+    <ngx-material-timepicker #startTimepicker></ngx-material-timepicker>
+  </div>
+  to
+  <div class=" col-md-3">
+    <input
+      class="form-control"
+      [ngxTimepicker]="endTimepicker"
+      [disableClick]="true"
+      readonly
+      placeholder="Ending Time"
+      [(ngModel)]="meeting.endTime"
+    />
+    <ngx-material-timepicker-toggle
+      [for]="endTimepicker"
+    ></ngx-material-timepicker-toggle>
+    <ngx-material-timepicker #endTimepicker></ngx-material-timepicker>
+  </div>
+</div>
+<hr />
+<div class="row">
+  <button (click)="cancel()" mat-raised-button color="primary">Cancel</button>
+  <button (click)="schedule()" class="ml-2" mat-raised-button color="warn">
+    Schedule
+  </button>
+</div>

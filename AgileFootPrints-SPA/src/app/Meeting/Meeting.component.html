@@ -1,0 +1,36 @@
+<app-sidebar></app-sidebar>
+<app-subnavbar></app-subnavbar>
+<div class="container">
+  <div style="margin-left: 150px; margin-top: 120px">
+    <button class="btn btn-link" (click)="createMeeting()">
+      Schedule Meeting
+    </button>
+    <mat-list>
+      <div class="row">
+        <mat-list-item class="bg-primary text-light">
+          <div class="col-md-2">Subject</div>
+          <div class="col-md-4">Description</div>
+          <div class="col-md-2">Date</div>
+          <div class="col-md-2">Starts At</div>
+          <div class="col-md-2">Ends At</div>
+          <div class="col-md-2">Venue</div>
+        </mat-list-item>
+        <mat-list-item
+          *ngFor="let meeting of meetings"
+          style="background-color:grey "
+        >
+          <div class="col-md-2 text-light">{{ meeting.subject }}</div>
+          <div class="col-md-4 text-light">
+            <small>{{ meeting.description }}</small>
+          </div>
+          <div class="col-md-2 text-light">
+            {{ meeting.date | date: 'shortDate' }}
+          </div>
+          <div class="col-md-2 text-light">{{ meeting.startTime }}</div>
+          <div class="col-md-2 text-light">{{ meeting.endTime }}</div>
+          <div class="col-md-2 text-light">{{ meeting.venue }}</div>
+        </mat-list-item>
+      </div>
+    </mat-list>
+  </div>
+</div>

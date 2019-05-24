@@ -9,6 +9,7 @@ import { UserProfileComponent } from './UserProfile/UserProfile.component';
 import { ProjectContributorsComponent } from './ProjectContributors/ProjectContributors.component';
 import { MyTaskComponent } from './my-task/my-task.component';
 import { UserScrumRoleComponent } from './UserScrumRole/UserScrumRole.component';
+import { MeetingComponent } from './Meeting/Meeting.component';
 
 export const appRoutes: Routes = [
   {
@@ -46,7 +47,11 @@ export const appRoutes: Routes = [
     component: UserScrumRoleComponent,
     canActivate: [AuthGuard]
   },
-
+  {
+    path: 'meeting',
+    component: MeetingComponent,
+    canActivate: [AuthGuard]
+  },
   {
     path: '**',
     redirectTo: 'home',
