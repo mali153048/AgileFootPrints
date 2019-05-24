@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AgileFootPrints.API.Migrations
 {
-    public partial class MakingIdsNullable : Migration
+    public partial class azureMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,19 @@ namespace AgileFootPrints.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Priorities", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ScrumRoles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ScrumRoleName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ScrumRoles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -258,6 +271,39 @@ namespace AgileFootPrints.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Meetings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Subject = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    StartTime = table.Column<string>(nullable: false),
+                    EndTime = table.Column<string>(nullable: false),
+                    Venue = table.Column<string>(nullable: false),
+                    CreateAt = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    ProjectId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Meetings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Meetings_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Meetings_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Notifications",
                 columns: table => new
                 {
@@ -345,6 +391,39 @@ namespace AgileFootPrints.API.Migrations
                         name: "FK_Sprints_Projects_projectId",
                         column: x => x.projectId,
                         principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserProjectRole",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<int>(nullable: false),
+                    ProjectId = table.Column<int>(nullable: false),
+                    ScrumRolesId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserProjectRole", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserProjectRole_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserProjectRole_ScrumRoles_ScrumRolesId",
+                        column: x => x.ScrumRolesId,
+                        principalTable: "ScrumRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserProjectRole_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -550,6 +629,16 @@ namespace AgileFootPrints.API.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Meetings_ProjectId",
+                table: "Meetings",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Meetings_UserId",
+                table: "Meetings",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Notifications_RecieverId",
                 table: "Notifications",
                 column: "RecieverId");
@@ -625,6 +714,21 @@ namespace AgileFootPrints.API.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserProjectRole_ProjectId",
+                table: "UserProjectRole",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserProjectRole_ScrumRolesId",
+                table: "UserProjectRole",
+                column: "ScrumRolesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserProjectRole_UserId",
+                table: "UserProjectRole",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WorkItems_SprintId",
                 table: "WorkItems",
                 column: "SprintId");
@@ -661,6 +765,9 @@ namespace AgileFootPrints.API.Migrations
                 name: "CodeFileRevisions");
 
             migrationBuilder.DropTable(
+                name: "Meetings");
+
+            migrationBuilder.DropTable(
                 name: "Notifications");
 
             migrationBuilder.DropTable(
@@ -668,6 +775,9 @@ namespace AgileFootPrints.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Stories");
+
+            migrationBuilder.DropTable(
+                name: "UserProjectRole");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -683,6 +793,9 @@ namespace AgileFootPrints.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Priorities");
+
+            migrationBuilder.DropTable(
+                name: "ScrumRoles");
 
             migrationBuilder.DropTable(
                 name: "WorkItems");
